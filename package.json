@@ -1,10 +1,10 @@
 {
   "name": "folio",
   "version": "1.0.0",
+  "description": "Professional works by dafahentra",
   "engines": {
   "node": "16.20.2"
 }
-  "description": "Professional works by dafahentra",
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "del-cli dist && webpack -p",
