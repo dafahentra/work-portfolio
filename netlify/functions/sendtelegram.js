@@ -1,4 +1,5 @@
 // Updated version with better error handling and debugging
+const fetch = require('node-fetch');
 exports.handler = async function(event, context) {
   console.log('Function called with method:', event.httpMethod);
   console.log('Event body:', event.body);
