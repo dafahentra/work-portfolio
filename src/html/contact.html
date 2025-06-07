@@ -100,7 +100,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
   };
 
   try {
-    const res = await fetch('http://localhost:3000/send-telegram', {
+    const res = await fetch('/.netlify/functions/sendtelegram', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
