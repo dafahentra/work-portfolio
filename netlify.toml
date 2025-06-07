@@ -1,6 +1,7 @@
 [build]
+  publish = "dist"
   functions = "netlify/functions"
-  publish = "dist"  # atau folder build statismu
 
 [dev]
   functions = "netlify/functions"
+  publish = "dist"
