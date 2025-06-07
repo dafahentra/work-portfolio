@@ -1,6 +1,6 @@
-const fetch = require("node-fetch"); // CommonJS
+const fetch = require("node-fetch");
 
-exports.handler = async function(event, context) {
+exports.handler = async function(event) {
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
@@ -11,6 +11,13 @@ exports.handler = async function(event, context) {
   try {
     const data = JSON.parse(event.body);
     const { name, email, about } = data;
+
+    if (!name || !email) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ success: false, message: "Missing name or email" }),
+      };
+    }
 
     const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -51,7 +58,6 @@ Message: ${about || "(no message)"}
       statusCode: 200,
       body: JSON.stringify({ success: true }),
     };
-
   } catch (error) {
     return {
       statusCode: 500,
