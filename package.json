@@ -1,7 +1,10 @@
 {
-  "name": "folio",
+  "name": "dafa's portfolio",
   "version": "1.0.0",
-  "description": "Bootstrap HTML Template created by Pixel Rocket",
+  "description": "Professional portfolio by dafa hentra anjana",
+  "engines": {
+  "node": "16.x"
+}
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "del-cli dist && webpack -p",
@@ -60,4 +63,5 @@
     "url": "https://github.com/dafahentra/Works-portfolio/issues"
   },
   "homepage": "https://github.com/dafahentra/Works-portfolio#readme"
+
 }
