@@ -1,28 +1,28 @@
 {
     "entries": [
         {
-            "skill": "Javascript",
-            "percent": "75"
-        },
-        {
-            "skill": "PHP",
-            "percent": "95"
-        },
-        {
-            "skill": "HTML",
-            "percent": "65"
-        },
-        {
-            "skill": "CSS",
-            "percent": "35"
-        },
-        {
-            "skill": "GraphQL",
-            "percent": "98"
+            "skill": "R Studio",
+            "percent": "60"
         },
         {
             "skill": "Python",
-            "percent": "45"
+            "percent": "60"
+        },
+        {
+            "skill": "Power BI",
+            "percent": "80"
+        },
+        {
+            "skill": "Tableau",
+            "percent": "50"
+        },
+        {
+            "skill": "Microsoft Excel",
+            "percent": "90"
+        },
+        {
+            "skill": "Goolge Spreadsheet",
+            "percent": "90"
         }
     ]
 }
