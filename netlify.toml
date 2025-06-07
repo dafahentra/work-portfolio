@@ -1,8 +1,6 @@
 [build]
   functions = "netlify/functions"
-  publish = "dist"  # atau folder output HTML Anda
+  publish = "dist"  # atau folder build statismu
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[dev]
+  functions = "netlify/functions"
