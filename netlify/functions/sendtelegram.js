@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const fetch = require("node-fetch"); // CommonJS
 
 exports.handler = async function(event, context) {
   if (event.httpMethod !== "POST") {
@@ -11,13 +11,6 @@ exports.handler = async function(event, context) {
   try {
     const data = JSON.parse(event.body);
     const { name, email, about } = data;
-
-    if (!name || !email) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ success: false, message: "Missing name or email" }),
-      };
-    }
 
     const telegramToken = process.env.TELEGRAM_BOT_TOKEN;
     const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -42,10 +35,7 @@ Message: ${about || "(no message)"}
     const telegramRes = await fetch(telegramApiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-      }),
+      body: JSON.stringify({ chat_id: chatId, text: message }),
     });
 
     const telegramData = await telegramRes.json();
@@ -61,6 +51,7 @@ Message: ${about || "(no message)"}
       statusCode: 200,
       body: JSON.stringify({ success: true }),
     };
+
   } catch (error) {
     return {
       statusCode: 500,
