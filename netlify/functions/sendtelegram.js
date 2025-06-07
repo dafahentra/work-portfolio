@@ -1,25 +1,25 @@
 const fetch = require("node-fetch");
 
 exports.handler = async function(event) {
-  // Tangani preflight OPTIONS request untuk CORS
-  if (event.httpMethod === 'OPTIONS') {
+  // Handle CORS preflight request
+  if (event.httpMethod === "OPTIONS") {
     return {
-      statusCode: 204,
+      statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type',
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
       },
-      body: '',
+      body: "",
     };
   }
 
-  // Tangani hanya method POST, selain itu return 405
-  if (event.httpMethod !== 'POST') {
+  // Only allow POST
+  if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
-      headers: { 'Access-Control-Allow-Origin': '*' },
-      body: JSON.stringify({ success: false, message: 'Method not allowed' }),
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ success: false, message: "Method not allowed" }),
     };
   }
 
@@ -33,8 +33,8 @@ exports.handler = async function(event) {
     if (!telegramToken || !chatId) {
       return {
         statusCode: 500,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        body: JSON.stringify({ success: false, message: 'Missing Telegram configuration' }),
+        headers: { "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ success: false, message: "Missing Telegram configuration" }),
       };
     }
 
@@ -43,14 +43,14 @@ New message from portfolio contact form:
 
 Name: ${name}
 Email: ${email}
-Message: ${about || '(no message)'}
+Message: ${about || "(no message)"}
     `;
 
     const telegramApiUrl = `https://api.telegram.org/bot${telegramToken}/sendMessage`;
 
     const telegramRes = await fetch(telegramApiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ chat_id: chatId, text: message }),
     });
 
@@ -59,21 +59,20 @@ Message: ${about || '(no message)'}
     if (!telegramData.ok) {
       return {
         statusCode: 500,
-        headers: { 'Access-Control-Allow-Origin': '*' },
-        body: JSON.stringify({ success: false, message: 'Telegram API error' }),
+        headers: { "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ success: false, message: "Telegram API error" }),
       };
     }
 
     return {
       statusCode: 200,
-      headers: { 'Access-Control-Allow-Origin': '*' },
+      headers: { "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify({ success: true }),
     };
-
   } catch (error) {
     return {
       statusCode: 500,
-      headers: { 'Access-Control-Allow-Origin': '*' },
+      headers: { "Access-Control-Allow-Origin": "*" },
       body: JSON.stringify({ success: false, message: error.message }),
     };
   }
