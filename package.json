@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Professional works by dafahentra",
   "engines": {
-    "node": "18.x"},
+    "node": "16.x"
+  },
   "scripts": {
     "start": "webpack-dev-server --open",
     "build": "del-cli dist && webpack -p",
@@ -62,5 +63,4 @@
     "url": "https://github.com/dafahentra/Works-portfolio/issues"
   },
   "homepage": "https://github.com/dafahentra/Works-portfolio#readme"
-
 }
