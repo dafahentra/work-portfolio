@@ -1,60 +1,32 @@
 {
     "entries": [
         {
-            "img": "{{webRoot}}/assets/images/project-listing-1.jpg",
+            "img": "{{webRoot}}/assets/images/project-listing-1.png",
             "title": "Real-time Stock Market Analysis",
             "description": "Real-time Stock Dashboard with Interactive Charts and Technical Analysis Tools.",
-            "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Financial Market</span>",
+            "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Stock Market</span>",
             "slug": "project-1"
         },
         {
-            "img": "{{webRoot}}/assets/images/project-listing-2.jpg",
-            "title": "Magento Furniture Store",
-            "description": "Design and development of a custom Magento Ecommerce platform for a furniture retailer.",
-            "category": "<span class='me-2'>Ecommerce</span> &middot; <span class='ms-2'>Magento</span>",
+            "img": "{{webRoot}}/assets/images/project-listing-cmg.png",
+            "title": "Portfolio Optimization Strategy",
+            "description": "On-Progress: Smart Portfolio Optimization Using AI and Real-Time Financial Data.",
+            "category": "<span class='me-2'>Data Science</span> &middot; <span class='ms-2'>Investment Strategy</span>",
             "slug": "project-2"
         },
         {
-            "img": "{{webRoot}}/assets/images/project-listing-3.jpg",
-            "title": "Wordpress Grocery Store",
-            "description": "Design and development of a WooCommerce Ecommerce platform for a grocery platform.",
-            "category": "<span class='me-2'>Ecommerce</span> &middot; <span class='ms-2'>Wordpress</span>",
+            "img": "{{webRoot}}/assets/images/project-listing-cmg.png",
+            "title": "Upcoming Project",
+            "description": "An upcoming project that will be released soon.",
+            "category": "<span class='me-2'>TBD</span> &middot; <span class='ms-2'>TBD</span>",
             "slug": "project-3"
         },
         {
-            "img": "{{webRoot}}/assets/images/project-listing-4.jpg",
-            "title": "Messaging App",
-            "description": "Creation of a custom React Native messaging app for a messaging SAAS startup.",
-            "category": "<span class='me-2'>Mobile</span> &middot; <span class='ms-2'>React Native</span>",
+            "img": "{{webRoot}}/assets/images/project-listing-cmg.png",
+            "title": "Upcoming Project",
+            "description": "An upcoming project that will be released soon.",
+            "category": "<span class='me-2'>TBD</span> &middot; <span class='ms-2'>TBD</span>",
             "slug": "project-4"
-        },
-        {
-            "img": "{{webRoot}}/assets/images/project-listing-5.jpg",
-            "title": "Shopify Online Store",
-            "description": "Design and development of a custom Shopify Ecommerce platform for a car retailer.",
-            "category": "<span class='me-2'>Ecommerce</span> &middot; <span class='ms-2'>Shopify</span>",
-            "slug": "project-5"
-        },
-        {
-            "img": "{{webRoot}}/assets/images/project-listing-6.jpg",
-            "title": "Magento Online Store",
-            "description": "Design and development of a custom Magento Ecommerce platform for a pet food retailer.",
-            "category": "<span class='me-2'>Ecommerce</span> &middot; <span class='ms-2'>Magento</span>",
-            "slug": "project-6"
-        },
-        {
-            "img": "{{webRoot}}/assets/images/project-listing-7.jpg",
-            "title": "Web Application",
-            "description": "Design and development of a custom WooCommerce Ecommerce platform for a furniture retailer.",
-            "category": "<span class='me-2'>Ecommerce</span> &middot; <span class='ms-2'>Wordpress</span>",
-            "slug": "project-7"
-        },
-        {
-            "img": "{{webRoot}}/assets/images/project-listing-8.jpg",
-            "title": "Ecommerce Marketing",
-            "description": "Design and development of a custom Shopify Ecommerce platform for a fashion retailer.",
-            "category": "<span class='me-2'>Ecommerce</span> &middot; <span class='ms-2'>Shopify</span>",
-            "slug": "project-8"
         }
     ]
 }
