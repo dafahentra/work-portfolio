@@ -2,7 +2,7 @@
     "entries": [
         {
             "img": "{{webRoot}}/assets/images/project-listing-1.png",
-            "title": "Real-time Stock Market Analysis",
+            "title": "Live Stock Market Analysis",
             "description": "Real-time Stock Dashboard with Interactive Charts and Technical Analysis Tools.",
             "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Stock Market</span>",
             "slug": "project-1"
