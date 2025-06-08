@@ -2,7 +2,7 @@
     "entries": [
         {
             "img": "{{webRoot}}/assets/images/project-listing-1.jpg",
-            "title": "Shopify Fashion Store",
+            "title": "Project 1",
             "description": "Design and development of a custom Shopify Ecommerce platform for a fashion retailer.",
             "category": "<span class='me-2'>Ecommerce</span> &middot; <span class='ms-2'>Shopify</span>"
         },
