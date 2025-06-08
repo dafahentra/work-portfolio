@@ -6,27 +6,6 @@
             "description": "Real-time Stock Dashboard with Interactive Charts and Technical Analysis Tools.",
             "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Stock Market</span>",
             "slug": "project-1"
-        },
-        {
-            "img": "{{webRoot}}/assets/images/project-listing-cmg.png",
-            "title": "Portfolio Optimization Strategy",
-            "description": "On-Progress: Smart Portfolio Optimization Using AI and Real-Time Financial Data.",
-            "category": "<span class='me-2'>Data Science</span> &middot; <span class='ms-2'>Investment Strategy</span>",
-            "slug": "project-2"
-        },
-        {
-            "img": "{{webRoot}}/assets/images/project-listing-cmg.png",
-            "title": "Upcoming Project",
-            "description": "An upcoming project that will be released soon.",
-            "category": "<span class='me-2'>TBD</span> &middot; <span class='ms-2'>TBD</span>",
-            "slug": "project-3"
-        },
-        {
-            "img": "{{webRoot}}/assets/images/project-listing-cmg.png",
-            "title": "Upcoming Project",
-            "description": "An upcoming project that will be released soon.",
-            "category": "<span class='me-2'>TBD</span> &middot; <span class='ms-2'>TBD</span>",
-            "slug": "project-4"
         }
     ]
 }
