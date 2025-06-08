@@ -2,9 +2,9 @@
     "entries": [
         {
             "img": "{{webRoot}}/assets/images/project-listing-1.jpg",
-            "title": "Project 1",
-            "description": "Design and development of a custom Shopify Ecommerce platform for a fashion retailer.",
-            "category": "<span class='me-2'>Ecommerce</span> &middot; <span class='ms-2'>Shopify</span>",
+            "title": "Real-time Stock Market Analysis",
+            "description": "Real-time Stock Dashboard with Interactive Charts and Technical Analysis Tools.",
+            "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Financial Market</span>",
             "slug": "project-1"
         },
         {
