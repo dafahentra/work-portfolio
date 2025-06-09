@@ -6,6 +6,14 @@
             "description": "Real-time Stock Dashboard with Interactive Charts and Technical Analysis Tools.",
             "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Stock Market</span>",
             "slug": "project-1"
+        },
+
+         {
+            "img": "{{webRoot}}/assets/images/project-listing-2.png",
+            "title": "Option Pricing and Risk Assessment",
+            "description": "Financial tool to price option using several quantitative methods.",
+            "category": "<span class='me-2'>Data Science</span> &middot; <span class='ms-2'>Derivative Securities</span>",
+            "slug": "project-2"
         }
     ]
 }
