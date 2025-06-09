@@ -1,7 +1,7 @@
 {
     "entries": [
         {
-            "skill": "R Studio",
+            "skill": "R",
             "percent": "60"
         },
         {
@@ -9,20 +9,20 @@
             "percent": "60"
         },
         {
-            "skill": "Power BI",
-            "percent": "80"
+            "skill": "SQL",
+            "percent": "70"
         },
         {
             "skill": "Tableau",
-            "percent": "50"
+            "percent": "80"
         },
         {
-            "skill": "Microsoft Excel",
-            "percent": "90"
+            "skill": "Excel",
+            "percent": "80"
         },
         {
-            "skill": "Goolge Spreadsheet",
-            "percent": "90"
+            "skill": "Powerpoint",
+            "percent": "80"
         }
     ]
 }
