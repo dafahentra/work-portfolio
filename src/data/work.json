@@ -11,7 +11,7 @@
          {
             "img": "{{webRoot}}/assets/images/project-listing-2.png",
             "title": "Option Pricing Analytics",
-            "description": "Fcomprehensive Python-based options pricing and risk management platform featuring multiple pricing models, real-time Greeks analysis, and advanced portfolio analytics.",
+            "description": "comprehensive Python-based options pricing and risk management platform featuring multiple pricing models, real-time Greeks analysis, and advanced portfolio analytics.",
             "category": "<span class='me-2'>Data Science</span> &middot; <span class='ms-2'>Derivative Securities</span>",
             "slug": "project-2"
         }
