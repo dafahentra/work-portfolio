@@ -2,8 +2,8 @@
     "entries": [
         {
             "img": "{{webRoot}}/assets/images/project-listing-1.png",
-            "title": "Live Stock Market Analytics",
-            "description": "Real-time Stock Dashboard with Interactive Charts and Technical Analysis Tools.",
+            "title": "Live Stock Market Dashboard",
+            "description": "develops a comprehensive and visually appealing stock dashboard using Streamlit, designed to provide users with real-time stock data and technical analysis.",
             "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Stock Market</span>",
             "slug": "project-1"
         },
@@ -11,7 +11,7 @@
          {
             "img": "{{webRoot}}/assets/images/project-listing-2.png",
             "title": "Option Pricing Analytics",
-            "description": "comprehensive Python-based options pricing and risk management platform featuring multiple pricing models, real-time Greeks analysis, and advanced portfolio analytics.",
+            "description": "Delivers Streamlit-based platform for options pricing, Greeks analysis, and risk management, offering an intuitive interface for financial derivatives analysis.",
             "category": "<span class='me-2'>Data Science</span> &middot; <span class='ms-2'>Derivative Securities</span>",
             "slug": "project-2"
         }
