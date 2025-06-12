@@ -19,7 +19,7 @@
         {
             "img": "{{webRoot}}/assets/images/project-listing-3.png",
             "title": "Business Valuation Simulator",
-            "description": "Develops a business valuation tool that calculates the enterprise value of a company based on various parameters like revenue, assets, growth rate, and margin. It includes visualizations to aid in data analysis and decision-making.",
+            "description": "Develops a business valuation tool that calculates the enterprise value of a company based on various parameters like revenue, assets, growth rate, and margin.",
             "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Valuation Modeling</span>",
             "slug": "project-3"
         }
