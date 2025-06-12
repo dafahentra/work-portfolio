@@ -1,25 +1,3 @@
-/* Table of contents
-––––––––––––––––––––––––––––––––––––––––––––––––––
-
-Note: Do not write any CSS in this file. Only use it to import other CSS files.
-Note: '~' in the import statement means the file is imported from the node_modules directory. Bootstrap functions is an example.
-
-- Bootstrap Functions.
-- Bootstrap Mixins.
-- Framework SASS Variables - override Bootstrap's SASS Vars in this file.
-- Framework Mixins
-- Framework Utilities
-- Bootstrap Core
-- Framework CSS Custom Properties (CSS Variables)
-- Framework Base
-- Framework Components
-- Framework Vendors
-- Custom CSS - Add your custom CSS to this file
-*/
-
-
-
-
 /* Bootstrap Functions - DO NOT CHANGE ANYTHING IN HERE
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 @import '~bootstrap/scss/functions';
@@ -63,3 +41,7 @@ Note: '~' in the import statement means the file is imported from the node_modul
 /* Template Custom CSS - Add your own CSS to this file
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 @import 'custom';
+
+/* Template Custom PRELOADER - Add your own CSS to this file
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+@import 'components/preloader';
