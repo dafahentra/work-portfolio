@@ -1,0 +1,218 @@
+// Advanced Preloader Animations
+
+// Base styles
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0a0a0a;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &.fade-out {
+        opacity: 0;
+        transform: scale(1.1);
+        
+        .preloader-inner {
+            transform: scale(0.8);
+        }
+    }
+}
+
+.preloader-inner {
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.preloader-active {
+    overflow: hidden;
+}
+
+.finance-icon {
+    margin-bottom: 1.5rem;
+    color: var(--bs-primary);
+}
+
+.finance-icon svg {
+    width: 60px;
+    height: 60px;
+}
+
+.chart-line {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    animation: drawLine 1s ease-out forwards;
+}
+
+.chart-bar-1, .chart-bar-2, .chart-bar-3, .chart-bar-4 {
+    stroke-dasharray: 10;
+    stroke-dashoffset: 10;
+    animation: drawBar 0.5s ease-out forwards;
+}
+
+.chart-bar-1 { animation-delay: 0.8s; }
+.chart-bar-2 { animation-delay: 1s; }
+.chart-bar-3 { animation-delay: 1.2s; }
+.chart-bar-4 { animation-delay: 1.4s; }
+
+@keyframes drawLine {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes drawBar {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.loader-name {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    color: #ffff;
+    font-size: 1.75rem;
+    margin-bottom: 0.25rem;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.5s forwards;
+}
+
+.loader-subtitle {
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.7s forwards;
+}
+
+.loader-progress {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.progress-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--bs-primary);
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: dotFade 1.4s ease-in-out infinite;
+}
+
+.progress-dot:nth-child(1) { animation-delay: 0s; }
+.progress-dot:nth-child(2) { animation-delay: 0.2s; }
+.progress-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes dotFade {
+    0%, 60%, 100% {
+        opacity: 0.3;
+    }
+    30% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+[data-bs-theme="dark"] .finance-icon {
+    color: #6ea8fe; /* Bootstrap's lighter primary for dark mode */
+}
+
+[data-bs-theme="dark"] .progress-dot {
+    background-color: #6ea8fe;
+}
+
+// Common animations
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes glitch-1 {
+    0%, 100% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(0);
+    }
+    20% {
+        clip-path: inset(20% 0 30% 0);
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        clip-path: inset(50% 0 20% 0);
+        transform: translate(2px, -2px);
+    }
+    60% {
+        clip-path: inset(10% 0 60% 0);
+        transform: translate(-2px, 2px);
+    }
+    80% {
+        clip-path: inset(80% 0 5% 0);
+        transform: translate(2px, -2px);
+    }
+}
+
+@keyframes glitch-2 {
+    0%, 100% {
+        clip-path: inset(0 0 0 0);
+        transform: translate(0);
+    }
+    20% {
+        clip-path: inset(60% 0 10% 0);
+        transform: translate(2px, -2px);
+    }
+    40% {
+        clip-path: inset(10% 0 70% 0);
+        transform: translate(-2px, 2px);
+    }
+    60% {
+        clip-path: inset(30% 0 40% 0);
+        transform: translate(2px, 2px);
+    }
+    80% {
+        clip-path: inset(5% 0 80% 0);
+        transform: translate(-2px, -2px);
+    }
+}
+
+// Responsive
+@media (max-width: 576px) {
+    .reveal-text { font-size: 2rem; }
+    .glitch-text { font-size: 1.5rem; }
+    .cube-wrapper { transform: scale(0.8); }
+    .hex-grid .hex { width: 30px; height: 30px; }
+}
