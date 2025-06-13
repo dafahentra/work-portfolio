@@ -3,7 +3,7 @@
         {
             "img": "{{webRoot}}/assets/images/project-listing-1.png",
             "title": "Live Stock Market Dashboard",
-            "description": "Develops a comprehensive and visually appealing stock dashboard using Streamlit, designed to provide users with real-time stock data and technical analysis.",
+            "description": "Develops a comprehensive stock dashboard, designed to provide users with real-time stock data and technical analysis.",
             "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Market Data Reporting</span>",
             "slug": "project-1"
         },
