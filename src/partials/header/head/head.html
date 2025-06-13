@@ -1,5 +1,20 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
 <head>
-    <!-- Google tag (gtag.js) -->
+  <!-- Theme Detection Script (HARUS PERTAMA!) -->
+  <script>
+    (function() {
+      // Gunakan 'mode' sesuai dengan dark-mode.js
+      const savedTheme = localStorage.getItem('mode') || 'light';
+      // Set kedua attribute untuk konsistensi
+      document.documentElement.setAttribute('data-bs-theme', savedTheme);
+      document.documentElement.setAttribute('data-mode', savedTheme);
+    })();
+  </script>
+
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVMKB0TDDH"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -8,162 +23,36 @@
     gtag('config', 'G-JVMKB0TDDH');
   </script>
   
-  <!-- Critical CSS for Professional Finance Preloader -->
-  <style>
-    /* Finance Theme Preloader - Optimized Critical CSS */
-    .preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #fff;
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    
-    /* Dark mode background */
-    [data-bs-theme="dark"] .preloader {
-      background-color: #212529;
-    }
-    
-    .preloader.fade-out {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    
-    .preloader-inner {
-      text-align: center;
-    }
-    
-    /* Chart bars */
-    .chart-bars {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 10px;
-      height: 60px;
-      margin-bottom: 2.5rem;
-    }
-    
-    .bar {
-      width: 10px;
-      background-color: #0d6efd;
-      border-radius: 5px 5px 0 0;
-      animation: barGrow 2.5s ease-in-out infinite;
-      transform-origin: bottom;
-    }
-    
-    [data-bs-theme="dark"] .bar {
-      background-color: #6ea8fe;
-    }
-    
-    .bar-1 { height: 40%; animation-delay: 0s; }
-    .bar-2 { height: 70%; animation-delay: 0.3s; }
-    .bar-3 { height: 55%; animation-delay: 0.6s; }
-    .bar-4 { height: 85%; animation-delay: 0.9s; }
-    
-    /* Text styles */
-    .loader-name {
-      font-size: 1.875rem;
-      font-weight: 700;
-      color: #212529;
-      margin: 0 0 0.5rem 0;
-      letter-spacing: 0.08em;
-      font-family: 'Poppins', sans-serif;
-    }
-    
-    [data-bs-theme="dark"] .loader-name {
-      color: #ffffff;
-    }
-    
-    .loader-title {
-      font-size: 0.875rem;
-      color: #6c757d;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin: 0;
-      font-weight: 400;
-    }
-    
-    [data-bs-theme="dark"] .loader-title {
-      color: #adb5bd;
-    }
-    
-    /* Animations */
-    @keyframes barGrow {
-      0%, 100% {
-        transform: scaleY(1);
-        opacity: 0.6;
-      }
-      50% {
-        transform: scaleY(1.3);
-        opacity: 1;
-      }
-    }
-    
-    /* Prevent scroll */
-    body.preloader-active {
-      overflow: hidden;
-    }
-    
-    /* Mobile adjustments */
-    @media (max-width: 576px) {
-      .loader-name { font-size: 1.5rem; }
-      .loader-title { font-size: 0.75rem; letter-spacing: 0.15em; }
-    }
-  </style>
-  
-  <!-- Page Meta Tags-->
+  <!-- Meta Tags -->
   <meta charset="utf-8">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <meta name="keywords" content="">
+  <meta name="description" content="Dafa Hentra - Finance & Data Analytics Portfolio">
+  <meta name="author" content="Dafa Hentra">
+  <meta name="keywords" content="finance, data analytics, portfolio, investment, analysis">
 
   <!-- Favicon -->
-  <link rel="apple-touch-icon" sizes="180x180" href="{{webRoot}}/assets/images/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{webRoot}}/assets/images/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{webRoot}}/assets/images/favicon/favicon-16x16.png">
-  <link rel="mask-icon" href="{{webRoot}}/assets/images/favicon/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-touch-icon.png">
   <meta name="theme-color" content="#ffffff">
 
-  <!-- Google Font-->
+  <!-- Google Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS -->
-  <link rel="stylesheet" href="{{webRoot}}/assets/css/libs.bundle.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="./assets/css/libs.bundle.css">
+  <link rel="stylesheet" href="./assets/css/theme.bundle.css">
 
-  <!-- Main CSS -->
-  <link rel="stylesheet" href="{{webRoot}}/assets/css/theme.bundle.css" />
-
-  <!-- Fix for custom scrollbar if JS is disabled-->
+  <!-- Noscript Fallback -->
   <noscript>
     <style>
-      /**
-          * Reinstate scrolling for non-JS clients
-          */
-      .simplebar-content-wrapper {
-        overflow: auto;
-      }
-      /* Hide preloader if JS is disabled */
-      .preloader {
-        display: none !important;
-      }
-      body.preloader-active {
-        overflow: auto !important;
-      }
+      .simplebar-content-wrapper { overflow: auto; }
+      .preloader { display: none !important; }
+      body.preloader-active { overflow: auto !important; }
     </style>
   </noscript>
 
-  <!-- Page Title -->
-  <title>{{title}}</title>
-
+  <title>Dafa Hentra | Portfolio</title>
 </head>

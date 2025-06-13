@@ -35,6 +35,8 @@
         const html = document.querySelector('html');
         if (html) {
             html.setAttribute('data-mode', type);
+            // Sinkronisasi dengan Bootstrap theme untuk preloader
+            html.setAttribute('data-bs-theme', type);
         }
     }
 

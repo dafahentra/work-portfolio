@@ -1,9 +1,9 @@
-// Advanced Preloader with Auto Redirect
-class AdvancedPreloader {
+// Simple Preloader without redirect
+class SimplePreloader {
     constructor() {
         this.preloader = document.getElementById('preloader');
         this.body = document.body;
-        this.duration = 3000; // 3 seconds
+        this.duration = 3000; // 3 seconds default
         
         if (this.preloader) {
             this.init();
@@ -11,77 +11,36 @@ class AdvancedPreloader {
     }
     
     init() {
-        // Prevent scrolling
+        // Prevent scrolling while loading
         this.body.classList.add('preloader-active');
         
-        // Detect preloader type and initialize
-        if (this.preloader.classList.contains('particles')) {
-            this.initParticleNetwork();
-        } else if (this.preloader.classList.contains('hexagon')) {
-            this.initHexagonLoader();
-        } else if (this.preloader.classList.contains('liquid')) {
-            this.initLiquidLoader();
-        }
-        
-        // Start common animations
-        this.startAnimations();
-        
-        // Set timer for redirect
+        // Hide preloader after duration
         setTimeout(() => {
-            this.prepareRedirect();
+            this.hidePreloader();
         }, this.duration);
     }
     
-    startAnimations() {
-        // Progress bar animation (particles theme)
-        const progressBar = this.preloader.querySelector('.progress-bar');
-        if (progressBar) {
-            setTimeout(() => {
-                progressBar.style.width = '100%';
-            }, 100);
-        }
-        
-        // Any theme-specific animations
-        const morphPath = this.preloader.querySelector('.morph-path');
-        if (morphPath) {
-            // SVG morph is handled by SMIL animation in HTML
-        }
-    }
-    
-    // Liquid Loader Enhancement
-    initLiquidLoader() {
-        // Liquid animation is handled by CSS
-        // Could add canvas-based metaballs here for more advanced effect
-    }
-    
-    prepareRedirect() {
-        // Clean up any running animations
-        if (this.particleAnimation) {
-            cancelAnimationFrame(this.particleAnimation);
-        }
-        if (this.percentInterval) {
-            clearInterval(this.percentInterval);
-        }
-        
+    hidePreloader() {
         // Add fade out class
         this.preloader.classList.add('fade-out');
         
-        // Wait for fade animation then redirect
+        // Remove preloader and enable scrolling after animation
         setTimeout(() => {
-            const currentPath = window.location.pathname;
-            const basePath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
-            window.location.href = basePath + 'home.html';
-        }, 800);
+            this.preloader.style.display = 'none';
+            this.body.classList.remove('preloader-active');
+        }, 800); // Match CSS transition duration
+    }
+    
+    // Manual hide method if needed
+    hide() {
+        this.hidePreloader();
     }
 }
 
-// Initialize
+// Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
-    // Only run on index.html
-    if (window.location.pathname.includes('index.html') || window.location.pathname.endsWith('/')) {
-        new AdvancedPreloader();
-    }
+    window.preloader = new SimplePreloader();
 });
 
 // Export for module system
-export default AdvancedPreloader;
+export default SimplePreloader;
