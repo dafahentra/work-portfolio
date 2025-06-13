@@ -4,7 +4,7 @@
             "img": "{{webRoot}}/assets/images/project-listing-1.png",
             "title": "Live Stock Market Dashboard",
             "description": "Develops a comprehensive stock dashboard, designed to provide users with real-time stock data and technical analysis.",
-            "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Market Data Reporting</span>",
+            "category": "<span class='me-2'>Data Analysis</span> &middot; <span class='ms-2'>Stocks</span>",
             "slug": "project-1"
         },
 
@@ -12,7 +12,7 @@
             "img": "{{webRoot}}/assets/images/project-listing-2.png",
             "title": "Option Pricing Analytics",
             "description": "Delivers platform for options pricing, Greeks analysis, and risk management, offering an intuitive interface for financial derivatives analysis.",
-            "category": "<span class='me-2'>Quantitative Finance</span> &middot; <span class='ms-2'>Derivatives Pricing Models</span>",
+            "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Derivatives</span>",
             "slug": "project-2"
         },
 
@@ -20,7 +20,7 @@
             "img": "{{webRoot}}/assets/images/project-listing-3.png",
             "title": "Business Valuation Simulator",
             "description": "Develops a business valuation tool that calculates the enterprise value of a company based on various parameters like revenue, assets, growth rate, and margin.",
-            "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Valuation Modeling</span>",
+            "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Valuation</span>",
             "slug": "project-3"
         }
     ]
