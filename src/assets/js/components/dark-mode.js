@@ -25,6 +25,7 @@
     function setMode({ type = LIGHT_MODE }) {
         localStorage.setItem(MODE, type);
         setHTMLAttrMode({ type });
+        updateButtonIcons({ type });
     }
 
     /**
@@ -38,6 +39,27 @@
             // Sinkronisasi dengan Bootstrap theme untuk preloader
             html.setAttribute('data-bs-theme', type);
         }
+    }
+
+    /**
+     * Update button icons based on current mode
+     * @param {type} String
+     */
+    function updateButtonIcons({ type }) {
+        modeToggleBtns.forEach((btn) => {
+            const icon = btn.querySelector('i');
+            if (icon) {
+                if (type === DARK_MODE) {
+                    // Jika dark mode, tampilkan icon bulan
+                    icon.classList.remove('ri-sun-line');
+                    icon.classList.add('ri-moon-line');
+                } else {
+                    // Jika light mode, tampilkan icon matahari
+                    icon.classList.remove('ri-moon-line');
+                    icon.classList.add('ri-sun-line');
+                }
+            }
+        });
     }
 
     /**
