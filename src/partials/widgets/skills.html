@@ -3,57 +3,61 @@
     {{>
         content/subtitle 
         title-script="My"
-        title="Skills"
+        title="Skills & Toolsets"
         doodle-width="f-w-40"
     }}
     
     {{#if (config skills)}}
-        <!-- Professional Skillset -->
+        <!-- Finance Skills -->
         <div class="skills-section mb-5">
-            <h4 class="display-6 text-center mb-5">
-                Professional Skillsets
-            </h4>
-            
+            <h4 class="display-6 text-center mb-5">Finance</h4>
             <div class="row g-3 justify-content-center">
-                {{#each skills.techStack}}
+                {{#each skills.FinStack}}
                     <div class="col-4 col-md-2">
                         <div class="skill-box">
-                            {{#if this.devicon}}
-                                <i class="devicon-{{this.devicon}}"></i>
-                            {{else if this.simpleIcon}}
-                                <img src="https://cdn.simpleicons.org/{{this.simpleIcon}}/ffffff" 
-                                     alt="{{this.name}}"
-                                     class="simple-icon">
-                            {{else if this.remixIcon}}
-                                <i class="{{this.remixIcon}}"></i>
-                            {{/if}}
+                            <div class="text-icon">{{this.textIcon}}</div>
                         </div>
                     </div>
                 {{/each}}
             </div>
         </div>
 
-        <!-- Tools I Use -->
-        <div class="tools-section">
-            <h4 class="display-6 text-center mb-5">
-                Tools I Use
-            </h4>
-            
+        <!-- Technical Skills -->
+        <div class="skills-section mb-5">
+            <h4 class="display-6 text-center mb-5">Data & Visualization</h4>
             <div class="row g-3 justify-content-center">
-                {{#each skills.toolStack}}
+                {{#each skills.DataStack}}
                     <div class="col-4 col-md-2">
                         <div class="skill-box">
-                            {{#if this.devicon}}
-                                <i class="devicon-{{this.devicon}}"></i>
-                            {{else if this.simpleIcon}}
-                                <img src="https://cdn.simpleicons.org/{{this.simpleIcon}}/ffffff" 
-                                     alt="{{this.name}}"
-                                     class="simple-icon">
-                            {{else if this.remixIcon}}
-                                <i class="{{this.remixIcon}}"></i>
-                            {{else if this.text}}
-                                <span class="skill-text">{{this.text}}</span>
-                            {{/if}}
+                            <span class="iconify" data-icon="{{this.icon}}"></span>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Office Suite -->
+        <div class="skills-section">
+            <h4 class="display-6 text-center mb-5">Office Suite</h4>
+            <div class="row g-3 justify-content-center">
+                {{#each skills.BizStack}}
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box">
+                            <span class="iconify" data-icon="{{this.icon}}"></span>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Other Toolset -->
+        <div class="skills-section">
+            <h4 class="display-6 text-center mb-5">Other Toolset</h4>
+            <div class="row g-3 justify-content-center">
+                {{#each skills.ToolsStack}}
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box">
+                            <span class="iconify" data-icon="{{this.icon}}"></span>
                         </div>
                     </div>
                 {{/each}}
@@ -62,6 +66,6 @@
     {{/if}}
 </div>
 
-<!-- Include Devicon CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+<!-- Include Iconify -->
+<script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
 <!-- /Skills Section-->

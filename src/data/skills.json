@@ -1,54 +1,52 @@
 {
-    "techStack": [
+    "FinStack": [
         {
-            "name": "Python",
-            "devicon": "python-plain"
+            "textIcon": "FM"
         },
         {
-            "name": "R",
-            "devicon": "r-original"
+            "textIcon": "FA"
         },
         {
-            "name": "SQL",
-            "devicon": "mysql-plain"
+            "textIcon": "FP"
         },
         {
-            "name": "JavaScript",
-            "devicon": "javascript-plain"
-        },
-        {
-            "name": "HTML/CSS",
-            "devicon": "html5-plain"
-        },
-        {
-            "name": "Git",
-            "devicon": "git-plain"
+            "textIcon": "RA"
         }
     ],
-    "toolStack": [
+    "BizStack": [
         {
-            "name": "Excel",
-            "remixIcon": "ri-file-excel-2-line"
+            "icon": "ri:file-excel-2-line"
         },
         {
-            "name": "Tableau",
-            "remixIcon": "ri-bar-chart-box-line"
+            "icon": "simple-icons:microsoftpowerpoint"
         },
         {
-            "name": "Power BI",
-            "remixIcon": "ri-dashboard-line"
+            "icon": "ri:file-word-2-line"
+        }
+    ],
+    "DataStack": [
+        {
+            "icon": "simple-icons:r"
         },
         {
-            "name": "VS Code",
-            "devicon": "vscode-plain"
+            "icon": "simple-icons:python"
         },
         {
-            "name": "Jupyter",
-            "devicon": "jupyter-plain"
+            "icon": "simple-icons:mysql"
         },
         {
-            "name": "Slack",
-            "devicon": "slack-plain"
+            "icon": "simple-icons:tableau"
+        }
+    ],
+    "ToolsStack": [
+        {
+            "icon": "simple-icons:macos"
+        },
+        {
+            "icon": "simple-icons:visualstudio"
+        },
+        {
+            "icon": "simple-icons:jupyter"
         }
     ]
 }
