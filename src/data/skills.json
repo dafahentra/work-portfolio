@@ -1,28 +1,54 @@
 {
-    "entries": [
+    "techStack": [
         {
-            "skill": "R",
-            "percent": "75"
+            "name": "Python",
+            "devicon": "python-plain"
         },
         {
-            "skill": "Python",
-            "percent": "70"
+            "name": "R",
+            "devicon": "r-original"
         },
         {
-            "skill": "SQL",
-            "percent": "70"
+            "name": "SQL",
+            "devicon": "mysql-plain"
         },
         {
-            "skill": "Tableau",
-            "percent": "80"
+            "name": "JavaScript",
+            "devicon": "javascript-plain"
         },
         {
-            "skill": "Excel",
-            "percent": "80"
+            "name": "HTML/CSS",
+            "devicon": "html5-plain"
         },
         {
-            "skill": "Powerpoint",
-            "percent": "80"
+            "name": "Git",
+            "devicon": "git-plain"
+        }
+    ],
+    "toolStack": [
+        {
+            "name": "Excel",
+            "remixIcon": "ri-file-excel-2-line"
+        },
+        {
+            "name": "Tableau",
+            "remixIcon": "ri-bar-chart-box-line"
+        },
+        {
+            "name": "Power BI",
+            "remixIcon": "ri-dashboard-line"
+        },
+        {
+            "name": "VS Code",
+            "devicon": "vscode-plain"
+        },
+        {
+            "name": "Jupyter",
+            "devicon": "jupyter-plain"
+        },
+        {
+            "name": "Slack",
+            "devicon": "slack-plain"
         }
     ]
 }

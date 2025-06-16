@@ -1,0 +1,109 @@
+// Skills Section Styles
+// Tambahkan file ini ke folder scss/components/ dan import di theme.scss
+
+.skills {
+    background-color: $dark;
+    
+    // Common section styles
+    %section-spacing {
+        padding: 3rem 0;
+    }
+    
+    .skills-section,
+    .tools-section {
+        @extend %section-spacing;
+    }
+
+    // Heading styles - using display-6 class
+    h4 {
+        margin-bottom: 3rem;
+        
+        span {
+            color: $white;
+        }
+    }
+
+    // Skill box styles
+    .skill-box {
+        $box-height: 140px;
+        $border-width: 2px;
+        $border-radius: 12px;
+        $transition-speed: 0.3s;
+        
+        background: transparent;
+        border: $border-width solid rgba($white, 0.5);
+        border-radius: $border-radius;
+        height: $box-height;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all $transition-speed ease;
+        cursor: pointer;
+
+        &:hover {
+            background: rgba($white, 0.1);
+            border-color: $white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba($white, 0.2);
+        }
+
+        // Icon styles - common properties
+        %icon-base {
+            font-size: 4rem;
+            color: $white;
+        }
+
+        // Apply to all icon types
+        i[class*="devicon-"],
+        i[class^="ri-"] {
+            @extend %icon-base;
+            
+            &.colored {
+                color: $white !important;
+            }
+        }
+
+        // Text fallback
+        .skill-text {
+            font-size: 1.25rem;
+            color: $white;
+            font-weight: 400;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+    }
+
+    // Responsive styles
+    @include media-breakpoint-down(md) {
+        h4 {
+            font-size: 2rem;
+        }
+
+        .skill-box {
+            height: 100px;
+
+            %icon-mobile {
+                font-size: 3rem;
+            }
+
+            i[class*="devicon-"],
+            i[class^="ri-"] {
+                @extend %icon-mobile;
+            }
+
+            .skill-text {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        .skill-box {
+            height: 80px;
+
+            i[class*="devicon-"],
+            i[class^="ri-"] {
+                font-size: 2.5rem;
+            }
+        }
+    }
+}

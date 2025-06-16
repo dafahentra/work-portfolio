@@ -6,32 +6,62 @@
         title="Skills"
         doodle-width="f-w-40"
     }}
+    
     {{#if (config skills)}}
-        <div class="row gx-10 gy-5">
-            {{#each skills.entries}}
-                <!-- Single Skill-->
-                <div class="col-12 col-lg-6 fade-in-up"
-                    data-scroll
-                    data-scroll-position="bottom" 
-                >
-                    <div class="row align-items-center">
-                        <div class="col-12 d-flex justify-content-end">
-                            <p class="mb-0 fw-bolder">{{ percent }}%</p>
-                        </div>
-                        <div class="col-4">
-                            <p class="mb-0 small lh-1">{{ skill }}</p>
-                        </div>
-                        <div class="col-8">
-                            <div class="progress f-h-1">
-                                <div class="progress-bar" role="progressbar" style="width: {{ percent }}%"
-                                    aria-valuenow="{{ percent }}" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
+        <!-- Professional Skillset -->
+        <div class="skills-section mb-5">
+            <h4 class="display-6 text-center mb-5">
+                Professional <span class="text-white">Skillset</span>
+            </h4>
+            
+            <div class="row g-3 justify-content-center">
+                {{#each skills.techStack}}
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box">
+                            {{#if this.devicon}}
+                                <i class="devicon-{{this.devicon}}"></i>
+                            {{else if this.simpleIcon}}
+                                <img src="https://cdn.simpleicons.org/{{this.simpleIcon}}/ffffff" 
+                                     alt="{{this.name}}"
+                                     class="simple-icon">
+                            {{else if this.remixIcon}}
+                                <i class="{{this.remixIcon}}"></i>
+                            {{/if}}
                         </div>
                     </div>
-                </div>
-                <!-- / Single Skill -->
-            {{/each}}
+                {{/each}}
+            </div>
+        </div>
+
+        <!-- Tools I Use -->
+        <div class="tools-section">
+            <h4 class="display-6 text-center mb-5">
+                <span class="text-white">Tools</span> I Use
+            </h4>
+            
+            <div class="row g-3 justify-content-center">
+                {{#each skills.toolStack}}
+                    <div class="col-4 col-md-2">
+                        <div class="skill-box">
+                            {{#if this.devicon}}
+                                <i class="devicon-{{this.devicon}}"></i>
+                            {{else if this.simpleIcon}}
+                                <img src="https://cdn.simpleicons.org/{{this.simpleIcon}}/ffffff" 
+                                     alt="{{this.name}}"
+                                     class="simple-icon">
+                            {{else if this.remixIcon}}
+                                <i class="{{this.remixIcon}}"></i>
+                            {{else if this.text}}
+                                <span class="skill-text">{{this.text}}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
         </div>
     {{/if}}
 </div>
+
+<!-- Include Devicon CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
 <!-- /Skills Section-->
