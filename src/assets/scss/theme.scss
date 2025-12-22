@@ -1,55 +1,35 @@
-/* Bootstrap Functions - DO NOT CHANGE ANYTHING IN HERE
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Bootstrap Functions */
 @import '~bootstrap/scss/functions';
 
-/* Bootstrap Variables - REQUIRED FOR BOOTSTRAP 5
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Bootstrap Variables */
 @import '~bootstrap/scss/variables';
 
-/* Bootstrap Mixins - DO NOT CHANGE ANYTHING IN HERE
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Bootstrap Maps (WAJIB untuk utilities) */
+@import '~bootstrap/scss/maps';
+
+/* Bootstrap Mixins */
 @import '~bootstrap/scss/mixins';
 
-/* Framework SASS Variables - GO HERE TO OVERRIDE BOOTSTRAP VARS.
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Bootstrap Utilities (WAJIB sebelum custom utilities) */
+@import '~bootstrap/scss/utilities';
+
+/* Framework SASS Variables */
 @import 'abstracts/sass-variables';
 
-/* Framework Mixins
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Framework Mixins */
 @import 'abstracts/mixins';
 
-/* Framework Utilities - Needs to be imported before main bootstrap file.
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Framework Utilities */
 @import 'utilities/utilities';
 
-/* Bootstrap Core - DO NOT CHANGE ANYTHING IN HERE
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Bootstrap Core */
 @import '~bootstrap/scss/bootstrap';
 
-/* Framework Custom Properties (CSS Variables)
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/* Sisanya tetap */
 @import 'abstracts/css-vars';
-
-/* Framework Base
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
 @import 'base/base';
-
-/* Framework Components
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
 @import 'components/components';
-
-/* Framework Vendor Overrides
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
 @import 'vendors/vendors';
-
-/* Template Custom CSS - Add your own CSS to this file
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
 @import 'custom';
-
-/* Template Custom PRELOADER - Add your own CSS to this file
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
 @import 'components/preloader';
-
-/* Template Custom Skills - Add your own CSS to this file
-–––––––––––––––––––––––––––––––––––––––––––––––––– */
 @import 'components/skills';
