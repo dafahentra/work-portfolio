@@ -161,6 +161,11 @@ const wPackConfig = {
                     from: paths.src.favicon,
                     to: paths.dist.favicon,
                     noErrorOnMissing: true
+                },
+                {
+                    from: './src/assets/files',
+                    to: './assets/files',
+                    noErrorOnMissing: true
                 }
             ],
         }),
