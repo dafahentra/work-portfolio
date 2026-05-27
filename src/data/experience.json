@@ -1,12 +1,36 @@
 {
     "entries": [
         {
+            "title": "Equity Research Intern",
+            "company": "BRI Danareksa Sekuritas",
+            "years": "Apr 2026 - Present",
+            "description": "From drafting sector reports to initiating coverage on IDX-listed companies, I learned that good research is equal parts rigorous analysis and clear storytelling. I also integrated Python into our workflow to automate data retrieval, bridging the gap between financial insight and technical efficiency.",
+            "url": "https://bridanareksasekuritas.co.id",
+            "url-title": "https://bridanareksasekuritas.co.id"
+        },
+        {
+            "title": "Retail & Distribution Intern",
+            "company": "Mandiri Sekuritas",
+            "years": "Mar 2026 - Present",
+            "description": "Working directly with retail clients gave me a different lens on finance. Analyzing portfolios, crafting rebalancing strategies, and facilitating investment seminars taught me that beyond the numbers, finance is ultimately about building trust and helping people make confident decisions.",
+            "url": "https://mandirisekuritas.co.id",
+            "url-title": "https://mandirisekuritas.co.id"
+        },
+        {
             "title": "Performance, Risk, & QoS, Intern",
             "company": "Telkom Indonesia",
             "years": "Jan 2026 - Present",
             "description": "I spent my time acting as a data investigator—From validating field anomalies to analyzing churn metrics, I learned that precise data isn't just about reporting but the foundation of every strategic move a company makes",
             "url": "https://telkom.co.id",
             "url-title": "https://telkom.co.id"
+        },
+        {
+            "title": "Teaching Assistant, Information & Innovation Management",
+            "company": "Faculty of Economics & Business UGM",
+            "years": "Jan 2026 - Present",
+            "description": "Standing on the other side of the classroom changed how I think about knowledge. Guiding students through business process frameworks and weekly tutorials sharpened my ability to break down complexity and communicate it clearly, a skill I carry into every professional setting.",
+            "url": "https://feb.ugm.ac.id",
+            "url-title": "https://feb.ugm.ac.id"
         },
         {
             "title": "Co-Founder, Finance Director",
