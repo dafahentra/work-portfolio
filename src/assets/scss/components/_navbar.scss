@@ -1,39 +1,514 @@
-.nav-item {
-    margin-left: 2rem;
-    margin-right: 2rem;
-}
+// Color tokens specific to the Lando Norris theme
+$menu-bg: #05070c;
+$menu-accent: #CBF902; // Lando Norris signature helmet neon yellow-green
+$menu-text-muted: #8892b0;
 
-.nav-link, .navbar-light .navbar-nav .nav-link, .navbar-light .navbar-brand, .navbar-brand, .navbar-light .navbar-nav .nav-link:focus {
-    position: relative;
-    color: var(--theme-nav-link);
-
-    &:hover, &:active {
-        color: var(--theme-nav-link-hover);
-    }
-}
-
-.nav-link:after {
+/* Main Navbar Header Styles */
+.navbar-custom {
     position: absolute;
-    content: "";
+    top: 0;
     left: 0;
-    right: 0;
-    bottom: .8rem;
-    height: 0;
-    background: $primary;
-    transition: all ease-in .2s;
-    z-index: -1;
-}
-
-.nav-link:hover:after {
-    height: 9px;
-}
-
-/* Mobile Navigation styles */
-@include media-breakpoint-down(lg) {
-    .nav-item {
-        margin: .5rem 0;
+    width: 100%;
+    z-index: 100000;
+    transition: background-color 0.3s ease, padding 0.3s ease;
+    
+    .navbar-brand {
+        color: var(--theme-body-color) !important;
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        text-transform: uppercase;
+        
+        .avatar img {
+            border: 2px solid var(--theme-border-color);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        &:hover {
+            .avatar img {
+                border-color: var(--theme-link-body-psuedo-bg);
+                transform: scale(1.05);
+            }
+        }
     }
-    .nav-link {
-        display: table;
+}
+
+/* Pad content scroll container to clear floating absolute navbar */
+[data-scroll-container] {
+    padding-top: 100px;
+    
+    @include media-breakpoint-up(lg) {
+        padding-top: 160px;
+    }
+}
+
+/* Theme Toggle Button overrides */
+.btn-toggle-mode {
+    cursor: pointer;
+    border-radius: 8px !important; // Make it a square container with 8px radius
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    // Light Mode (Default: White background, outline button)
+    background: transparent !important;
+    border: 1px solid var(--theme-border-color) !important;
+    color: var(--theme-body-color) !important;
+    
+    .theme-toggle-svg {
+        width: 20px;
+        height: 20px;
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transform-origin: center;
+    }
+    
+    .sun-center {
+        transition: r 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        transform-origin: center;
+    }
+    
+    .moon-circle {
+        transition: cx 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                    cy 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .sun-beams {
+        transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                    opacity 0.6s ease;
+        transform-origin: center;
+    }
+    
+    // Dark Mode (Dark background, white filled button)
+    :root[data-mode=dark] & {
+        background: var(--theme-btn-icon-bg) !important; // White background
+        border: 1px solid transparent !important;
+        color: var(--theme-btn-icon-color) !important; // Dark icon color
+        
+        .theme-toggle-svg {
+            transform: rotate(90deg);
+        }
+        
+        .sun-center {
+            r: 8px;
+        }
+        
+        .moon-circle {
+            cx: 12px;
+            cy: 6px;
+        }
+        
+        .sun-beams {
+            transform: rotate(-45deg);
+            opacity: 0;
+        }
+    }
+}
+
+/* Custom Hamburger Menu Toggle Button (Button Three Style) */
+.btn-menu-toggle {
+    width: var(--theme-avatar-size);
+    height: var(--theme-avatar-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px; // Matching square radius
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    overflow: hidden;
+    
+    // Light Mode (Default: White background, outline button)
+    background: transparent;
+    border: 1px solid var(--theme-border-color);
+    color: var(--theme-body-color);
+    
+    .hamburger-svg {
+        width: 24px;
+        height: 24px;
+        stroke: currentColor;
+        transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    &[data-state="opened"] {
+        .hamburger-svg {
+            transform: translate(2px, -2px) rotate(45deg); // 0.125turn is 45deg
+        }
+    }
+    
+    .line {
+        transition: stroke-dasharray 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                    stroke-dashoffset 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        stroke-dasharray: 60 31 60 300;
+        stroke-width: 10;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+    
+    &[data-state="opened"] {
+        .line {
+            stroke-dasharray: 60 105 60 300;
+            stroke-dashoffset: -90;
+        }
+    }
+    
+    &:hover {
+        border-color: var(--theme-link-body-psuedo-bg);
+        color: var(--theme-link-body-psuedo-bg);
+    }
+    
+    // Dark Mode (Dark background, white filled button)
+    :root[data-mode=dark] & {
+        background: var(--theme-btn-icon-bg); // White background
+        border: 1px solid transparent;
+        color: var(--theme-btn-icon-color); // Dark icon color
+        
+        &:hover {
+            background: var(--theme-btn-icon-bg); // Keep white background on hover
+            color: var(--theme-link-body-psuedo-bg); // Lines turn green
+        }
+    }
+    
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+/* Menu Close Button inside Overlay */
+.btn-menu-close {
+    width: var(--theme-avatar-size);
+    height: var(--theme-avatar-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px; // Matching square radius
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+    
+    .burger-icon {
+        .line {
+            background-color: #fff; // Always white in dark overlay
+        }
+        
+        .line-1 {
+            top: 2px;
+            transform: none;
+        }
+        
+        .line-2 {
+            bottom: 2px;
+            width: 70%;
+            transform: none;
+            margin-left: auto;
+            right: 0;
+            transition: width 0.3s ease;
+        }
+    }
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #fff;
+        
+        .line-2 {
+            width: 100% !important;
+        }
+    }
+    
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+
+
+/* Close icon */
+.close-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    display: inline-block;
+    transform: rotate(0);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-menu-close:hover .close-icon {
+    transform: rotate(90deg);
+}
+
+/* Fullscreen Menu Overlay Container */
+.fullscreen-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1), visibility 0.6s;
+    background: var(--theme-body-bg); // Dynamic theme background
+    color: var(--theme-body-color);   // Dynamic theme text color
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    /* Background subtle tech-grid effect */
+    &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        --menu-grid-color: rgba(0, 0, 0, 0.03);
+        :root[data-mode=dark] & {
+            --menu-grid-color: rgba(255, 255, 255, 0.02);
+        }
+        background-image: 
+            linear-gradient(var(--menu-grid-color) 1px, transparent 1px),
+            linear-gradient(90deg, var(--menu-grid-color) 1px, transparent 1px);
+        background-size: 60px 60px;
+        background-position: center;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.8;
+    }
+    
+    .fullscreen-menu-backdrop {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 70% 30%, rgba($menu-accent, 0.08) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+    }
+    
+    .fullscreen-menu-container {
+        position: relative;
+        z-index: 1;
+        padding-top: 120px !important; // Clear the fixed header area
+        
+        @include media-breakpoint-down(md) {
+            padding-top: 90px !important;
+        }
+    }
+}
+
+/* Active Open Menu States */
+body.menu-open {
+    overflow: hidden !important;
+}
+
+html.menu-open .fullscreen-menu {
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* Sticky Navbar Overrides when Menu is Expanded */
+html.menu-open .navbar-custom {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100000;
+    background: transparent !important;
+    transform: none !important;
+    transition: none !important;
+    
+    // Disable Locomotive Scroll fade-in transitions to prevent blinking/flashing
+    .fade-in {
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+}
+
+/* Large Navigation List */
+.fullscreen-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.fullscreen-nav-item {
+    margin-bottom: 2rem;
+    opacity: 0;
+    transform: translateY(40px);
+    
+    @include media-breakpoint-up(md) {
+        margin-bottom: 2.5rem;
+    }
+}
+
+.fullscreen-nav-link {
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    color: var(--theme-body-color); // Follow theme text color
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    line-height: 1.05;
+    padding-left: clamp(2rem, 5vw, 4rem);
+    transition: color 0.3s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding-left 0.4s ease;
+    
+    /* Numbering badge (e.g. 01) */
+    &::before {
+        content: attr(data-number);
+        font-size: clamp(0.9rem, 2vw, 1.25rem);
+        font-weight: 500;
+        font-family: monospace;
+        color: $menu-accent;
+        position: absolute;
+        left: 0;
+        top: 0.3rem;
+        opacity: 0.4;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    
+    /* Slide in glow bar on hover */
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: clamp(2rem, 5vw, 4rem);
+        width: 0;
+        height: 4px;
+        background-color: $menu-accent;
+        box-shadow: 0 0 10px rgba($menu-accent, 0.6);
+        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    &:hover {
+        color: $menu-accent !important;
+        padding-left: calc(#{clamp(2rem, 5vw, 4rem)} + 15px);
+        transform: translateX(5px);
+        
+        &::before {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        &::after {
+            width: calc(100% - #{clamp(2rem, 5vw, 4rem)});
+        }
+    }
+}
+
+/* Menu Metadata Columns (Right side) */
+.fullscreen-menu-meta {
+    .meta-section {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    
+    .meta-title {
+        color: $menu-text-muted;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        font-family: 'Poppins', sans-serif;
+    }
+    
+    .meta-links {
+        li a {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--theme-body-color) !important;
+            transition: color 0.3s ease, padding-left 0.3s ease;
+            display: inline-block;
+            
+            &:hover {
+                color: var(--theme-link-body-psuedo-bg) !important;
+                padding-left: 5px;
+            }
+        }
+    }
+    
+    .meta-email {
+        font-weight: 600;
+        color: var(--theme-body-color) !important;
+        transition: color 0.3s ease;
+        word-break: break-all;
+        
+        &:hover {
+            color: var(--theme-link-body-psuedo-bg) !important;
+        }
+    }
+    
+    .meta-clock {
+        font-family: monospace;
+        letter-spacing: 0.05em;
+        color: var(--theme-body-color);
+        
+        .text-accent {
+            color: var(--theme-link-body-psuedo-bg);
+            text-shadow: 0 0 8px rgba(var(--theme-link-body-psuedo-bg), 0.5);
+        }
+    }
+}
+
+/* Animations for slide up staggered effect when menu opens */
+@keyframes menuSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes metaFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Trigger keyframe animations when menu is active */
+html.menu-open {
+    .fullscreen-nav-item {
+        animation: menuSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        
+        &:nth-child(1) { animation-delay: 0.15s; }
+        &:nth-child(2) { animation-delay: 0.25s; }
+        &:nth-child(3) { animation-delay: 0.35s; }
+        &:nth-child(4) { animation-delay: 0.45s; }
+    }
+    
+    .meta-section {
+        animation: metaFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        
+        &:nth-child(1) { animation-delay: 0.35s; }
+        &:nth-child(2) { animation-delay: 0.45s; }
+        &:nth-child(3) { animation-delay: 0.55s; }
+    }
+}
+
+/* Responsive spacing and layouts */
+@include media-breakpoint-down(lg) {
+    .fullscreen-nav-item {
+        margin-bottom: 1.5rem;
+    }
+    
+    .fullscreen-nav-link {
+        font-size: clamp(2rem, 6vw, 3.5rem);
+    }
+}
+
+/* Micro-animations to fade away main content underneath */
+[data-scroll-container] > section,
+[data-scroll-container] > footer {
+    transition: opacity 0.6s ease, 
+                filter 0.6s ease;
+}
+
+html.menu-open {
+    [data-scroll-container] > section,
+    [data-scroll-container] > footer {
+        opacity: 0.15;
+        filter: blur(4px);
+        transform: none !important; // Keep stationary (no shift, no scale)
     }
 }

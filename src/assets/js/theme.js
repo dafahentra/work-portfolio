@@ -8,6 +8,7 @@ import './components/swiper';
 import './components/typed';
 import './components/contact';
 import './components/preloader'; // Tambahkan ini
+import './components/navbar';
 
 // theme misc js
 import './misc';

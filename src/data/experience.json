@@ -1,7 +1,7 @@
 {
     "entries": [
         {
-            "title": "Equity Research Intern",
+            "title": "Equity Research, Intern",
             "company": "BRI Danareksa Sekuritas",
             "years": "Apr 2026 - Present",
             "description": "From drafting sector reports to initiating coverage on IDX-listed companies, I learned that good research is equal parts rigorous analysis and clear storytelling. I also integrated Python into our workflow to automate data retrieval, bridging the gap between financial insight and technical efficiency.",
@@ -9,7 +9,7 @@
             "url-title": "https://bridanareksasekuritas.co.id"
         },
         {
-            "title": "Retail & Distribution Intern",
+            "title": "Retail & Distribution, Intern",
             "company": "Mandiri Sekuritas",
             "years": "Mar 2026 - Present",
             "description": "Working directly with retail clients gave me a different lens on finance. Analyzing portfolios, crafting rebalancing strategies, and facilitating investment seminars taught me that beyond the numbers, finance is ultimately about building trust and helping people make confident decisions.",
@@ -17,31 +17,23 @@
             "url-title": "https://mandirisekuritas.co.id"
         },
         {
-            "title": "Performance, Risk, & QoS, Intern",
-            "company": "Telkom Indonesia",
-            "years": "Jan 2026 - Present",
-            "description": "I spent my time acting as a data investigator—From validating field anomalies to analyzing churn metrics, I learned that precise data isn't just about reporting but the foundation of every strategic move a company makes",
-            "url": "https://telkom.co.id",
-            "url-title": "https://telkom.co.id"
-        },
-        {
-            "title": "Teaching Assistant, Information & Innovation Management",
-            "company": "Faculty of Economics & Business UGM",
+            "title": "Teaching Assistant",
+            "company": "FEB UGM",
             "years": "Jan 2026 - Present",
             "description": "Standing on the other side of the classroom changed how I think about knowledge. Guiding students through business process frameworks and weekly tutorials sharpened my ability to break down complexity and communicate it clearly, a skill I carry into every professional setting.",
             "url": "https://feb.ugm.ac.id",
             "url-title": "https://feb.ugm.ac.id"
         },
         {
-            "title": "Co-Founder, Finance Director",
-            "company": "Sector Seven",
+            "title": "Finance Lead",
+            "company": "Sector Seven Coffee",
             "years": "Dec 2025 - Present",
             "description": "I work in a fast-moving environment where decisions carry direct consequences. Building the venture has taught me how financial structure, governance, and disciplined judgment turn ideas into systems that sustain growth over time.",
-            "url": "https://instagram.com/sectorseven.id",
-            "url-title": "https://instagram.com/sectorseven.id"
+            "url": "https://sectorseven.space",
+            "url-title": "https://sectorseven.space"
         },
         {
-            "title": "Equity Research Analyst, Intern",
+            "title": "Equity Research, Intern",
             "company": "BNI Sekuritas",
             "years": "May 2025 - Jul 2025",
             "description": "I had the opportunity to dive into financials and market signals of IDX-listed firms, I uncovered patterns, valued stocks with DCF and comps, and crafted research that empowered management to act decisively in fast-moving market conditions.",
@@ -57,7 +49,7 @@
             "url-title": "https://gaotek.com"
         },
         {
-            "title": "Static Event, Head of Business Plan Presentation",
+            "title": "Head of Business Plan",
             "company": "BIMASAKTI FSAE Team",
             "years": "Sep 2024 - Present",
             "description": "While engineers built the car, I built the story behind it—researching markets, modeling finances, and shaping a business plan that made our race car more than fast, but also financially and strategically driven.",
@@ -65,7 +57,7 @@
             "url-title": "https://bimasakti.ft.ugm.ac.id"
         },
         {
-            "title": "Finance and Administration",
+            "title": "Finance & Administration",
             "company": "BEM FEB UGM",
             "years": "Mar 2024 - Dec 2024",
             "description": "My first professional step was managing finances at BEM FEB—handling budgets, ensuring accurate reports, and streamlining cash flow, all while learning to balance responsibility with practical teamwork in a dynamic student organization.",

@@ -19,8 +19,10 @@ import imagesLoaded from 'imagesloaded';
     }
   });
 
-  window.addEventListener('resize', () => { 
-    scroll.update(); 
+  window.locoScroll = scroll;
+
+  window.addEventListener('resize', () => {
+    scroll.update();
   });
 
   imagesLoaded(scrollContainer, { background: true }, () => {

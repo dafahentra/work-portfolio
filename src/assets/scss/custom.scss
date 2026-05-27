@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Dark/Light Mode Micro-Animations
+   ========================================================================== */
+
+/* 1. View Transitions API Customization
+   We disable the default cross-fade animation to let the clipPath circular sweep work */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+    z-index: 1;
+}
+
+::view-transition-new(root) {
+    z-index: 9999;
+}
+
+/* 2. Global CSS transitions fallback (for browsers without View Transitions)
+   Disabled when the 'no-transition' class is present (e.g., page load/during clipPath view-transition) */
+html:not(.no-transition) {
+    body,
+    p, h1, h2, h3, h4, h5, h6,
+    a,
+    span,
+    .card,
+    .btn-icon,
+    .btn,
+    .nav-link,
+    .navbar,
+    .navbar-brand,
+    input,
+    select,
+    textarea,
+    pre,
+    code,
+    svg,
+    i {
+        transition: background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+                    color 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+                    border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
+                    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+}
+
+/* Helper to instantly switch styles without flash */
+.no-transition,
+.no-transition *:not(.theme-toggle-svg):not(.sun-center):not(.moon-circle):not(.sun-beams),
+.no-transition ::before,
+.no-transition ::after {
+    transition: none !important;
+}
+
+/* 3. Button Icon Micro-interactions */
+.btn-toggle-mode {
+    .theme-toggle-svg {
+        display: inline-block;
+        transform-origin: center;
+        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    &:active .theme-toggle-svg {
+        transform: scale(0.85);
+    }
+}

@@ -1,6 +1,6 @@
 {
-    "defaultPageTitle": "Dafa Hentra Anjana | Portfolio",
-    "templateName": "Dafa Hentra Anjana",
+    "defaultPageTitle": "Dafa Hentra | Portfolio",
+    "templateName": "Dafa Hentra",
     "classes": {
         "body": "",
         "navbar": "",
@@ -12,7 +12,7 @@
         "navbar": "navbar/navbar",
         "footer": "footer/footer"
     },
-    "defaultImgAlt": "Dafa Hentra Anjana Professional Portfolio",
+    "defaultImgAlt": "Dafa Hentra Professional Portfolio",
     "helpDocsURL": "",
     "demoURL": ""
 }
