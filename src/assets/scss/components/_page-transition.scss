@@ -1,0 +1,120 @@
+// ==========================================================================
+// PAGE TRANSITION — Zero-Flash Multi-Strip Curtain Wipe
+//
+// Architecture:
+//   1. <head> inline script sets html.is-page-entering + restores dark mode
+//   2. <head> inline CSS paints solid cover BEFORE external CSS loads
+//   3. This SCSS provides the animated strip overlay + frozen cover state
+//   4. page-transition.js orchestrates timing
+//
+// Result: zero frames of raw content are visible during navigation.
+// ==========================================================================
+
+$pt-strips: 5;
+$pt-ease: cubic-bezier(0.85, 0, 0.15, 1);  // Aggressive ease-in-out
+$pt-duration: 0.55s;                         // Per-strip sweep
+$pt-stagger: 55ms;                           // Delay between strips
+$pt-color-light: #111;
+$pt-color-dark: #f0f0f0;
+
+// ─── Overlay Container ────────────────────────────────────────────────────────
+.page-transition-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000001;
+    pointer-events: none;
+    display: flex;
+    flex-direction: row;
+    visibility: hidden;
+    contain: layout style;
+
+    &.is-entering,
+    &.is-leaving {
+        visibility: visible;
+        pointer-events: all;
+    }
+}
+
+// ─── Frozen Cover (before JS runs) ───────────────────────────────────────────
+// html.is-page-entering is set by the inline <head> script during parse.
+// This CSS (from the external stylesheet) reinforces the inline critical CSS
+// with the actual overlay element positioned correctly.
+html.is-page-entering .page-transition-overlay {
+    visibility: visible !important;
+    pointer-events: all;
+}
+
+html.is-page-entering .pt-strip {
+    transform: translateY(0%) !important;
+    animation: none !important;
+}
+
+// ─── Individual Strips ──────────────────────────────────────────────────────
+.pt-strip {
+    flex: 1;
+    height: 100%;
+    background: $pt-color-light;
+    transform: translateY(101%);          // 101% to avoid sub-pixel gap
+    will-change: transform;
+    backface-visibility: hidden;          // GPU compositing hint
+    -webkit-backface-visibility: hidden;
+
+    :root[data-mode="dark"] & {
+        background: $pt-color-dark;
+    }
+}
+
+// ─── EXIT: strips sweep UP from below, covering old page ─────────────────────
+.page-transition-overlay.is-leaving .pt-strip {
+    animation: pt-sweep-in $pt-duration $pt-ease forwards;
+
+    @for $i from 1 through $pt-strips {
+        &.pt-strip--#{$i} {
+            animation-delay: #{($i - 1) * $pt-stagger};
+        }
+    }
+}
+
+// ─── ENTER: strips sweep UP off the top, revealing new page ─────────────────
+.page-transition-overlay.is-entering .pt-strip {
+    transform: translateY(0%);
+    animation: pt-sweep-out $pt-duration $pt-ease forwards;
+
+    // Reverse stagger (right-to-left) for diagonal cinematic reveal
+    @for $i from 1 through $pt-strips {
+        &.pt-strip--#{$i} {
+            animation-delay: #{($pt-strips - $i) * $pt-stagger};
+        }
+    }
+}
+
+// ─── Keyframes ──────────────────────────────────────────────────────────────
+@keyframes pt-sweep-in {
+    0%   { transform: translateY(101%); }
+    100% { transform: translateY(0%);   }
+}
+
+@keyframes pt-sweep-out {
+    0%   { transform: translateY(0%);    }
+    100% { transform: translateY(-101%); }
+}
+
+// ─── Content Entrance After Reveal ──────────────────────────────────────────
+// page-transition.js adds this class to body after strips start revealing.
+// Gives the new page content a subtle lift-up fade-in.
+body.pt-content-reveal {
+    [data-scroll-container] {
+        animation: pt-content-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+}
+
+@keyframes pt-content-up {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -15,7 +15,7 @@ $text-secondary-dark: #adb5bd;
     height: 100%;
     // Use CSS variables from theme
     background-color: var(--theme-body-bg, #ffffff);
-    z-index: 9999;
+    z-index: 999999;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -29,6 +29,16 @@ $text-secondary-dark: #adb5bd;
         
         .preloader-inner {
             transform: scale(0.9);
+        }
+    }
+
+    // Transition-only (solid curtain) mode for snappy page transitions
+    &.transition-only {
+        transition: opacity 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+        
+        .preloader-inner {
+            display: none !important;
         }
     }
 }

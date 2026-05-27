@@ -20,8 +20,8 @@
   <!-- Meta Tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Dafa Hentra Anjana- Finance & Data Analytics Portfolio">
-  <meta name="author" content="Dafa Hentra Anjana">
+  <meta name="description" content="Dafa Hentra - Finance & Data Analytics Portfolio">
+  <meta name="author" content="Dafa Hentra">
   <meta name="keywords" content="finance, data analytics, portfolio, investment, analysis">
 
   <!-- Favicon -->
@@ -34,6 +34,59 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!--
+    ╔══════════════════════════════════════════════════════════════════════╗
+    ║  CRITICAL RENDER PATH — runs SYNCHRONOUSLY before ANY paint.       ║
+    ║  1. Restores dark mode from localStorage (prevents FOUC)           ║
+    ║  2. Detects page-transition state from sessionStorage              ║
+    ║  3. Inline CSS paints a solid cover that matches strip color       ║
+    ║     BEFORE external stylesheets are fetched.                       ║
+    ║  Result: zero frames of raw content are EVER visible.              ║
+    ╚══════════════════════════════════════════════════════════════════════╝
+  -->
+  <script>
+    (function(){
+      // Restore dark mode IMMEDIATELY — before any CSS paints
+      var m = localStorage.getItem('mode');
+      if (m === 'dark') {
+        document.documentElement.setAttribute('data-mode', 'dark');
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+      }
+      // Detect page-transition entry
+      if (sessionStorage.getItem('pt-entering') === 'true') {
+        document.documentElement.classList.add('is-page-entering');
+      }
+    })();
+  </script>
+  <style>
+    /*
+     * INLINE CRITICAL CSS — parsed BEFORE external stylesheets.
+     * When is-page-entering is set, paint the entire viewport with
+     * the strip color and hide all content. This bridges the gap
+     * until the external CSS + overlay DOM are ready.
+     */
+    html.is-page-entering {
+      background: #111 !important;
+    }
+    html.is-page-entering body {
+      background: #111 !important;
+      visibility: hidden !important;
+      overflow: hidden !important;
+    }
+    /* Keep the transition overlay itself visible */
+    html.is-page-entering #page-transition-overlay,
+    html.is-page-entering #page-transition-overlay > * {
+      visibility: visible !important;
+    }
+    /* Dark mode: invert the cover color */
+    html.is-page-entering[data-mode="dark"] {
+      background: #f0f0f0 !important;
+    }
+    html.is-page-entering[data-mode="dark"] body {
+      background: #f0f0f0 !important;
+    }
+  </style>
 
   <!-- CSS -->
   <link rel="stylesheet" href="../assets/css/libs.bundle.css">
@@ -48,9 +101,45 @@
     </style>
   </noscript>
 
-  <title>Dafa Hentra Anjana | Portfolio</title>
+  <title>Dafa Hentra | Portfolio</title>
 </head>
 <body class="">
+
+    <!-- Include Preloader -->
+    <!-- FINAL RECOMMENDATION: Professional Finance Portfolio Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <!-- Animated Chart Icon -->
+            <div class="finance-icon">
+                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path class="chart-line" d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="chart-bar-1" d="M7 14v3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="chart-bar-2" d="M11 10v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="chart-bar-3" d="M15 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path class="chart-bar-4" d="M19 12v5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            
+            <!-- Name and Title -->
+            <h2 class="loader-name mb-1">Dafa Hentra A</h2>
+            <p class="loader-subtitle text-muted small">Finance & Data Analytics</p>
+            
+            <!-- Subtle Progress Indicator -->
+            <div class="loader-progress mt-4">
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+                <div class="progress-dot"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Page Transition Overlay — Multi-Strip Curtain Wipe -->
+    <div id="page-transition-overlay" class="page-transition-overlay" aria-hidden="true">
+        <div class="pt-strip pt-strip--1"></div>
+        <div class="pt-strip pt-strip--2"></div>
+        <div class="pt-strip pt-strip--3"></div>
+        <div class="pt-strip pt-strip--4"></div>
+        <div class="pt-strip pt-strip--5"></div>
+    </div>
 
     <!-- Locomotive Scroll Container-->
     <div data-scroll-container>
@@ -58,31 +147,45 @@
         <nav data-scroll-section class="navbar navbar-custom navbar-light bg-transparent py-4 mb-5 mb-lg-10">
           <div class="container-fluid px-4 px-md-5">
             <a class="navbar-brand d-flex align-items-center fade-in" href="./home.html" data-scroll>
-              <picture class="avatar me-3" data-scroll data-scroll-speed="10" data-scroll-direction="horizontal"
+              <span class="navbar-brand-name" data-scroll data-scroll-speed="2" data-scroll-delay=".03"
                 data-scroll-position="top">
-                <img class="img-fluid rounded-circle" src="./assets/images/avatar-small.jpg"
-                  alt="Dafa Hentra Anjana Professional Portfolio">
-              </picture>
-              <span class="fw-bolder fs-6 d-flex justify-content-start" data-scroll-section>
-                <span class="fade-in" data-scroll data-scroll-speed="2" data-scroll-delay=".03" data-scroll-position="top">Dafa
-                  Hentra Anjana</span>
+                <span class="navbar-brand-first">Dafa</span>
+                <span class="navbar-brand-last">Hentra</span>
               </span>
             </a>
-            
+        
             <div class="d-flex align-items-center">
               <!-- Custom Menu Toggle Button -->
-              <button class="btn-menu-toggle me-3 fade-in" id="menuToggleBtn" aria-label="Open Navigation"
-                data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal" data-scroll-position="top">
-                <span class="burger-icon">
-                  <span class="line line-1"></span>
-                  <span class="line line-2"></span>
-                </span>
+              <button class="btn-menu-toggle me-3 fade-in" id="menuToggleBtn" aria-label="Open Navigation" aria-expanded="false"
+                data-state="closed" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal"
+                data-scroll-position="top">
+                <svg stroke="currentColor" fill="none" class="hamburger-svg" viewBox="-10 -10 120 120">
+                  <path class="line" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"
+                    d="m 14 40 h 70 a 1 1 0 0 1 0 20 h -70 a 1 1 0 0 1 0 -40 h 35 v 70">
+                  </path>
+                </svg>
               </button>
         
               <!-- Theme Toggle Button -->
               <button class="btn-icon btn-toggle-mode fade-in" data-scroll data-scroll-speed="-10"
                 data-scroll-direction="horizontal" data-scroll-position="top" aria-label="Toggle Dark/Light Mode">
-                <i class="ri-sun-line"></i>
+                <svg class="theme-toggle-svg" viewBox="0 0 24 24" fill="currentColor">
+                  <mask id="moon-mask">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                    <circle cx="24" cy="12" r="6" fill="black" class="moon-circle" />
+                  </mask>
+                  <circle cx="12" cy="12" r="5" mask="url(#moon-mask)" class="sun-center" />
+                  <g class="sun-beams" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                  </g>
+                </svg>
               </button>
             </div>
           </div>
@@ -91,26 +194,11 @@
         <!-- Fullscreen Menu Overlay -->
         <div class="fullscreen-menu" id="fullscreenMenu">
           <div class="fullscreen-menu-backdrop"></div>
-          <div class="fullscreen-menu-container container-fluid px-4 px-md-5 d-flex flex-column justify-content-between py-4 py-md-5 h-100">
-            
-            <!-- Header Row inside Overlay -->
-            <div class="fullscreen-menu-header d-flex justify-content-between align-items-center">
-              <a class="navbar-brand d-flex align-items-center text-white" href="./home.html">
-                <picture class="avatar me-3">
-                  <img class="img-fluid rounded-circle" src="./assets/images/avatar-small.jpg"
-                    alt="Dafa Hentra Anjana Professional Portfolio">
-                </picture>
-                <span class="fw-bolder fs-6 text-white">Dafa Hentra Anjana</span>
-              </a>
-              
-              <button class="btn-menu-close text-white" id="menuCloseBtn" aria-label="Close Navigation">
-                <span class="menu-text me-2">CLOSE</span>
-                <span class="close-icon">&times;</span>
-              </button>
-            </div>
+          <div
+            class="fullscreen-menu-container container-fluid px-4 px-md-5 d-flex flex-column justify-content-between pt-0 pb-4 py-md-5 h-100">
         
             <!-- Main Content Row -->
-            <div class="row align-items-center my-auto py-5">
+            <div class="row align-items-center mt-2 mb-auto mt-md-auto mb-md-auto py-3 py-md-5">
               <!-- Column 1: Big Nav Links -->
               <div class="col-lg-7 col-md-12">
                 <ul class="fullscreen-nav-list">
@@ -136,27 +224,31 @@
                   </li>
                 </ul>
               </div>
-              
+        
               <!-- Column 2: Info & Socials -->
-              <div class="col-lg-4 offset-lg-1 col-md-12 mt-5 mt-lg-0 text-white">
+              <div class="col-lg-4 offset-lg-1 col-md-12 mt-5 mt-lg-0">
                 <div class="fullscreen-menu-meta">
                   <div class="meta-section mb-4 mb-lg-5">
                     <div class="meta-title text-muted fs-7 tracking-wider mb-3">SOCIALS</div>
                     <ul class="meta-links list-unstyled">
-                      <li class="mb-2"><a href="https://linkedin.com/in/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">LINKEDIN</a></li>
-                      <li class="mb-2"><a href="https://github.com/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">GITHUB</a></li>
-                      <li class="mb-2"><a href="https://instagram.com/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">INSTAGRAM</a></li>
+                      <li class="mb-2"><a href="https://linkedin.com/in/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">LINKEDIN</a></li>
+                      <li class="mb-2"><a href="https://github.com/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">GITHUB</a></li>
+                      <li class="mb-2"><a href="https://instagram.com/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">INSTAGRAM</a></li>
                     </ul>
                   </div>
-                  
+        
                   <div class="meta-section mb-4 mb-lg-5">
                     <div class="meta-title text-muted fs-7 tracking-wider mb-2">GET IN TOUCH</div>
-                    <a href="mailto:dafahentra.anjana@gmail.com" class="meta-email text-white text-decoration-none fs-5">dafahentra.anjana@gmail.com</a>
+                    <a href="mailto:dafahentra.anjana@gmail.com"
+                      class="meta-email text-decoration-none fs-5">dafahentra.anjana@gmail.com</a>
                   </div>
-                  
+        
                   <div class="meta-section">
                     <div class="meta-title text-muted fs-7 tracking-wider mb-2">LOCAL TIME</div>
-                    <div class="meta-clock text-white fs-5 fw-bold" id="menuLocalTime">
+                    <div class="meta-clock fs-5 fw-bold" id="menuLocalTime">
                       JAKARTA, ID <span class="text-accent">—</span> <span class="time-clock">--:--:-- WIB</span>
                     </div>
                   </div>
@@ -165,9 +257,9 @@
             </div>
         
             <!-- Footer Row inside Overlay -->
-            <div class="fullscreen-menu-footer d-flex justify-content-between align-items-center pt-3 border-top border-white border-opacity-10 text-white-50">
-              <span class="fs-7">&copy; 2026 Dafa Hentra Anjana. All rights reserved.</span>
-              <span class="fs-7 d-none d-md-inline">Designed in Indonesia</span>
+            <div
+              class="fullscreen-menu-footer d-flex justify-content-between align-items-center pt-3 mb-5 mb-md-0 border-top">
+              <span class="fs-7">&copy; 2026 Dafa Hentra. All rights reserved.</span>
             </div>
           </div>
         </div>        <!-- / Navbar-->
@@ -181,8 +273,8 @@
                 <!-- Hero-->
                 <div class="mb-lg-10">
                     <p class="subtitle-sm" data-scroll data-scroll-speed="2" data-scroll-position="top">Hello Everyone, I'm</p>
-                    <h1 class="display-1 mb-4" data-scroll data-scroll-speed="4" data-scroll-position="top">Dafa Hentra Anjana</h1>
-                    <p data-scroll data-scroll-speed="6" data-scroll-position="top" class="lead typed-elem">A highly motivated finance students with a deep interests in <span class="fw-bold text-highlight" data-typed='{"backSpeed": 50,"strings": ["data analysis", "financial planning", "investment strategy", "risk management"]}'></span><span class="d-block">specializing in financial sector & technology</span></p>
+                    <h1 class="display-1 mb-4" data-scroll data-scroll-speed="4" data-scroll-position="top">Dafa Hentra</h1>
+                    <p data-scroll data-scroll-speed="6" data-scroll-position="top" class="lead typed-elem">A highly motivated finance students with a deep interests in <span class="fw-bold text-highlight" data-typed='{"backSpeed": 50,"strings": ["data analysis", "financial planning", "investment strategy", "risk management"]}'></span><span class="d-block">specializing in financial sector &amp; technology</span></p>
                 </div>                <!-- /Hero-->
 
                 <!-- Latest Projects Slideshow Top-->
@@ -453,7 +545,7 @@
         
         <footer class="border-top mt-10 pt-5 pb-8  " data-scroll-section>
         <div class="container d-flex justify-content-between">
-            <p class="small">All rights reserved. © Dafa Hentra Anjana 2025</p>
+            <p class="small">All rights reserved. © Dafa Hentra 2025</p>
             <ul class="list-unstyled d-flex align-items-center">
                 <li class="ms-3"><a class="text-decoration-none text-muted" href="https://linkedin.com/in/dafahentra"><i class="ri-linkedin-fill"></i></a></li>
                 <li class="ms-3"><a class="text-decoration-none text-muted" href="https://instagram.com/dafahentra"><i class="ri-instagram-fill"></i></a></li>

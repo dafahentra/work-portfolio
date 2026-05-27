@@ -11,6 +11,51 @@
     document.body.insertBefore(navbar, document.body.firstChild);
   }
 
+  // Helper to split text into staggered spans
+  const splitTextIntoSpans = (element) => {
+    const text = element.textContent.trim();
+    element.innerHTML = '';
+    [...text].forEach((char, index) => {
+      if (char === ' ') {
+        const space = document.createElement('span');
+        space.style.display = 'inline-block';
+        space.innerHTML = '&nbsp;';
+        element.appendChild(space);
+        return;
+      }
+      const charWrapper = document.createElement('span');
+      charWrapper.className = 'char-wrapper';
+      
+      const charSpan = document.createElement('span');
+      charSpan.className = 'char';
+      charSpan.textContent = char;
+      charSpan.style.setProperty('--char-index', index);
+      
+      const charHoverSpan = document.createElement('span');
+      charHoverSpan.className = 'char-hover';
+      charHoverSpan.textContent = char;
+      charHoverSpan.style.setProperty('--char-index', index);
+      
+      charWrapper.appendChild(charSpan);
+      charWrapper.appendChild(charHoverSpan);
+      element.appendChild(charWrapper);
+    });
+  };
+
+  // Staggered split text effect for fullscreen menu links
+  const splitNavLinks = menuOverlay.querySelectorAll('.fullscreen-nav-link .nav-text');
+  splitNavLinks.forEach(splitTextIntoSpans);
+
+  // Staggered split text effect for socials
+  const socialLinks = menuOverlay.querySelectorAll('.meta-links .meta-link');
+  socialLinks.forEach(splitTextIntoSpans);
+
+  // Staggered split text effect for email
+  const emailLink = menuOverlay.querySelector('.meta-email');
+  if (emailLink) {
+    splitTextIntoSpans(emailLink);
+  }
+
   let closingTimeout = null;
 
   function openMenu() {
@@ -81,6 +126,20 @@
     link.addEventListener('click', () => {
       closeMenu();
     });
+  });
+
+  // --- Active Page Detection and Highlighting ---
+  const currentPath = window.location.pathname;
+  let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+  if (currentPage === '' || currentPage === 'index.html') {
+    currentPage = 'home.html';
+  }
+  
+  navLinks.forEach((link) => {
+    const linkHref = link.getAttribute('href');
+    if (linkHref && (linkHref.includes(currentPage) || (currentPage === 'home.html' && linkHref.includes('index.html')))) {
+      link.classList.add('active');
+    }
   });
 
   // Close on Escape key

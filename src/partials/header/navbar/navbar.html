@@ -1,19 +1,21 @@
 <nav data-scroll-section class="navbar navbar-custom navbar-light bg-transparent py-4 mb-5 mb-lg-10">
   <div class="container-fluid px-4 px-md-5">
     <a class="navbar-brand d-flex align-items-center fade-in" href="{{webRoot}}/home.html" data-scroll>
-      <span class="fw-bolder fs-6 d-flex justify-content-start" data-scroll-section>
-        <span class="fade-in" data-scroll data-scroll-speed="2" data-scroll-delay=".03" data-scroll-position="top">Dafa
-          Hentra</span>
+      <span class="navbar-brand-name" data-scroll data-scroll-speed="2" data-scroll-delay=".03"
+        data-scroll-position="top">
+        <span class="navbar-brand-first">Dafa</span>
+        <span class="navbar-brand-last">Hentra</span>
       </span>
     </a>
-    
+
     <div class="d-flex align-items-center">
       <!-- Custom Menu Toggle Button -->
-      <button class="btn-menu-toggle me-3 fade-in" id="menuToggleBtn" aria-label="Open Navigation"
-        aria-expanded="false" data-state="closed"
-        data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal" data-scroll-position="top">
+      <button class="btn-menu-toggle me-3 fade-in" id="menuToggleBtn" aria-label="Open Navigation" aria-expanded="false"
+        data-state="closed" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal"
+        data-scroll-position="top">
         <svg stroke="currentColor" fill="none" class="hamburger-svg" viewBox="-10 -10 120 120">
-          <path class="line" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" d="m 20 40 h 60 a 1 1 0 0 1 0 20 h -60 a 1 1 0 0 1 0 -40 h 30 v 70">
+          <path class="line" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"
+            d="m 14 40 h 70 a 1 1 0 0 1 0 20 h -70 a 1 1 0 0 1 0 -40 h 35 v 70">
           </path>
         </svg>
       </button>
@@ -46,10 +48,11 @@
 <!-- Fullscreen Menu Overlay -->
 <div class="fullscreen-menu" id="fullscreenMenu">
   <div class="fullscreen-menu-backdrop"></div>
-  <div class="fullscreen-menu-container container-fluid px-4 px-md-5 d-flex flex-column justify-content-between py-4 py-md-5 h-100">
-    
+  <div
+    class="fullscreen-menu-container container-fluid px-4 px-md-5 d-flex flex-column justify-content-between pt-0 pb-4 py-md-5 h-100">
+
     <!-- Main Content Row -->
-    <div class="row align-items-center my-auto py-5">
+    <div class="row align-items-center mt-2 mb-auto mt-md-auto mb-md-auto py-3 py-md-5">
       <!-- Column 1: Big Nav Links -->
       <div class="col-lg-7 col-md-12">
         <ul class="fullscreen-nav-list">
@@ -75,27 +78,31 @@
           </li>
         </ul>
       </div>
-      
+
       <!-- Column 2: Info & Socials -->
-      <div class="col-lg-4 offset-lg-1 col-md-12 mt-5 mt-lg-0 text-white">
+      <div class="col-lg-4 offset-lg-1 col-md-12 mt-5 mt-lg-0">
         <div class="fullscreen-menu-meta">
           <div class="meta-section mb-4 mb-lg-5">
             <div class="meta-title text-muted fs-7 tracking-wider mb-3">SOCIALS</div>
             <ul class="meta-links list-unstyled">
-              <li class="mb-2"><a href="https://linkedin.com/in/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">LINKEDIN</a></li>
-              <li class="mb-2"><a href="https://github.com/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">GITHUB</a></li>
-              <li class="mb-2"><a href="https://instagram.com/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">INSTAGRAM</a></li>
+              <li class="mb-2"><a href="https://linkedin.com/in/dafahentra" target="_blank"
+                  class="meta-link text-decoration-none">LINKEDIN</a></li>
+              <li class="mb-2"><a href="https://github.com/dafahentra" target="_blank"
+                  class="meta-link text-decoration-none">GITHUB</a></li>
+              <li class="mb-2"><a href="https://instagram.com/dafahentra" target="_blank"
+                  class="meta-link text-decoration-none">INSTAGRAM</a></li>
             </ul>
           </div>
-          
+
           <div class="meta-section mb-4 mb-lg-5">
             <div class="meta-title text-muted fs-7 tracking-wider mb-2">GET IN TOUCH</div>
-            <a href="mailto:dafahentra.anjana@gmail.com" class="meta-email text-white text-decoration-none fs-5">dafahentra.anjana@gmail.com</a>
+            <a href="mailto:dafahentra.anjana@gmail.com"
+              class="meta-email text-decoration-none fs-5">dafahentra.anjana@gmail.com</a>
           </div>
-          
+
           <div class="meta-section">
             <div class="meta-title text-muted fs-7 tracking-wider mb-2">LOCAL TIME</div>
-            <div class="meta-clock text-white fs-5 fw-bold" id="menuLocalTime">
+            <div class="meta-clock fs-5 fw-bold" id="menuLocalTime">
               JAKARTA, ID <span class="text-accent">—</span> <span class="time-clock">--:--:-- WIB</span>
             </div>
           </div>
@@ -104,9 +111,9 @@
     </div>
 
     <!-- Footer Row inside Overlay -->
-    <div class="fullscreen-menu-footer d-flex justify-content-between align-items-center pt-3 border-top border-white border-opacity-10 text-white-50">
-      <span class="fs-7">&copy; 2026 Dafa Hentra Anjana. All rights reserved.</span>
-      <span class="fs-7 d-none d-md-inline">Designed in Indonesia</span>
+    <div
+      class="fullscreen-menu-footer d-flex justify-content-between align-items-center pt-3 mb-5 mb-md-0 border-top">
+      <span class="fs-7">&copy; 2026 Dafa Hentra. All rights reserved.</span>
     </div>
   </div>
 </div>
