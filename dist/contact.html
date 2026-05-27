@@ -271,8 +271,8 @@
             <div class="position-relative ps-xl-7">
                 <div class="tracking-wide text-vertical mt-4 small d-none d-xl-block"><a class="text-vertical-link me-3"
                         href="https://linkedin.com/in/dafahentra">LinkedIn</a>
-                    &middot; <a class="text-vertical-link mx-3" href="https://instagram.com/dafahentra">Instagram</a> &middot; <a
-                        class="text-vertical-link ms-3" href="https://github.com/dafahentra">Github</a></div>
+                    &middot; <a class="text-vertical-link mx-3" href="https://instagram.com/dafahentra">Instagram</a>
+                    &middot; <a class="text-vertical-link ms-3" href="https://github.com/dafahentra">Github</a></div>
 
                 <h1 class="display-3 col-xxl-8 mb-8">Let's keep in touch for further collaboration!</h1>
 
@@ -282,7 +282,12 @@
                 <h4 class="subtitle-sm mt-8 mb-4">Send Me A Message</h4>
 
                 <!-- Contact Form-->
-                <form id="contactForm">
+                <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field"
+                    novalidate>
+                    <input type="hidden" name="form-name" value="contact" />
+                    <p class="d-none" style="display: none;">
+                        <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+                    </p>
                     <div class="row g-5">
 
                         <div class="col-12 col-xl-7">
@@ -291,15 +296,37 @@
                                 <div class="col-12 col-md-6">
                                     <label class="form-label">Your Name</label>
                                     <input type="text" class="form-control" name="name" placeholder="John Doe" required>
+                                    <div class="invalid-feedback">Please provide your name.</div>
                                 </div>
                                 <!-- / Name-->
 
                                 <!-- Email-->
                                 <div class="col-12 col-md-6">
                                     <label class="form-label">Your Email Adress</label>
-                                    <input type="email" class="form-control" name="email" placeholder="john@doe.com" required>
+                                    <input type="email" class="form-control" name="email" placeholder="john@doe.com"
+                                        required>
+                                    <div class="invalid-feedback">Please enter a valid email address (e.g.,
+                                        name@domain.com).</div>
                                 </div>
                                 <!-- / Email-->
+
+                                <!-- Phone-->
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" name="phone" placeholder="+62 812 3456 7890"
+                                        required>
+                                    <div class="invalid-feedback">Please enter a valid phone number.</div>
+                                </div>
+                                <!-- / Phone-->
+
+                                <!-- Subject-->
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Subject</label>
+                                    <input type="text" class="form-control" name="subject" placeholder="Project Inquiry"
+                                        required>
+                                    <div class="invalid-feedback">Please provide a subject.</div>
+                                </div>
+                                <!-- / Subject-->
 
                                 <!-- Project Information-->
                                 <div class="col-12">

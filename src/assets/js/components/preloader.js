@@ -16,7 +16,7 @@ class SimplePreloader {
         this.body.classList.add('preloader-active');
         
         // 1. Is this the first time the user visits the site in this session?
-        const hasSeenPreloader = sessionStorage.getItem('preloader_seen') === 'true';
+        const hasSeenPreloader = sessionStorage.getItem('preloader_seen_v4') === 'true';
         
         // 2. Are we arriving via an internal page transition?
         // (Uses the class set by the inline head script in head.html)
@@ -45,7 +45,7 @@ class SimplePreloader {
         } else {
             // This is their FIRST visit to the site!
             // Mark it as seen so it doesn't play on refresh or subsequent direct visits.
-            sessionStorage.setItem('preloader_seen', 'true');
+            sessionStorage.setItem('preloader_seen_v4', 'true');
             
             // Play full detailed brand animation
             const fullHide = () => {
@@ -54,12 +54,16 @@ class SimplePreloader {
                 this.hidePreloader(800);
             };
             
-            if (document.readyState === 'complete') {
-                setTimeout(fullHide, 1200); // Let logo animations shine
-            } else {
-                window.addEventListener('load', fullHide);
-                setTimeout(fullHide, 2500); // Safety fallback
-            }
+            // Guarantee the preloader stays visible for AT LEAST 2000ms
+            setTimeout(() => {
+                if (document.readyState === 'complete') {
+                    fullHide();
+                } else {
+                    window.addEventListener('load', fullHide);
+                    // Additional safety fallback
+                    setTimeout(fullHide, 2500);
+                }
+            }, 2000);
         }
     }
     

@@ -302,9 +302,9 @@ $menu-text-muted: #8892b0;
     width: 100vw;
     height: 100vh;
     z-index: 99999;
-    transform: translateY(-100%);
+    clip-path: inset(0 0 100% 0);
     visibility: hidden;
-    transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1), visibility 0.6s;
+    transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.4s, visibility 0s linear 1.2s;
     background: var(--theme-body-bg); // Dynamic theme background
     color: var(--theme-body-color);   // Dynamic theme text color
     overflow-y: auto;
@@ -354,8 +354,9 @@ body.menu-open {
 }
 
 html.menu-open .fullscreen-menu {
-    transform: translateY(0);
+    clip-path: inset(0 0 0 0);
     visibility: visible;
+    transition: clip-path 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0s, visibility 0s linear 0s;
 }
 
 /* Sticky Navbar Overrides when Menu is Expanded */
@@ -394,7 +395,7 @@ html.menu-open .navbar-custom {
     }
     
     @include media-breakpoint-down(md) {
-        transform: none;
+        transform: translateY(20px);
     }
 }
 
@@ -630,12 +631,25 @@ html.menu-open .navbar-custom {
     }
 }
 
-@keyframes menuFadeInMobile {
+@keyframes menuSlideUpMobile {
     0% {
         opacity: 0;
+        transform: translateY(20px);
     }
     100% {
         opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes menuSlideUpOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-40px);
     }
 }
 
@@ -657,36 +671,52 @@ html.menu-open .navbar-custom {
 /* Trigger keyframe animations when menu is active */
 html.menu-open {
     .fullscreen-nav-item {
-        @include media-breakpoint-up(lg) {
-            animation: menuSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-            
-            &:nth-child(1) { animation-delay: 0.15s; }
-            &:nth-child(2) { animation-delay: 0.25s; }
-            &:nth-child(3) { animation-delay: 0.35s; }
-            &:nth-child(4) { animation-delay: 0.45s; }
-        }
+        animation: menuSlideUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        
+        &:nth-child(1) { animation-delay: 0.15s; }
+        &:nth-child(2) { animation-delay: 0.25s; }
+        &:nth-child(3) { animation-delay: 0.35s; }
+        &:nth-child(4) { animation-delay: 0.45s; }
         
         @include media-breakpoint-down(md) {
-            animation: menuFadeInMobile 0.25s ease-out forwards;
-            transform: none !important;
-            opacity: 1;
+            animation: menuSlideUpMobile 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
     }
     
     .meta-section {
-        @include media-breakpoint-up(lg) {
-            animation: metaFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-            
-            &:nth-child(1) { animation-delay: 0.35s; }
-            &:nth-child(2) { animation-delay: 0.45s; }
-            &:nth-child(3) { animation-delay: 0.55s; }
-        }
+        animation: metaFadeIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        
+        &:nth-child(1) { animation-delay: 0.35s; }
+        &:nth-child(2) { animation-delay: 0.45s; }
+        &:nth-child(3) { animation-delay: 0.55s; }
         
         @include media-breakpoint-down(md) {
-            animation: menuFadeInMobile 0.25s ease-out forwards;
-            transform: none !important;
-            opacity: 1;
+            animation: menuSlideUpMobile 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
+    }
+}
+
+/* Trigger closing animations */
+html.menu-closing {
+    .fullscreen-nav-item {
+        opacity: 1;
+        transform: translateY(0);
+        animation: menuSlideUpOut 0.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        
+        &:nth-child(1) { animation-delay: 0s; }
+        &:nth-child(2) { animation-delay: 0.05s; }
+        &:nth-child(3) { animation-delay: 0.1s; }
+        &:nth-child(4) { animation-delay: 0.15s; }
+    }
+    
+    .meta-section {
+        opacity: 1;
+        transform: translateY(0);
+        animation: menuSlideUpOut 0.4s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+        
+        &:nth-child(1) { animation-delay: 0.1s; }
+        &:nth-child(2) { animation-delay: 0.15s; }
+        &:nth-child(3) { animation-delay: 0.2s; }
     }
 }
 
@@ -701,18 +731,20 @@ html.menu-open {
     }
 }
 
-/* Micro-animations to fade away main content underneath */
+/* Micro-animations to fade and blur main content underneath */
 [data-scroll-container] > section,
 [data-scroll-container] > footer {
-    transition: opacity 0.6s ease, 
-                filter 0.6s ease;
+    // We only transition opacity and filter. 
+    // WARNING: Do NOT transition 'transform' here, it will break Locomotive Scroll's performance!
+    transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.4s, 
+                filter 0.8s cubic-bezier(0.77, 0, 0.175, 1) 0.4s;
 }
 
 html.menu-open {
     [data-scroll-container] > section,
     [data-scroll-container] > footer {
         opacity: 0.15;
-        filter: blur(4px);
-        transform: none !important; // Keep stationary (no shift, no scale)
+        filter: blur(8px);
+        transition-delay: 0s, 0s !important; // Don't delay when opening
     }
 }

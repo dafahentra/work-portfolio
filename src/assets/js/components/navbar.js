@@ -105,7 +105,7 @@
       document.documentElement.classList.remove('menu-closing');
       document.body.classList.remove('menu-closing');
       closingTimeout = null;
-    }, 800); // 800ms matches the close animation duration
+    }, 1200); // 1200ms matches the close animation duration (0.4s delay + 0.8s wipe)
   }
 
   // Toggle button actions
