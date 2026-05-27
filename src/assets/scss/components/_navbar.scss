@@ -10,10 +10,12 @@ $menu-text-muted: #8892b0;
     left: 0;
     width: 100%;
     z-index: 100000;
+    mix-blend-mode: difference;
+    pointer-events: none;
     transition: background-color 0.3s ease, padding 0.3s ease;
     
     .navbar-brand {
-        color: var(--theme-body-color) !important;
+        pointer-events: auto;
         font-family: 'Poppins', sans-serif;
         letter-spacing: -0.02em;
         text-transform: uppercase;
@@ -27,6 +29,9 @@ $menu-text-muted: #8892b0;
             @include media-breakpoint-down(md) {
                 display: none !important;
             }
+
+            /* Smart color inversion (applied to parent .navbar-custom) */
+            color: #fff !important;
         }
         
         .navbar-brand-first {
@@ -67,6 +72,7 @@ $menu-text-muted: #8892b0;
 
 /* Theme Toggle Button overrides */
 .btn-toggle-mode {
+    pointer-events: auto;
     cursor: pointer;
     border-radius: 8px !important; // Make it a square container with 8px radius
     display: flex;
@@ -86,21 +92,13 @@ $menu-text-muted: #8892b0;
         }
     }
     
-    // Light Mode (Default: White background, outline button)
+    // Smart Blend Mode (applied to parent .navbar-custom)
     background: transparent !important;
-    border: 1px solid var(--theme-border-color) !important;
-    color: var(--theme-body-color) !important;
-    transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                border-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 1px solid #fff !important;
+    color: #fff !important;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-    @media (hover: hover) {
-        &:hover {
-            border-color: var(--theme-link-body-psuedo-bg) !important;
-            color: var(--theme-link-body-psuedo-bg) !important;
-        }
-    }
+
 
     &:active {
         transform: translateY(1px);
@@ -129,18 +127,10 @@ $menu-text-muted: #8892b0;
         transform-origin: center;
     }
     
-    // Dark Mode (Dark background, white filled button)
-    :root[data-mode=dark] & {
-        background: var(--theme-btn-icon-bg) !important;
-        border: 1px solid transparent !important;
-        color: var(--theme-btn-icon-color) !important;
-
-        @media (hover: hover) {
-            &:hover {
-                background: var(--theme-btn-icon-bg) !important;
-                color: var(--theme-link-body-psuedo-bg) !important;
-            }
-        }
+    html[data-mode="dark"] & {
+        background: #fff !important;
+        border-color: #fff !important;
+        color: #000 !important;
         
         .sun-center {
             r: 8px;
@@ -159,6 +149,7 @@ $menu-text-muted: #8892b0;
 
 /* Custom Hamburger Menu Toggle Button (Button Three Style) */
 .btn-menu-toggle {
+    pointer-events: auto;
     width: var(--theme-avatar-size);
     height: var(--theme-avatar-size);
     display: flex;
@@ -174,10 +165,10 @@ $menu-text-muted: #8892b0;
         margin-right: 0 !important; /* Remove bootstrap me-3 spacer on mobile */
     }
     
-    // Light Mode (Default: White background, outline button)
-    background: transparent;
-    border: 1px solid var(--theme-border-color);
-    color: var(--theme-body-color);
+    // Smart Blend Mode (applied to parent .navbar-custom)
+    background: transparent !important;
+    border: 1px solid #fff !important;
+    color: #fff !important;
     
     .hamburger-svg {
         width: 30px;
@@ -208,22 +199,10 @@ $menu-text-muted: #8892b0;
             stroke-dashoffset: -100;
         }
     }
-    
-    &:hover {
-        border-color: var(--theme-link-body-psuedo-bg);
-        color: var(--theme-link-body-psuedo-bg);
-    }
-    
-    // Dark Mode (Dark background, white filled button)
-    :root[data-mode=dark] & {
-        background: var(--theme-btn-icon-bg); // White background
-        border: 1px solid transparent;
-        color: var(--theme-btn-icon-color); // Dark icon color
-        
-        &:hover {
-            background: var(--theme-btn-icon-bg); // Keep white background on hover
-            color: var(--theme-link-body-psuedo-bg); // Lines turn green
-        }
+    html[data-mode="dark"] & {
+        background: #fff !important;
+        border-color: #fff !important;
+        color: #000 !important;
     }
     
     &:active {
@@ -343,7 +322,7 @@ $menu-text-muted: #8892b0;
         padding-top: 120px !important; // Clear the fixed header area
         
         @include media-breakpoint-down(md) {
-            padding-top: 30px !important;
+            padding-top: 80px !important; // Keep it safely below the navbar and mobile safe areas
         }
     }
 }
@@ -366,6 +345,15 @@ html.menu-open .navbar-custom {
     left: 0;
     width: 100%;
     z-index: 100000;
+    pointer-events: none; // Ensure navbar passes clicks through
+    
+    .navbar-brand {
+        pointer-events: none !important;
+        
+        @include media-breakpoint-down(md) {
+            visibility: hidden !important; // Hide without breaking layout
+        }
+    }
     background: transparent !important;
     transform: none !important;
     transition: none !important;
