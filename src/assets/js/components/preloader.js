@@ -1,9 +1,10 @@
-// Simple Preloader without redirect
+// One-Time Session Preloader
+// Page-to-page transitions are handled separately by page-transition.js
 class SimplePreloader {
     constructor() {
         this.preloader = document.getElementById('preloader');
         this.body = document.body;
-        this.duration = 3000; // 3 seconds default
+        this.hasLoaded = false;
         
         if (this.preloader) {
             this.init();
@@ -14,33 +15,69 @@ class SimplePreloader {
         // Prevent scrolling while loading
         this.body.classList.add('preloader-active');
         
-        // Hide preloader after duration
-        setTimeout(() => {
-            this.hidePreloader();
-        }, this.duration);
+        // 1. Is this the first time the user visits the site in this session?
+        const hasSeenPreloader = sessionStorage.getItem('preloader_seen') === 'true';
+        
+        // 2. Are we arriving via an internal page transition?
+        // (Uses the class set by the inline head script in head.html)
+        const isTransition = document.documentElement.classList.contains('is-page-entering');
+
+        // We SKIP the full preloader if they've already seen it this session,
+        // or if they are in the middle of a seamless page transition.
+        if (hasSeenPreloader || isTransition) {
+            
+            // Instantly hide the preloader
+            this.preloader.classList.add('transition-only');
+            
+            const fastHide = () => {
+                if (this.hasLoaded) return;
+                this.hasLoaded = true;
+                this.preloader.style.display = 'none';
+                this.body.classList.remove('preloader-active');
+            };
+            
+            if (document.readyState === 'complete') {
+                fastHide();
+            } else {
+                window.addEventListener('load', fastHide);
+            }
+            
+        } else {
+            // This is their FIRST visit to the site!
+            // Mark it as seen so it doesn't play on refresh or subsequent direct visits.
+            sessionStorage.setItem('preloader_seen', 'true');
+            
+            // Play full detailed brand animation
+            const fullHide = () => {
+                if (this.hasLoaded) return;
+                this.hasLoaded = true;
+                this.hidePreloader(800);
+            };
+            
+            if (document.readyState === 'complete') {
+                setTimeout(fullHide, 1200); // Let logo animations shine
+            } else {
+                window.addEventListener('load', fullHide);
+                setTimeout(fullHide, 2500); // Safety fallback
+            }
+        }
     }
     
-    hidePreloader() {
-        // Add fade out class
+    hidePreloader(duration = 800) {
         this.preloader.classList.add('fade-out');
-        
-        // Remove preloader and enable scrolling after animation
         setTimeout(() => {
             this.preloader.style.display = 'none';
             this.body.classList.remove('preloader-active');
-        }, 800); // Match CSS transition duration
+        }, duration);
     }
     
-    // Manual hide method if needed
     hide() {
         this.hidePreloader();
     }
 }
 
-// Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', () => {
     window.preloader = new SimplePreloader();
 });
 
-// Export for module system
 export default SimplePreloader;

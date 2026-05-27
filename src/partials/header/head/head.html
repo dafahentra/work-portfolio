@@ -31,6 +31,59 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <!--
+    ╔══════════════════════════════════════════════════════════════════════╗
+    ║  CRITICAL RENDER PATH — runs SYNCHRONOUSLY before ANY paint.       ║
+    ║  1. Restores dark mode from localStorage (prevents FOUC)           ║
+    ║  2. Detects page-transition state from sessionStorage              ║
+    ║  3. Inline CSS paints a solid cover that matches strip color       ║
+    ║     BEFORE external stylesheets are fetched.                       ║
+    ║  Result: zero frames of raw content are EVER visible.              ║
+    ╚══════════════════════════════════════════════════════════════════════╝
+  -->
+  <script>
+    (function(){
+      // Restore dark mode IMMEDIATELY — before any CSS paints
+      var m = localStorage.getItem('mode');
+      if (m === 'dark') {
+        document.documentElement.setAttribute('data-mode', 'dark');
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+      }
+      // Detect page-transition entry
+      if (sessionStorage.getItem('pt-entering') === 'true') {
+        document.documentElement.classList.add('is-page-entering');
+      }
+    })();
+  </script>
+  <style>
+    /*
+     * INLINE CRITICAL CSS — parsed BEFORE external stylesheets.
+     * When is-page-entering is set, paint the entire viewport with
+     * the strip color and hide all content. This bridges the gap
+     * until the external CSS + overlay DOM are ready.
+     */
+    html.is-page-entering {
+      background: #111 !important;
+    }
+    html.is-page-entering body {
+      background: #111 !important;
+      visibility: hidden !important;
+      overflow: hidden !important;
+    }
+    /* Keep the transition overlay itself visible */
+    html.is-page-entering #page-transition-overlay,
+    html.is-page-entering #page-transition-overlay > * {
+      visibility: visible !important;
+    }
+    /* Dark mode: invert the cover color */
+    html.is-page-entering[data-mode="dark"] {
+      background: #f0f0f0 !important;
+    }
+    html.is-page-entering[data-mode="dark"] body {
+      background: #f0f0f0 !important;
+    }
+  </style>
+
   <!-- CSS -->
   <link rel="stylesheet" href="../assets/css/libs.bundle.css">
   <link rel="stylesheet" href="../assets/css/theme.bundle.css">

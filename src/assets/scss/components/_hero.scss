@@ -1,0 +1,96 @@
+// ============================================================
+// Hero Section – Layout & Typography
+// ============================================================
+
+// Font pairing: Cormorant Garamond (elegant serif) for the
+// last name, and a light weight of the heading font for first.
+// Both fonts are loaded via Google Fonts in head.html.
+
+.hero-wrapper {
+    display: flex;
+    align-items: center;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    
+    @include media-breakpoint-down(md) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+}
+
+// ── Logo Column ──────────────────────────────────────────────
+
+.hero-logo-col {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-logo-mark {
+    width: clamp(100px, 14vw, 180px);
+    height: auto;
+    display: block;
+    
+    // Subtle float animation
+    animation: heroLogoFloat 6s ease-in-out infinite;
+    
+    // Soft drop shadow that picks up the accent colour
+    filter: drop-shadow(0 8px 24px rgba(214, 21, 21, 0.18))
+            drop-shadow(0 2px 8px rgba(0, 0, 0, 0.12));
+    
+    transition: filter 0.4s ease, transform 0.4s ease;
+    
+    &:hover {
+        filter: drop-shadow(0 12px 32px rgba(214, 21, 21, 0.30))
+                drop-shadow(0 4px 12px rgba(0, 0, 0, 0.18));
+        transform: scale(1.04);
+    }
+    
+    @include media-breakpoint-down(md) {
+        width: clamp(72px, 18vw, 110px);
+    }
+}
+
+@keyframes heroLogoFloat {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+}
+
+// ── Text Column ──────────────────────────────────────────────
+
+.hero-text-col {
+    flex: 1;
+    min-width: 0; // prevent flex overflow
+}
+
+// ── Hero Name – Split Typography ─────────────────────────────
+
+.hero-name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    margin: 0.25rem 0 1.25rem;
+    
+    // First name – thin/light, uppercase, wide tracking
+    &__first {
+        font-family: 'Outfit', 'Poppins', sans-serif;
+        font-weight: 200;
+        font-size: clamp(3rem, 9vw, 8rem);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--theme-body-color);
+        line-height: 0.95;
+    }
+    
+    // Last name – bold/heavy, serif-flavoured, tight tracking
+    &__last {
+        font-family: 'Cormorant Garamond', 'Georgia', serif;
+        font-weight: 800;
+        font-style: italic;
+        font-size: clamp(3.4rem, 10vw, 9.2rem);
+        letter-spacing: -0.02em;
+        color: var(--theme-body-color);
+        line-height: 1.0;
+    }
+}

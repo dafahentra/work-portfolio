@@ -69,10 +69,11 @@
                 if (!animate) {
                     if (type === DARK_MODE) {
                         icon.className = 'ri-moon-line';
+                        icon.style.transform = 'rotate(90deg)';
                     } else {
                         icon.className = 'ri-sun-line';
+                        icon.style.transform = '';
                     }
-                    icon.style.transform = '';
                     icon.style.opacity = '';
                     return;
                 }
@@ -85,10 +86,11 @@
                 setTimeout(() => {
                     if (type === DARK_MODE) {
                         icon.className = 'ri-moon-line';
+                        icon.style.transform = 'rotate(450deg) scale(1)';
                     } else {
                         icon.className = 'ri-sun-line';
+                        icon.style.transform = 'rotate(360deg) scale(1)';
                     }
-                    icon.style.transform = 'rotate(360deg) scale(1)';
                     icon.style.opacity = '1';
                 }, 150);
             }
@@ -136,15 +138,19 @@
         if (event && document.startViewTransition) {
             isTransitioning = true;
 
-            // Dapatkan titik koordinat dari pusat button yang diklik untuk memulai animasi
-            let x, y;
-            if (btn) {
+            // Dapatkan titik koordinat dari event klik (atau fallback ke pusat button jika event tidak ada)
+            let x = event ? event.clientX : undefined;
+            let y = event ? event.clientY : undefined;
+
+            if ((x === undefined || y === undefined) && btn) {
                 const rect = btn.getBoundingClientRect();
                 x = rect.left + rect.width / 2;
                 y = rect.top + rect.height / 2;
-            } else {
-                x = event.clientX || window.innerWidth / 2;
-                y = event.clientY || window.innerHeight / 2;
+            }
+
+            if (x === undefined || y === undefined) {
+                x = window.innerWidth / 2;
+                y = window.innerHeight / 2;
             }
 
             const endRadius = Math.hypot(

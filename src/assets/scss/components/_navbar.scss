@@ -1,6 +1,6 @@
-// Color tokens specific to the Lando Norris theme
+// Color tokens specific to the theme
 $menu-bg: #05070c;
-$menu-accent: #CBF902; // Lando Norris signature helmet neon yellow-green
+$menu-accent: $primary; // Green matching the design system
 $menu-text-muted: #8892b0;
 
 /* Main Navbar Header Styles */
@@ -15,9 +15,32 @@ $menu-text-muted: #8892b0;
     .navbar-brand {
         color: var(--theme-body-color) !important;
         font-family: 'Poppins', sans-serif;
-        font-weight: 700;
         letter-spacing: -0.02em;
         text-transform: uppercase;
+        
+        .navbar-brand-name {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+            gap: 1px;
+            
+            @include media-breakpoint-down(md) {
+                display: none !important;
+            }
+        }
+        
+        .navbar-brand-first {
+            font-size: 1.05rem;
+            font-weight: 300;
+            letter-spacing: 0.22em;
+            opacity: 0.75;
+        }
+        
+        .navbar-brand-last {
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+        }
         
         .avatar img {
             border: 2px solid var(--theme-border-color);
@@ -50,14 +73,42 @@ $menu-text-muted: #8892b0;
     align-items: center;
     justify-content: center;
     
+    @include media-breakpoint-down(md) {
+        display: none !important;
+        order: 1; /* Visual order 1 (left) on mobile */
+        margin-right: 12px;
+        
+        // Show only when the menu is expanded
+        html.menu-open & {
+            display: flex !important;
+            animation: popOutFromHamburger 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            transform-origin: center right;
+        }
+    }
+    
     // Light Mode (Default: White background, outline button)
     background: transparent !important;
     border: 1px solid var(--theme-border-color) !important;
     color: var(--theme-body-color) !important;
+    transition: background-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                color 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    @media (hover: hover) {
+        &:hover {
+            border-color: var(--theme-link-body-psuedo-bg) !important;
+            color: var(--theme-link-body-psuedo-bg) !important;
+        }
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
     
     .theme-toggle-svg {
-        width: 20px;
-        height: 20px;
+        width: 26px;
+        height: 26px;
         transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         transform-origin: center;
     }
@@ -80,12 +131,15 @@ $menu-text-muted: #8892b0;
     
     // Dark Mode (Dark background, white filled button)
     :root[data-mode=dark] & {
-        background: var(--theme-btn-icon-bg) !important; // White background
+        background: var(--theme-btn-icon-bg) !important;
         border: 1px solid transparent !important;
-        color: var(--theme-btn-icon-color) !important; // Dark icon color
-        
-        .theme-toggle-svg {
-            transform: rotate(90deg);
+        color: var(--theme-btn-icon-color) !important;
+
+        @media (hover: hover) {
+            &:hover {
+                background: var(--theme-btn-icon-bg) !important;
+                color: var(--theme-link-body-psuedo-bg) !important;
+            }
         }
         
         .sun-center {
@@ -93,12 +147,11 @@ $menu-text-muted: #8892b0;
         }
         
         .moon-circle {
-            cx: 12px;
-            cy: 6px;
+            cx: 6px;
+            cy: 11px;
         }
         
         .sun-beams {
-            transform: rotate(-45deg);
             opacity: 0;
         }
     }
@@ -116,37 +169,43 @@ $menu-text-muted: #8892b0;
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
     overflow: hidden;
     
+    @include media-breakpoint-down(md) {
+        order: 2; /* Visual order 2 (right) on mobile */
+        margin-right: 0 !important; /* Remove bootstrap me-3 spacer on mobile */
+    }
+    
     // Light Mode (Default: White background, outline button)
     background: transparent;
     border: 1px solid var(--theme-border-color);
     color: var(--theme-body-color);
     
     .hamburger-svg {
-        width: 24px;
-        height: 24px;
+        width: 30px;
+        height: 30px;
         stroke: currentColor;
+        transform-origin: center;
         transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
     
-    &[data-state="opened"] {
-        .hamburger-svg {
-            transform: translate(2px, -2px) rotate(45deg); // 0.125turn is 45deg
-        }
-    }
-    
+    // Button Three morphing animation
     .line {
-        transition: stroke-dasharray 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
-                    stroke-dashoffset 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        stroke-dasharray: 60 31 60 300;
+        transition: stroke-dasharray 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                    stroke-dashoffset 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        stroke-dasharray: 70 31 46 300;
         stroke-width: 10;
         stroke-linecap: round;
         stroke-linejoin: round;
     }
     
+    // Opened → SVG rotates 45deg + dasharray morphs to X (both arms equal at 70 units)
     &[data-state="opened"] {
+        .hamburger-svg {
+            transform: translate(2px, -2px) rotate(45deg);
+        }
         .line {
-            stroke-dasharray: 60 105 60 300;
-            stroke-dashoffset: -90;
+            // skip=99: remaining bottom(1) + left-arc(63) + h35(35) = 99 → lands at v70 start
+            stroke-dasharray: 70 99 70 300;
+            stroke-dashoffset: -100;
         }
     }
     
@@ -284,7 +343,7 @@ $menu-text-muted: #8892b0;
         padding-top: 120px !important; // Clear the fixed header area
         
         @include media-breakpoint-down(md) {
-            padding-top: 90px !important;
+            padding-top: 30px !important;
         }
     }
 }
@@ -311,7 +370,7 @@ html.menu-open .navbar-custom {
     transition: none !important;
     
     // Disable Locomotive Scroll fade-in transitions to prevent blinking/flashing
-    .fade-in {
+    .fade-in:not(.btn-toggle-mode):not(.btn-menu-toggle) {
         transition: none !important;
         transform: none !important;
         opacity: 1 !important;
@@ -333,6 +392,10 @@ html.menu-open .navbar-custom {
     @include media-breakpoint-up(md) {
         margin-bottom: 2.5rem;
     }
+    
+    @include media-breakpoint-down(md) {
+        transform: none;
+    }
 }
 
 .fullscreen-nav-link {
@@ -345,7 +408,45 @@ html.menu-open .navbar-custom {
     position: relative;
     line-height: 1.05;
     padding-left: clamp(2rem, 5vw, 4rem);
-    transition: color 0.3s ease, transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), padding-left 0.4s ease;
+    transition: color 0.3s ease;
+    
+    .nav-text {
+        display: inline-flex;
+        overflow: hidden;
+    }
+
+    &.active {
+        .char {
+            color: $menu-accent;
+        }
+        &::before {
+            opacity: 1;
+        }
+    }
+
+    .char-wrapper {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        vertical-align: bottom;
+    }
+
+    .char {
+        display: inline-block;
+        position: relative;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition-delay: calc(var(--char-index) * 0.02s);
+    }
+
+    .char-hover {
+        display: inline-block;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        color: $menu-accent;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        transition-delay: calc(var(--char-index) * 0.02s);
+    }
     
     /* Numbering badge (e.g. 01) */
     &::before {
@@ -361,31 +462,19 @@ html.menu-open .navbar-custom {
         transition: opacity 0.3s ease, transform 0.3s ease;
     }
     
-    /* Slide in glow bar on hover */
-    &::after {
-        content: "";
-        position: absolute;
-        bottom: -5px;
-        left: clamp(2rem, 5vw, 4rem);
-        width: 0;
-        height: 4px;
-        background-color: $menu-accent;
-        box-shadow: 0 0 10px rgba($menu-accent, 0.6);
-        transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-    
-    &:hover {
-        color: $menu-accent !important;
-        padding-left: calc(#{clamp(2rem, 5vw, 4rem)} + 15px);
-        transform: translateX(5px);
-        
-        &::before {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        
-        &::after {
-            width: calc(100% - #{clamp(2rem, 5vw, 4rem)});
+    @media (hover: hover) {
+        &:hover {
+            .char {
+                transform: translateY(-100%);
+            }
+            .char-hover {
+                transform: translateY(-100%);
+            }
+            
+            &::before {
+                opacity: 1;
+                transform: scale(1.1);
+            }
         }
     }
 }
@@ -395,6 +484,10 @@ html.menu-open .navbar-custom {
     .meta-section {
         opacity: 0;
         transform: translateY(20px);
+        
+        @include media-breakpoint-down(md) {
+            transform: none;
+        }
     }
     
     .meta-title {
@@ -410,12 +503,43 @@ html.menu-open .navbar-custom {
             font-weight: 600;
             letter-spacing: 0.05em;
             color: var(--theme-body-color) !important;
-            transition: color 0.3s ease, padding-left 0.3s ease;
-            display: inline-block;
+            display: inline-flex;
+            overflow: hidden;
+            text-decoration: none;
             
-            &:hover {
-                color: var(--theme-link-body-psuedo-bg) !important;
-                padding-left: 5px;
+            .char-wrapper {
+                display: inline-block;
+                position: relative;
+                overflow: hidden;
+                vertical-align: bottom;
+            }
+
+            .char {
+                display: inline-block;
+                position: relative;
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                transition-delay: calc(var(--char-index) * 0.015s);
+            }
+
+            .char-hover {
+                display: inline-block;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                color: $menu-accent !important;
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                transition-delay: calc(var(--char-index) * 0.015s);
+            }
+            
+            @media (hover: hover) {
+                &:hover {
+                    .char {
+                        transform: translateY(-100%);
+                    }
+                    .char-hover {
+                        transform: translateY(-100%);
+                    }
+                }
             }
         }
     }
@@ -423,11 +547,44 @@ html.menu-open .navbar-custom {
     .meta-email {
         font-weight: 600;
         color: var(--theme-body-color) !important;
-        transition: color 0.3s ease;
         word-break: break-all;
+        display: inline-flex;
+        overflow: hidden;
+        text-decoration: none;
         
-        &:hover {
-            color: var(--theme-link-body-psuedo-bg) !important;
+        .char-wrapper {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+
+        .char {
+            display: inline-block;
+            position: relative;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition-delay: calc(var(--char-index) * 0.008s);
+        }
+
+        .char-hover {
+            display: inline-block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            color: $menu-accent !important;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition-delay: calc(var(--char-index) * 0.008s);
+        }
+        
+        @media (hover: hover) {
+            &:hover {
+                .char {
+                    transform: translateY(-100%);
+                }
+                .char-hover {
+                    transform: translateY(-100%);
+                }
+            }
         }
     }
     
@@ -441,6 +598,13 @@ html.menu-open .navbar-custom {
             text-shadow: 0 0 8px rgba(var(--theme-link-body-psuedo-bg), 0.5);
         }
     }
+}
+
+/* Fullscreen Menu Overlay Footer */
+.fullscreen-menu-footer {
+    border-top: 1px solid var(--theme-border-color) !important;
+    color: var(--theme-body-color);
+    opacity: 0.6;
 }
 
 /* Animations for slide up staggered effect when menu opens */
@@ -466,23 +630,63 @@ html.menu-open .navbar-custom {
     }
 }
 
+@keyframes menuFadeInMobile {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes popOutFromHamburger {
+    0% {
+        opacity: 0;
+        transform: scale(0.3) translateX(40px);
+    }
+    60% {
+        opacity: 0.8;
+        transform: scale(1.1) translateX(-5px); /* Springy bounce effect */
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+    }
+}
+
 /* Trigger keyframe animations when menu is active */
 html.menu-open {
     .fullscreen-nav-item {
-        animation: menuSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        @include media-breakpoint-up(lg) {
+            animation: menuSlideUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            
+            &:nth-child(1) { animation-delay: 0.15s; }
+            &:nth-child(2) { animation-delay: 0.25s; }
+            &:nth-child(3) { animation-delay: 0.35s; }
+            &:nth-child(4) { animation-delay: 0.45s; }
+        }
         
-        &:nth-child(1) { animation-delay: 0.15s; }
-        &:nth-child(2) { animation-delay: 0.25s; }
-        &:nth-child(3) { animation-delay: 0.35s; }
-        &:nth-child(4) { animation-delay: 0.45s; }
+        @include media-breakpoint-down(md) {
+            animation: menuFadeInMobile 0.25s ease-out forwards;
+            transform: none !important;
+            opacity: 1;
+        }
     }
     
     .meta-section {
-        animation: metaFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        @include media-breakpoint-up(lg) {
+            animation: metaFadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            
+            &:nth-child(1) { animation-delay: 0.35s; }
+            &:nth-child(2) { animation-delay: 0.45s; }
+            &:nth-child(3) { animation-delay: 0.55s; }
+        }
         
-        &:nth-child(1) { animation-delay: 0.35s; }
-        &:nth-child(2) { animation-delay: 0.45s; }
-        &:nth-child(3) { animation-delay: 0.55s; }
+        @include media-breakpoint-down(md) {
+            animation: menuFadeInMobile 0.25s ease-out forwards;
+            transform: none !important;
+            opacity: 1;
+        }
     }
 }
 
