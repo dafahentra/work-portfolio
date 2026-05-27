@@ -55,42 +55,122 @@
     <!-- Locomotive Scroll Container-->
     <div data-scroll-container>
         <!-- Navbar -->
-        <nav data-scroll-section class="navbar navbar-expand-lg navbar-light bg-transparent mb-5 mb-lg-10">
-          <div class="container-fluid">
+        <nav data-scroll-section class="navbar navbar-custom navbar-light bg-transparent py-4 mb-5 mb-lg-10">
+          <div class="container-fluid px-4 px-md-5">
             <a class="navbar-brand d-flex align-items-center fade-in" href="../home.html" data-scroll>
-              <picture class="avatar me-3" data-scroll data-scroll-speed="10" data-scroll-direction="horizontal" data-scroll-position="top">
-                <img class="img-fluid rounded-circle" src="../assets/images/avatar-small.jpg" alt="Dafa Hentra Anjana Professional Portfolio">
+              <picture class="avatar me-3" data-scroll data-scroll-speed="10" data-scroll-direction="horizontal"
+                data-scroll-position="top">
+                <img class="img-fluid rounded-circle" src="../assets/images/avatar-small.jpg"
+                  alt="Dafa Hentra Anjana Professional Portfolio">
               </picture>
               <span class="fw-bolder fs-6 d-flex justify-content-start" data-scroll-section>
-                <span class="fade-in" data-scroll data-scroll-speed="2" data-scroll-delay=".03" data-scroll-position="top">Dafa Hentra Anjana</span>
+                <span class="fade-in" data-scroll data-scroll-speed="2" data-scroll-delay=".03" data-scroll-position="top">Dafa
+                  Hentra Anjana</span>
               </span>
             </a>
-            <button class="btn-icon navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <i class="ri-menu-3-line"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" data-scroll data-scroll-speed="4" data-scroll-delay=".6" data-scroll-position="top">
-              <ul class="navbar-nav me-0 ms-auto mb-2 mb-lg-0 mt-4 mt-lg-0">
-                <li class="nav-item">
-                  <a class="nav-link" href="../home.html">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../about.html">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../work-listing.html">Work</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../contact.html">Contact</a>
-                </li>
-                <li class="nav-item d-lg-none">
-                  <a class="nav-link btn-toggle-mode" href="#">Toggle Dark/Light Mode</a>
-                </li>
-              </ul>
+            
+            <div class="d-flex align-items-center">
+              <!-- Custom Menu Toggle Button -->
+              <button class="btn-menu-toggle me-3 fade-in" id="menuToggleBtn" aria-label="Open Navigation"
+                data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal" data-scroll-position="top">
+                <span class="burger-icon">
+                  <span class="line line-1"></span>
+                  <span class="line line-2"></span>
+                </span>
+              </button>
+        
+              <!-- Theme Toggle Button -->
+              <button class="btn-icon btn-toggle-mode fade-in" data-scroll data-scroll-speed="-10"
+                data-scroll-direction="horizontal" data-scroll-position="top" aria-label="Toggle Dark/Light Mode">
+                <i class="ri-sun-line"></i>
+              </button>
             </div>
-            <button class="btn-icon btn-toggle-mode ms-7 fade-in d-none d-lg-flex" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal" data-scroll-position="top"><i class="ri-sun-line"></i></button>
           </div>
-        </nav>        <!-- / Navbar-->
+        </nav>
+        
+        <!-- Fullscreen Menu Overlay -->
+        <div class="fullscreen-menu" id="fullscreenMenu">
+          <div class="fullscreen-menu-backdrop"></div>
+          <div class="fullscreen-menu-container container-fluid px-4 px-md-5 d-flex flex-column justify-content-between py-4 py-md-5 h-100">
+            
+            <!-- Header Row inside Overlay -->
+            <div class="fullscreen-menu-header d-flex justify-content-between align-items-center">
+              <a class="navbar-brand d-flex align-items-center text-white" href="../home.html">
+                <picture class="avatar me-3">
+                  <img class="img-fluid rounded-circle" src="../assets/images/avatar-small.jpg"
+                    alt="Dafa Hentra Anjana Professional Portfolio">
+                </picture>
+                <span class="fw-bolder fs-6 text-white">Dafa Hentra Anjana</span>
+              </a>
+              
+              <button class="btn-menu-close text-white" id="menuCloseBtn" aria-label="Close Navigation">
+                <span class="menu-text me-2">CLOSE</span>
+                <span class="close-icon">&times;</span>
+              </button>
+            </div>
+        
+            <!-- Main Content Row -->
+            <div class="row align-items-center my-auto py-5">
+              <!-- Column 1: Big Nav Links -->
+              <div class="col-lg-7 col-md-12">
+                <ul class="fullscreen-nav-list">
+                  <li class="fullscreen-nav-item">
+                    <a href="../home.html" class="fullscreen-nav-link" data-number="01">
+                      <span class="nav-text">HOME</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="../about.html" class="fullscreen-nav-link" data-number="02">
+                      <span class="nav-text">ABOUT</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="../work-listing.html" class="fullscreen-nav-link" data-number="03">
+                      <span class="nav-text">WORK</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="../contact.html" class="fullscreen-nav-link" data-number="04">
+                      <span class="nav-text">CONTACT</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              
+              <!-- Column 2: Info & Socials -->
+              <div class="col-lg-4 offset-lg-1 col-md-12 mt-5 mt-lg-0 text-white">
+                <div class="fullscreen-menu-meta">
+                  <div class="meta-section mb-4 mb-lg-5">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-3">SOCIALS</div>
+                    <ul class="meta-links list-unstyled">
+                      <li class="mb-2"><a href="https://linkedin.com/in/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">LINKEDIN</a></li>
+                      <li class="mb-2"><a href="https://github.com/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">GITHUB</a></li>
+                      <li class="mb-2"><a href="https://instagram.com/dafahentra" target="_blank" class="meta-link text-white text-decoration-none">INSTAGRAM</a></li>
+                    </ul>
+                  </div>
+                  
+                  <div class="meta-section mb-4 mb-lg-5">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-2">GET IN TOUCH</div>
+                    <a href="mailto:dafahentra.anjana@gmail.com" class="meta-email text-white text-decoration-none fs-5">dafahentra.anjana@gmail.com</a>
+                  </div>
+                  
+                  <div class="meta-section">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-2">LOCAL TIME</div>
+                    <div class="meta-clock text-white fs-5 fw-bold" id="menuLocalTime">
+                      JAKARTA, ID <span class="text-accent">—</span> <span class="time-clock">--:--:-- WIB</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Footer Row inside Overlay -->
+            <div class="fullscreen-menu-footer d-flex justify-content-between align-items-center pt-3 border-top border-white border-opacity-10 text-white-50">
+              <span class="fs-7">&copy; 2026 Dafa Hentra Anjana. All rights reserved.</span>
+              <span class="fs-7 d-none d-md-inline">Designed in Indonesia</span>
+            </div>
+          </div>
+        </div>        <!-- / Navbar-->
 
         <!-- Main Section-->
         <section class="py-3 " data-scroll-section>

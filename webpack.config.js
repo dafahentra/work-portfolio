@@ -12,10 +12,31 @@ const mergeJSON = require('handlebars-webpack-plugin/utils/mergeJSON');
 const OptimizeCssAssetsPlugin =   require('optimize-css-assets-webpack-plugin');
 
 
-// Project config data.
-// Go here to change stuff for the whole demo, ie, change the navbar.
-// Also go here for the various data loops, ie, category products, slideshows
-const projectData = mergeJSON(path.join(__dirname, '/src/data/**/*.json'));
+// Function to load and merge JSON data with caching disabled
+function loadProjectData() {
+    const glob = require('glob');
+    const dataFiles = glob.sync(path.join(__dirname, '/src/data/**/*.json'));
+    const resultingData = {};
+    dataFiles.forEach(filepath => {
+        const id = path.basename(filepath, ".json");
+        delete require.cache[require.resolve(filepath)];
+        resultingData[id] = require(filepath);
+    });
+    return resultingData;
+}
+const projectData = loadProjectData();
+
+class WatchExternalFilesPlugin {
+  apply(compiler) {
+    compiler.hooks.afterCompile.tap('WatchExternalFilesPlugin', (compilation) => {
+      if (compilation.contextDependencies.add) {
+        compilation.contextDependencies.add(path.resolve(__dirname, 'src/data'));
+      } else if (Array.isArray(compilation.contextDependencies)) {
+        compilation.contextDependencies.push(path.resolve(__dirname, 'src/data'));
+      }
+    });
+  }
+}
 
 
 //PurgeCSS Paths
@@ -146,8 +167,14 @@ const wPackConfig = {
         new HandlebarsPlugin({
             entry: path.join(process.cwd(), 'src', 'html', '**', '*.html'),
             output: path.join(process.cwd(), 'dist', '[path]', '[name].html'),
-            partials: [path.join(process.cwd(), 'src', 'partials', '**', '*.{html,svg}')],
+            partials: [
+                path.join(process.cwd(), 'src', 'partials', '**', '*.{html,svg}'),
+                path.join(process.cwd(), 'src', 'data', '**', '*.json')
+            ],
             data: projectData,
+            onBeforeRender: function(Handlebars, data, filename) {
+                return loadProjectData();
+            },
             helpers: {
                 webRoot: function() {
                     return '{{webRoot}}';
@@ -178,6 +205,7 @@ const wPackConfig = {
             },
         }),
         new FixStyleOnlyEntriesPlugin(),
+        new WatchExternalFilesPlugin(),
         new MiniCssExtractPlugin({
             filename: paths.dist.css + '/[name].bundle.css',
         }),

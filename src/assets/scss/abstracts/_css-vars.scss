@@ -16,7 +16,7 @@
     --theme-portfolio-img-height: 600px;
 
     /* Cubic Bezier Animations */
-    --theme-cubic-bezier: cubic-bezier(.25,.46,.45,.94);
+    --theme-cubic-bezier: cubic-bezier(.25, .46, .45, .94);
 
     /* Locomotive Scroll Custom Animation Distance */
     --theme-locomotive-scroll-animation-distance: 15px;
@@ -60,7 +60,7 @@
     --theme-nav-link-hover: #{$white};
     --theme-btn-icon-bg: #{$white};
     --theme-btn-icon-color: #{$gray-900};
-    --theme-border-color: rgba(255,255,255, .2);
+    --theme-border-color: rgba(255, 255, 255, .2);
     --theme-link-body-color: #{$white};
     --theme-link-body-psuedo-bg: var(--theme-darker-primary);
     --theme-card-bg: #{$gray-800};
