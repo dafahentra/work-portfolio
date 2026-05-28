@@ -26,21 +26,13 @@ class SimplePreloader {
         // or if they are in the middle of a seamless page transition.
         if (hasSeenPreloader || isTransition) {
             
-            // Instantly hide the preloader
+            // Instantly hide the preloader — no event waiting during transitions.
+            // The page-transition strips are already covering the viewport,
+            // so there's no flash risk. Any delay here = visible loading lag.
             this.preloader.classList.add('transition-only');
-            
-            const fastHide = () => {
-                if (this.hasLoaded) return;
-                this.hasLoaded = true;
-                this.preloader.style.display = 'none';
-                this.body.classList.remove('preloader-active');
-            };
-            
-            if (document.readyState === 'complete') {
-                fastHide();
-            } else {
-                window.addEventListener('load', fastHide);
-            }
+            this.preloader.style.display = 'none';
+            this.body.classList.remove('preloader-active');
+            this.hasLoaded = true;
             
         } else {
             // This is their FIRST visit to the site!
