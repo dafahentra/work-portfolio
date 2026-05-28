@@ -14,6 +14,9 @@ import Swiper, {
 
 Swiper.use([Navigation, Pagination, Scrollbar, Autoplay, Mousewheel, Keyboard, Parallax, Lazy, EffectFade, Thumbs, Controller]);
 
+// Expose to window so PJAX re-init can access it after DOM swap
+window.Swiper = Swiper;
+
 (function () {
   document.addEventListener('DOMContentLoaded', () => {
 
