@@ -49,6 +49,21 @@ html.is-page-entering .pt-strip {
     animation: none !important;
 }
 
+// ─── Preload-Ready: strips fully covering (starting point for post-preloader reveal) ──
+// preloader.js adds this class right before triggering .is-entering,
+// so strips snap to translateY(0%) without any animation, then the
+// .is-entering keyframe sweeps them off the top to reveal the page.
+.page-transition-overlay.is-preload-ready {
+    visibility: visible;
+    pointer-events: all;
+
+    .pt-strip {
+        transform: translateY(0%) !important;
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
 // ─── Individual Strips ──────────────────────────────────────────────────────
 .pt-strip {
     flex: 1;
@@ -62,6 +77,14 @@ html.is-page-entering .pt-strip {
     :root[data-mode="dark"] & {
         background: $pt-color-dark;
     }
+}
+
+// ─── Preloader exit mode: strips use page background (not black) ──────────────
+// preloader.js adds .pl-exit-mode to the overlay before playing is-entering.
+// Strips become the same color as the preloader background → the transition
+// from preloader → strips → page feels seamless, not a jarring black flash.
+.page-transition-overlay.pl-exit-mode .pt-strip {
+    background: var(--theme-body-bg, #fff) !important;
 }
 
 // ─── EXIT: strips sweep UP from below, covering old page ─────────────────────
