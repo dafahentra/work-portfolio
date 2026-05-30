@@ -30,33 +30,21 @@
                 {{> widgets/hero }}
                 <!-- /Hero-->
 
-                <!-- Latest Projects Slideshow Top-->
-                <div>
-                    {{> 
-                        content/subtitle 
-                        title="My Recent Work"
-                    }}
-                    <div class="position-relative">
-                        {{> swiper/swiper-latest-top }}
-                    </div>
-                </div>
-                <!-- / Latest Projects Slideshow Top-->
+            </div>
 
-                <!-- Latest Projects Slideshow Bottom-->
-                <div class="mt-3 mb-5">
-                    {{> swiper/swiper-latest-bottom }}
-                </div>
-                <!-- / Latest Projects Slideshow Bottom-->
+            <!-- Recent Work Slider (full-width, outside container) -->
+            <div data-scroll-section>
+                {{> widgets/latest-work }}
+            </div>
+            <!-- / Recent Work Slider -->
+
+            <div class="container" data-scroll-section>
 
                 <!-- Experience-->
                 {{> widgets/experience }}
                 <!-- / Experience-->                
 
             </div>
-
-            <!-- Testimonials-->
-            {{!-- {{> widgets/testimonials }} --}}
-            <!-- / Testimonials-->
 
             <!-- /Page Content -->
         </section>

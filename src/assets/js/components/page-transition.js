@@ -248,6 +248,7 @@ import Typed from 'typed.js';
 
         // 6. Misc: page-loaded class
         document.body.classList.add('page-loaded');
+        document.dispatchEvent(new CustomEvent('page:load'));
     }
 
     function reinitSwipers() {

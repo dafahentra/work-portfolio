@@ -1,0 +1,87 @@
+{{#if (config work)}}
+<div class="pt-lg-6 pb-lg-3" data-scroll>
+    <div class="container">
+        {{> 
+            content/subtitle 
+            title="My Recent Work"
+        }}
+    </div>
+<div class="work-click-area" id="recent-work">
+
+  <!-- Slider container (drag area) -->
+  <div class="content-wrapper" id="workSliderContainer">
+
+    <!-- Horizontal card list -->
+    <ul class="work-list" id="workList">
+      {{#each work.entries}}
+      <li>
+        <div
+          class="list-item"
+          data-index="{{@index}}"
+          data-title="{{title}}"
+          data-summary="{{summary}}"
+          data-description="{{description}}"
+          data-roles='{{{json roles}}}'
+          data-links='{{{json links}}}'
+        >
+          <div class="img-wrapper">
+            <img src="{{img}}" alt="{{title}}" draggable="false" ondragstart="event.preventDefault()">
+          </div>
+
+          <div class="text-top-wrapper">
+            <p class="item-index">{{zeroPad @index}}</p>
+          </div>
+
+          <div class="text-wrapper">
+            <h3 class="item-title">{{title}}</h3>
+            <button class="btn-view link-body">view</button>
+          </div>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+
+    <!-- Detail panel — Musab-style layout -->
+    <div class="details-container" id="workDetailsPanel" aria-hidden="true">
+      <div class="wrapper">
+
+        <!-- top: 01 ——— CAPTION -->
+        <div class="top-align">
+          <div class="inner-wrapper">
+            <div class="panel-index"></div>
+            <span class="line"></span>
+            <h6 class="caption"></h6>
+          </div>
+        </div>
+
+        <!-- mid: BIG TITLE                              × -->
+        <div class="mid-align">
+          <h2 class="panel-title"></h2>
+          <button class="close-button-wrapper" id="workPanelClose" aria-label="Close">
+            <div class="close-button">&#215;</div>
+          </button>
+        </div>
+
+        <!-- bottom: description | roles | links -->
+        <div class="bottom-align">
+          <div class="desc-col">
+            <p class="panel-description"></p>
+          </div>
+          <div class="roles">
+            <div class="roles-inner">
+              <p class="descriptor">Skills</p>
+              <ul class="panel-roles-list"></ul>
+            </div>
+          </div>
+          <div class="links-col">
+            <div class="links"></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /.details-container -->
+
+  </div><!-- /.content-wrapper -->
+</div><!-- /.work-click-area -->
+</div>
+{{/if}}

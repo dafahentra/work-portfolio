@@ -1,0 +1,489 @@
+// =============================================================================
+// Work Slider — ported faithfully from musabhassan.com source
+// =============================================================================
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+
+// ── Section wrapper ────────────────────────────────────────────────────────
+
+.work-click-area {
+  margin-top: -10vh; // Offset the 10vh gap from vertical centering of the 75vh slider
+  margin-bottom: 2vh;
+
+  // Adapt to light/dark mode
+  background: transparent;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  padding: 0; // Musab doesn't pad top of the area, it relies on slider height
+}
+
+// ── Drag container ─────────────────────────────────────────────────────────
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  cursor: grab;
+  position: relative;
+
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
+
+  &.disabled {
+    cursor: default !important;
+  }
+
+  // ── Detail panel overlay ───────────────────────────────────────────────
+
+  .details-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 0 14vw;
+
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 10;
+
+    &.is-visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .wrapper {
+      text-align: left;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-basis: 100%;
+      color: var(--theme-body-color);
+      padding: 6vh 0; // increased padding
+
+      // ── top: 01 ——— CAPTION ───────────────────────────────────────────
+
+      .top-align {
+        .inner-wrapper {
+          display: inline-flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: flex-start;
+          position: relative;
+
+          .panel-index {
+            font-size: 2.1vh;
+            letter-spacing: 0.1em;
+            font-weight: 500;
+            font-family: inherit;
+          }
+
+          span.line {
+            width: 6vw;
+            margin: 0 1.5vw;
+            height: 1px;
+            background-color: var(--theme-body-color);
+            opacity: 0.6;
+            flex-shrink: 0;
+          }
+
+          h6.caption {
+            position: relative;
+            text-transform: uppercase;
+            font-weight: 400;
+            font-size: 1.7vh;
+            letter-spacing: 0.08em;
+            margin: 0;
+            opacity: 0.9;
+            line-height: 1.4;
+          }
+        }
+      }
+
+      // ── mid: [HUGE TITLE]                           [×] ──────────────
+
+      .mid-align {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+
+        h2.panel-title {
+          position: relative;
+          font-size: 4.5vw; // Reduced from 7.5vw as requested
+          text-transform: lowercase;
+          font-weight: 700;
+          word-wrap: break-word;
+          white-space: normal;
+          line-height: 1.15; // Harmonized line height
+          letter-spacing: -0.02em;
+          max-width: min-content;
+          display: inline-block;
+          margin: 0;
+          color: var(--theme-body-color);
+        }
+
+        .close-button-wrapper {
+          cursor: pointer;
+          background: none;
+          border: none;
+          color: var(--theme-body-color);
+          padding: 0;
+          font-family: inherit;
+          flex-shrink: 0;
+
+          .close-button {
+            font-size: 5vw; // Increased size
+            font-weight: 300;
+            line-height: 1;
+            transition: opacity 0.2s ease, transform 0.25s ease;
+            opacity: 0.7;
+
+            &:hover {
+              opacity: 1;
+              transform: rotate(90deg);
+            }
+          }
+        }
+
+        @media only screen and (max-width: 750px) {
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+
+          h2.panel-title {
+            font-size: 16.5vw;
+          }
+
+          .close-button-wrapper {
+            position: absolute;
+            top: 0;
+            right: -9vw;
+
+            .close-button {
+              font-size: 5vh;
+            }
+          }
+        }
+      }
+
+      // ── bottom: [description] | [roles] | [links] ─────────────────────
+
+      .bottom-align {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 5vh;
+
+        >* {
+          flex-grow: 1;
+          flex-basis: 0;
+        }
+
+        .desc-col {
+          .panel-description {
+            font-size: 1.4vh;
+            width: 75%;
+            line-height: 1.8;
+            opacity: 0.8;
+            margin: 0;
+          }
+        }
+
+        .roles {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .roles-inner {
+            .descriptor {
+              line-height: 270%;
+              letter-spacing: 0.3em;
+              text-transform: uppercase;
+              font-weight: 500;
+              font-size: 1.25vh;
+              margin: 0;
+              opacity: 0.6;
+            }
+
+            ul.panel-roles-list {
+              list-style-type: none;
+              display: flex;
+              flex-direction: column;
+              padding: 0;
+              margin: 0;
+
+              li {
+                font-family: inherit;
+                text-transform: uppercase;
+                font-weight: 400;
+                font-size: 1.5vh;
+                line-height: 180%;
+                letter-spacing: 0.05em;
+                opacity: 0.9;
+              }
+            }
+          }
+        }
+
+        .links-col {
+          .links {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2.5vh;
+
+            .btn-panel-link {
+              // Inherits link-body styles, remove redundant css
+              font-size: 1vw;
+              letter-spacing: 0.18em;
+              text-transform: uppercase;
+            }
+          }
+        }
+
+        @media only screen and (max-width: 750px) {
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+          gap: 2vh;
+
+          .desc-col .panel-description {
+            font-size: 1.6vh !important;
+            width: 100%;
+          }
+
+          .roles {
+            align-items: flex-start;
+          }
+
+          .links-col .links {
+            margin: 2vh 0;
+            align-items: flex-start;
+
+            .btn-panel-link {
+              font-size: 1.8vh;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // ── Work list ────────────────────────────────────────────────────────────
+
+  ul.work-list {
+    margin: auto 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 5vw;
+    padding-left: calc(var(--bs-gutter-x, 1.5rem) * 0.5); // Fallback before JS runs
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 75vh;
+    min-width: min-content;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    will-change: transform;
+
+    li {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+
+      &.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    &.hold .list-item {
+      height: 45vh !important;
+
+      .text-top-wrapper,
+      .text-wrapper {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+
+    .list-item {
+      display: inline-flex;
+      justify-content: flex-end;
+      overflow: hidden;
+      height: 55vh;
+      width: 23vw;
+      box-sizing: border-box;
+      position: relative;
+      z-index: 3;
+      margin-right: 6vw;
+      border-radius: 0; // Musab uses sharp edges
+      cursor: pointer;
+      transition:
+        width 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+        height 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+        margin 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+
+      * {
+        transition: opacity 0.3s ease;
+      }
+
+      &.active {
+        height: 60vh;
+        width: 50vw;
+        margin-right: 16vw;
+        margin-left: 10vw;
+
+        .img-wrapper {
+          width: 100%;
+        }
+      }
+
+      &.ambient {
+        height: 45vh;
+      }
+
+      .hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      // ── Image ───────────────────────────────────────────────────────
+
+      .img-wrapper {
+        overflow: hidden;
+        height: 100%;
+        z-index: 1;
+        position: relative;
+        width: 85%;
+        margin-right: 15%;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); // slightly stronger shadow for depth
+        border-radius: 0; // Musab sharp
+
+        img {
+          height: 110%;
+          width: 110%;
+          object-fit: cover;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          opacity: 0.55;
+          pointer-events: none;
+          -webkit-user-drag: none;
+          transition: opacity 0.4s ease;
+        }
+      }
+
+      // No hover change on image per Musab
+      // &:hover .img-wrapper img { opacity: 0.65; }
+
+      // ── Index number (top-right) ─────────────────────────────────────
+
+      .text-top-wrapper {
+        position: absolute;
+        top: 6vh;
+        right: 0;
+        z-index: 2;
+        text-align: right;
+
+        .item-index {
+          font-size: 1vw;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: var(--theme-body-color);
+          font-weight: 500;
+          margin: 0;
+        }
+      }
+
+      // ── Title + view (bottom-right) ──────────────────────────────────
+
+      .text-wrapper {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        position: absolute;
+        bottom: 10vh;
+        right: 0;
+        text-align: right;
+        z-index: 2;
+
+        .item-title {
+          font-weight: 700;
+          font-size: 2.2vw;
+          letter-spacing: -0.01em;
+          line-height: 1.15; // Harmonized line height
+          word-spacing: 80vw;
+          word-wrap: break-word;
+          white-space: normal;
+          text-transform: lowercase;
+          color: var(--theme-body-color);
+          margin: 0;
+        }
+
+        .btn-view {
+          font-size: 1.1vw;
+          letter-spacing: 0.15em;
+          margin-top: 5vh; // Increased from 2.5vh
+          text-transform: uppercase;
+          font-weight: 500;
+          color: var(--theme-body-color);
+          background: none;
+          border: none;
+          font-family: inherit;
+          cursor: pointer;
+          padding: 0;
+          align-self: flex-end;
+          width: fit-content;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 1450px) {
+      .list-item {
+        width: 25vw;
+      }
+    }
+
+    @media only screen and (max-width: 1110px) {
+      .list-item {
+        width: 40vw;
+
+        .text-top-wrapper .item-index {
+          font-size: 2vh;
+        }
+
+        .text-wrapper .item-title {
+          font-size: 5vw;
+        }
+
+        .text-wrapper .btn-view {
+          font-size: 2vh;
+        }
+      }
+    }
+
+    @media only screen and (max-width: 650px) {
+      .list-item {
+        width: 75vw;
+      }
+    }
+  }
+}
