@@ -3,25 +3,38 @@
         {
             "img": "{{webRoot}}/assets/images/project-listing-1.png",
             "title": "Live Stock Market Dashboard",
+            "summary": "Finance · Real-time Data",
             "description": "Develops a comprehensive stock dashboard, designed to provide users with real-time stock data and technical analysis.",
             "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Stocks</span>",
-            "slug": "project-1"
+            "slug": "project-1",
+            "roles": ["Data Analysis", "Dashboard Design", "Python"],
+            "links": [
+                { "text": "View Project", "url": "{{webRoot}}/work/project-1.html" }
+            ]
         },
-
-         {
+        {
             "img": "{{webRoot}}/assets/images/project-listing-2.png",
             "title": "Option Pricing Analytics",
+            "summary": "Finance · Derivatives",
             "description": "Delivers platform for options pricing, Greeks analysis, and risk management, offering an intuitive interface for financial derivatives analysis.",
             "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Derivatives</span>",
-            "slug": "project-2"
+            "slug": "project-2",
+            "roles": ["Quantitative Finance", "UI Design", "Python"],
+            "links": [
+                { "text": "View Project", "url": "{{webRoot}}/work/project-2.html" }
+            ]
         },
-
         {
             "img": "{{webRoot}}/assets/images/project-listing-3.png",
             "title": "Business Valuation Simulator",
+            "summary": "Finance · Valuation",
             "description": "Develops a business valuation tool that calculates the enterprise value of a company based on various parameters like revenue, assets, growth rate, and margin.",
             "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Valuation</span>",
-            "slug": "project-3"
+            "slug": "project-3",
+            "roles": ["Financial Modeling", "Data Viz", "Excel"],
+            "links": [
+                { "text": "View Project", "url": "{{webRoot}}/work/project-3.html" }
+            ]
         }
     ]
 }

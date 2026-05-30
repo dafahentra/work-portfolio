@@ -10,6 +10,7 @@ import './components/contact';
 import './components/preloader'; // Tambahkan ini
 import './components/navbar';
 import './components/page-transition';
+import './components/work-slider';
 
 // theme misc js
 import './misc';

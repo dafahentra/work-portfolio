@@ -72,6 +72,18 @@ const wPackConfig = {
       },
     output: {
         filename: paths.dist.js + '/[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        port: 8080,
+        hot: false,
+        writeToDisk: true,
+        historyApiFallback: {
+            rewrites: [
+                { from: /^\/$/, to: '/index.html' }
+            ]
+        }
     },
     devtool: 'source-map',
     mode: 'development',
@@ -202,6 +214,13 @@ const wPackConfig = {
                 },
                 isEven: function(val, options) {
                   return val % 2 === 0 ? options.fn(this) : options.inverse(this);
+                },
+                json: function(val) {
+                  return JSON.stringify(val || []);
+                },
+                zeroPad: function(n) {
+                  var num = parseInt(n, 10) + 1;
+                  return num < 10 ? '0' + num : '' + num;
                 }
             },
             onBeforeSave: function(Handlebars, res, file) {
