@@ -1,31 +1,34 @@
-<!-- FINAL RECOMMENDATION: Professional Finance Portfolio Preloader -->
-<div class="preloader" id="preloader">
-    <div class="preloader-inner">
-        <!-- Animated Chart Icon -->
-        <div class="finance-icon">
-            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path class="chart-line" d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                <path class="chart-bar-1" d="M7 14v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                <path class="chart-bar-2" d="M11 10v7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                <path class="chart-bar-3" d="M15 7v10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                <path class="chart-bar-4" d="M19 12v5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" />
-            </svg>
+<!-- Awwwards-Grade Progress Preloader -->
+<div class="preloader" id="preloader" aria-label="Loading" role="status">
+
+    <!-- Corner label -->
+    <span class="pl-corner-label">Loading</span>
+
+    <!-- Center block -->
+    <div class="pl-block" id="pl-block">
+
+        <!-- Eyebrow -->
+        <p class="pl-eyebrow">Portfolio — 2025</p>
+
+        <!-- Name — clipped for slide-up reveal -->
+        <div class="pl-name-clip">
+            <h1 class="pl-name">Dafa Hentra A.</h1>
         </div>
 
-        <!-- Name and Title -->
-        <h2 class="loader-name mb-1">Dafa Hentra A</h2>
-        <p class="loader-subtitle text-muted small">Finance & Technology</p>
-
-        <!-- Subtle Progress Indicator -->
-        <div class="loader-progress mt-4">
-            <div class="progress-dot"></div>
-            <div class="progress-dot"></div>
-            <div class="progress-dot"></div>
+        <!-- Progress track — same width as block / name -->
+        <div class="pl-track-wrap">
+            <div class="pl-track-bg"></div>
+            <div class="pl-track-fill" id="pl-bar"></div>
         </div>
+
+        <!-- Footer row: tagline left, counter right -->
+        <div class="pl-foot">
+            <span class="pl-tagline">Finance &amp; Technology</span>
+            <div class="pl-counter">
+                <span id="pl-percent">00</span><span class="pl-pct-sign">%</span>
+            </div>
+        </div>
+
     </div>
+
 </div>
