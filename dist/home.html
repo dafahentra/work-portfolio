@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<head>
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVMKB0TDDH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JVMKB0TDDH');
+  </script>
+  
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dafa Hentra - Finance & Data Analytics Portfolio">
+  <meta name="author" content="Dafa Hentra">
+  <meta name="keywords" content="finance, data analytics, portfolio, investment, analysis">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-touch-icon.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!--
+    ╔══════════════════════════════════════════════════════════════════════╗
+    ║  CRITICAL RENDER PATH — runs SYNCHRONOUSLY before ANY paint.       ║
+    ║  1. Restores dark mode from localStorage (prevents FOUC)           ║
+    ║  2. Detects page-transition state from sessionStorage              ║
+    ║  3. Inline CSS paints a solid cover that matches strip color       ║
+    ║     BEFORE external stylesheets are fetched.                       ║
+    ║  Result: zero frames of raw content are EVER visible.              ║
+    ╚══════════════════════════════════════════════════════════════════════╝
+  -->
+  <script>
+    (function(){
+      // Restore dark mode IMMEDIATELY — before any CSS paints
+      var m = localStorage.getItem('mode');
+      if (m === 'dark') {
+        document.documentElement.setAttribute('data-mode', 'dark');
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+      }
+      // Detect page-transition entry
+      if (sessionStorage.getItem('pt-entering') === 'true') {
+        document.documentElement.classList.add('is-page-entering');
+      }
+    })();
+  </script>
+  <style>
+    /*
+     * INLINE CRITICAL CSS — parsed BEFORE external stylesheets.
+     * When is-page-entering is set, paint the entire viewport with
+     * the strip color and hide all content. This bridges the gap
+     * until the external CSS + overlay DOM are ready.
+     */
+    html.is-page-entering {
+      background: #111 !important;
+    }
+    html.is-page-entering body {
+      background: #111 !important;
+      visibility: hidden !important;
+      overflow: hidden !important;
+    }
+    /* Keep the transition overlay itself visible */
+    html.is-page-entering #page-transition-overlay,
+    html.is-page-entering #page-transition-overlay > * {
+      visibility: visible !important;
+    }
+    /* Dark mode: invert the cover color */
+    html.is-page-entering[data-mode="dark"] {
+      background: #f0f0f0 !important;
+    }
+    html.is-page-entering[data-mode="dark"] body {
+      background: #f0f0f0 !important;
+    }
+  </style>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/libs.bundle.css">
+  <link rel="stylesheet" href="../assets/css/theme.bundle.css">
+
+  <!-- Noscript Fallback -->
+  <noscript>
+    <style>
+      .simplebar-content-wrapper { overflow: auto; }
+      .preloader { display: none !important; }
+      body.preloader-active { overflow: auto !important; }
+    </style>
+  </noscript>
+
+  <title>Dafa Hentra | Portfolio</title>
+</head>
+<body class="">
+
+    <!-- Include Preloader -->
+    <!-- Awwwards-Grade Progress Preloader -->
+    <div class="preloader" id="preloader" aria-label="Loading" role="status">
+    
+        <!-- Corner label -->
+        <span class="pl-corner-label">Loading</span>
+    
+        <!-- Center block -->
+        <div class="pl-block" id="pl-block">
+    
+            <!-- Eyebrow -->
+            <p class="pl-eyebrow">Portfolio — 2025</p>
+    
+            <!-- Name — clipped for slide-up reveal -->
+            <div class="pl-name-clip">
+                <h1 class="pl-name">Dafa Hentra A.</h1>
+            </div>
+    
+            <!-- Progress track — same width as block / name -->
+            <div class="pl-track-wrap">
+                <div class="pl-track-bg"></div>
+                <div class="pl-track-fill" id="pl-bar"></div>
+            </div>
+    
+            <!-- Footer row: tagline left, counter right -->
+            <div class="pl-foot">
+                <span class="pl-tagline">Finance &amp; Technology</span>
+                <div class="pl-counter">
+                    <span id="pl-percent">00</span><span class="pl-pct-sign">%</span>
+                </div>
+            </div>
+    
+        </div>
+    
+    </div>
+    <!-- Page Transition Overlay — Multi-Strip Curtain Wipe -->
+    <div id="page-transition-overlay" class="page-transition-overlay" aria-hidden="true">
+        <div class="pt-strip pt-strip--1"></div>
+        <div class="pt-strip pt-strip--2"></div>
+        <div class="pt-strip pt-strip--3"></div>
+        <div class="pt-strip pt-strip--4"></div>
+        <div class="pt-strip pt-strip--5"></div>
+    </div>
+
+    <!-- Locomotive Scroll Container-->
+    <div data-scroll-container>
+        <!-- Navbar -->
+        <nav data-scroll-section class="navbar navbar-custom navbar-light bg-transparent py-4 mb-5 mb-lg-10">
+          <div class="container-fluid px-4 px-md-5">
+            <a class="navbar-brand d-flex align-items-center fade-in" href="./index.html" data-scroll>
+              <span class="navbar-brand-name" data-scroll data-scroll-speed="2" data-scroll-delay=".03"
+                data-scroll-position="top">
+                <span class="navbar-brand-first">Dafa</span>
+                <span class="navbar-brand-last">Hentra</span>
+              </span>
+            </a>
+        
+            <div class="d-flex align-items-center">
+              <!-- Custom Menu Toggle Button -->
+              <button class="btn-menu-toggle me-3 fade-in" id="menuToggleBtn" aria-label="Open Navigation" aria-expanded="false"
+                data-state="closed" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal"
+                data-scroll-position="top">
+                <svg stroke="currentColor" fill="none" class="hamburger-svg" viewBox="-10 -10 120 120">
+                  <path class="line" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"
+                    d="m 14 40 h 70 a 1 1 0 0 1 0 20 h -70 a 1 1 0 0 1 0 -40 h 35 v 70">
+                  </path>
+                </svg>
+              </button>
+        
+              <!-- Theme Toggle Button -->
+              <button class="btn-icon btn-toggle-mode fade-in" data-scroll data-scroll-speed="-10"
+                data-scroll-direction="horizontal" data-scroll-position="top" aria-label="Toggle Dark/Light Mode">
+                <svg class="theme-toggle-svg" viewBox="0 0 24 24" fill="currentColor">
+                  <mask id="moon-mask">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                    <circle cx="24" cy="12" r="6" fill="black" class="moon-circle" />
+                  </mask>
+                  <circle cx="12" cy="12" r="5" mask="url(#moon-mask)" class="sun-center" />
+                  <g class="sun-beams" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </nav>
+        
+        <!-- Fullscreen Menu Overlay -->
+        <div class="fullscreen-menu" id="fullscreenMenu">
+          <div class="fullscreen-menu-backdrop"></div>
+          <div
+            class="fullscreen-menu-container container-fluid px-4 px-md-5 d-flex flex-column justify-content-between pt-0 pb-4 py-md-5 h-100">
+        
+            <!-- Main Content Row -->
+            <div class="row align-items-center mt-2 mb-auto mt-md-auto mb-md-auto py-3 py-md-5">
+              <!-- Column 1: Big Nav Links -->
+              <div class="col-lg-7 col-md-12">
+                <ul class="fullscreen-nav-list">
+                  <li class="fullscreen-nav-item">
+                    <a href="./index.html" class="fullscreen-nav-link" data-number="01">
+                      <span class="nav-text">HOME</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="./about.html" class="fullscreen-nav-link" data-number="02">
+                      <span class="nav-text">ABOUT</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="./work-listing.html" class="fullscreen-nav-link" data-number="03">
+                      <span class="nav-text">WORK</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="./contact.html" class="fullscreen-nav-link" data-number="04">
+                      <span class="nav-text">CONTACT</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+        
+              <!-- Column 2: Info & Socials -->
+              <div class="col-lg-4 offset-lg-1 col-md-12 mt-2 mt-lg-0">
+                <div class="fullscreen-menu-meta">
+                  <div class="meta-section mb-4 mb-lg-5">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-3">SOCIALS</div>
+                    <ul class="meta-links list-unstyled">
+                      <li class="mb-2"><a href="https://linkedin.com/in/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">LINKEDIN</a></li>
+                      <li class="mb-2"><a href="https://github.com/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">GITHUB</a></li>
+                      <li class="mb-2"><a href="https://instagram.com/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">INSTAGRAM</a></li>
+                    </ul>
+                  </div>
+        
+                  <div class="meta-section mb-4 mb-lg-5">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-2">GET IN TOUCH</div>
+                    <a href="mailto:dafahentra@gmail.com"
+                      class="meta-email text-decoration-none fs-5">dafahentra@gmail.com</a>
+                  </div>
+        
+                  <div class="meta-section">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-2">LOCAL TIME</div>
+                    <div class="meta-clock fs-5 fw-bold" id="menuLocalTime">
+                      JAKARTA, ID <span class="text-accent">—</span> <span class="time-clock">--:--:-- WIB</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Footer Row inside Overlay -->
+            <div
+              class="fullscreen-menu-footer d-flex justify-content-between align-items-center pt-3 mb-5 mb-md-0 border-top">
+              <span class="fs-7">&copy; 2026 Dafa Hentra. All rights reserved.</span>
+            </div>
+          </div>
+        </div>        <!-- / Navbar-->
+
+        <!-- Main Section-->
+        <section class="py-3 ">
+            <!-- Page Content Goes Here -->
+
+            <div class="container" data-scroll-section>
+
+                <!-- Hero-->
+                <div class="mb-lg-10">
+                    <p class="subtitle-sm" data-scroll data-scroll-speed="2" data-scroll-position="top">Hello Everyone, I'm</p>
+                    <h1 class="display-1 mb-4" data-scroll data-scroll-speed="4" data-scroll-position="top">Dafa Hentra</h1>
+                    <p data-scroll data-scroll-speed="6" data-scroll-position="top" class="lead typed-elem">An experienced finance
+                        students with a deep interests in <span class="fw-bold text-highlight"
+                            data-typed='{"backSpeed": 50,"strings": ["capital market", "entrepreneurship", "business innovation"]}'></span><span
+                            class="d-block">specializing in finance &amp; technology</span></p>
+                </div>                <!-- /Hero-->
+
+            </div>
+
+            <!-- Recent Work Slider (full-width, outside container) -->
+            <div data-scroll-section>
+                <div class="pt-lg-6 pb-lg-3" data-scroll>
+                    <div class="container">
+                        <h2 
+                            class="display-6 border-bottom pb-5 mb-5 fade-in-up" 
+                            data-scroll data-scroll-position="bottom"
+                        >My Recent Work</h2>    </div>
+                <div class="work-click-area" id="recent-work">
+                
+                  <!-- Slider container (drag area) -->
+                  <div class="content-wrapper" id="workSliderContainer">
+                
+                    <!-- Horizontal card list -->
+                    <ul class="work-list" id="workList">
+                      <li>
+                        <div
+                          class="list-item"
+                          data-index="0"
+                          data-title="Live Stock Market Dashboard"
+                          data-summary="Finance · Real-time Data"
+                          data-description="Develops a comprehensive stock dashboard, designed to provide users with real-time stock data and technical analysis."
+                          data-roles='["Data Analysis","Dashboard Design","Python"]'
+                          data-links='[{"text":"View Project","url":"./work/project-1.html"}]'
+                        >
+                          <div class="img-wrapper">
+                            <img src="./assets/images/project-listing-1.png" alt="Live Stock Market Dashboard" draggable="false" ondragstart="event.preventDefault()">
+                          </div>
+                
+                          <div class="text-top-wrapper">
+                            <p class="item-index">01</p>
+                          </div>
+                
+                          <div class="text-wrapper">
+                            <h3 class="item-title">Live Stock Market Dashboard</h3>
+                            <button class="btn-view link-body">view</button>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div
+                          class="list-item"
+                          data-index="1"
+                          data-title="Option Pricing Analytics"
+                          data-summary="Finance · Derivatives"
+                          data-description="Delivers platform for options pricing, Greeks analysis, and risk management, offering an intuitive interface for financial derivatives analysis."
+                          data-roles='["Quantitative Finance","UI Design","Python"]'
+                          data-links='[{"text":"View Project","url":"./work/project-2.html"}]'
+                        >
+                          <div class="img-wrapper">
+                            <img src="./assets/images/project-listing-2.png" alt="Option Pricing Analytics" draggable="false" ondragstart="event.preventDefault()">
+                          </div>
+                
+                          <div class="text-top-wrapper">
+                            <p class="item-index">02</p>
+                          </div>
+                
+                          <div class="text-wrapper">
+                            <h3 class="item-title">Option Pricing Analytics</h3>
+                            <button class="btn-view link-body">view</button>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div
+                          class="list-item"
+                          data-index="2"
+                          data-title="Business Valuation Simulator"
+                          data-summary="Finance · Valuation"
+                          data-description="Develops a business valuation tool that calculates the enterprise value of a company based on various parameters like revenue, assets, growth rate, and margin."
+                          data-roles='["Financial Modeling","Data Viz","Excel"]'
+                          data-links='[{"text":"View Project","url":"./work/project-3.html"}]'
+                        >
+                          <div class="img-wrapper">
+                            <img src="./assets/images/project-listing-3.png" alt="Business Valuation Simulator" draggable="false" ondragstart="event.preventDefault()">
+                          </div>
+                
+                          <div class="text-top-wrapper">
+                            <p class="item-index">03</p>
+                          </div>
+                
+                          <div class="text-wrapper">
+                            <h3 class="item-title">Business Valuation Simulator</h3>
+                            <button class="btn-view link-body">view</button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                
+                    <!-- Detail panel — Musab-style layout -->
+                    <div class="details-container" id="workDetailsPanel" aria-hidden="true">
+                      <div class="wrapper">
+                
+                        <!-- top: 01 ——— CAPTION -->
+                        <div class="top-align">
+                          <div class="inner-wrapper">
+                            <div class="panel-index"></div>
+                            <span class="line"></span>
+                            <h6 class="caption"></h6>
+                          </div>
+                        </div>
+                
+                        <!-- mid: BIG TITLE                              × -->
+                        <div class="mid-align">
+                          <h2 class="panel-title"></h2>
+                          <button class="close-button-wrapper" id="workPanelClose" aria-label="Close">
+                            <div class="close-button">&#215;</div>
+                          </button>
+                        </div>
+                
+                        <!-- bottom: description | roles | links -->
+                        <div class="bottom-align">
+                          <div class="desc-col">
+                            <p class="panel-description"></p>
+                          </div>
+                          <div class="roles">
+                            <div class="roles-inner">
+                              <p class="descriptor">Skills</p>
+                              <ul class="panel-roles-list"></ul>
+                            </div>
+                          </div>
+                          <div class="links-col">
+                            <div class="links"></div>
+                          </div>
+                        </div>
+                
+                      </div>
+                    </div><!-- /.details-container -->
+                
+                  </div><!-- /.content-wrapper -->
+                </div><!-- /.work-click-area -->
+                </div>
+            </div>
+            <!-- / Recent Work Slider -->
+
+            <div class="container" data-scroll-section>
+
+                <!-- Experience-->
+                <div class="pt-lg-3 pb-lg-6" data-scroll>
+                    <h2 
+                        class="display-6 border-bottom pb-5 mb-5 fade-in-up" 
+                        data-scroll data-scroll-position="bottom"
+                    >Experience</h2>                <!-- Single Experience-->
+                                <div 
+                                    class="row gx-2 mb-5 fade-in-up" 
+                                    data-scroll
+                                    data-scroll-position="bottom" 
+                                >
+                                    <div class="col-12 col-lg-4">
+                                        <p class="fw-bolder mb-1">BRI Danareksa Sekuritas</p>
+                                        <span class="text-muted small">(Apr 2026 - Present)</span>
+                                    </div>
+                                    <div class="col-12 col-lg-8">
+                                        <p class="fw-bolder">Equity Research, Intern</p>
+                                        <p class="text-muted fw-light fs-6">From drafting sector reports to initiating coverage on IDX-listed companies, I learned that good research is equal parts rigorous analysis and clear storytelling. I also integrated Python into our workflow to automate data retrieval, bridging the gap between financial insight and technical efficiency.</p>
+                                        <a class="link-body" href="https://bridanareksasekuritas.co.id">https://bridanareksasekuritas.co.id</a>
+                                    </div>
+                                </div>
+                                <!-- / Single Experience -->
+                                <!-- Single Experience-->
+                                <div 
+                                    class="row gx-2 mb-5 fade-in-up" 
+                                    data-scroll
+                                    data-scroll-position="bottom" 
+                                >
+                                    <div class="col-12 col-lg-4">
+                                        <p class="fw-bolder mb-1">Sector Seven Coffee</p>
+                                        <span class="text-muted small">(Dec 2025 - Present)</span>
+                                    </div>
+                                    <div class="col-12 col-lg-8">
+                                        <p class="fw-bolder">Finance Lead</p>
+                                        <p class="text-muted fw-light fs-6">I work in a fast-moving environment where decisions carry direct consequences. Building the venture has taught me how financial structure, governance, and disciplined judgment turn ideas into systems that sustain growth over time.</p>
+                                        <a class="link-body" href="https://sectorseven.space">https://sectorseven.space</a>
+                                    </div>
+                                </div>
+                                <!-- / Single Experience -->
+                                <!-- Single Experience-->
+                                <div 
+                                    class="row gx-2 mb-5 fade-in-up" 
+                                    data-scroll
+                                    data-scroll-position="bottom" 
+                                >
+                                    <div class="col-12 col-lg-4">
+                                        <p class="fw-bolder mb-1">BNI Sekuritas</p>
+                                        <span class="text-muted small">(May 2025 - Jul 2025)</span>
+                                    </div>
+                                    <div class="col-12 col-lg-8">
+                                        <p class="fw-bolder">Equity Research, Intern</p>
+                                        <p class="text-muted fw-light fs-6">I had the opportunity to dive into financials and market signals of IDX-listed firms, I uncovered patterns, valued stocks with DCF and comps, and crafted research that empowered management to act decisively in fast-moving market conditions.</p>
+                                        <a class="link-body" href="https://bnisekuritas.co.id">https://bnisekuritas.co.id</a>
+                                    </div>
+                                </div>
+                                <!-- / Single Experience -->
+                </div>                <!-- / Experience-->                
+
+            </div>
+
+            <!-- /Page Content -->
+        </section>
+        <!-- / Main Section-->
+
+        <!-- Footer -->
+        <!-- Footer-->
+        <div class="d-flex align-items-center justify-content-center flex-column col-lg-7 col-xl-6 col-xxl-5 text-center mx-auto mt-5 px-4 px-md-0 mt-lg-10" data-scroll-section>
+            <h4 class="display-5 mb-5" data-scroll data-scroll-speed=".8" data-scroll-delay="0.05">Let's explore how we can work together</h4>
+            <a href="./contact.html" class="btn btn-primary">Get In Touch</a>
+        </div>
+        
+        <footer class="border-top mt-10 pt-5 pb-8  " data-scroll-section>
+        <div class="container d-flex justify-content-between">
+            <p class="small">All rights reserved. © Dafa Hentra 2025</p>
+            <ul class="list-unstyled d-flex align-items-center">
+                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://linkedin.com/in/dafahentra"><i class="ri-linkedin-fill"></i></a></li>
+                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://instagram.com/dafahentra"><i class="ri-instagram-fill"></i></a></li>
+                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://github.com/dafahentra"><i class="ri-github-fill"></i></a></li>
+            </ul>
+        </div>
+        </footer>
+        <!-- / Footer-->
+        <!-- / Footer-->
+    </div>
+    <!-- Locomotive Scroll Container-->
+
+
+    <!-- Theme JS -->
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+    
+    <!-- Vendor JS -->
+    <script src="./assets/js/vendor.bundle.js"></script>
+    
+    <!-- Theme JS -->
+    <script src="./assets/js/theme.bundle.js"></script>
+</body>
+
+</html>
