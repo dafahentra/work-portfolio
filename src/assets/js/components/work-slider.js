@@ -177,13 +177,25 @@
     register(liEl, index) {
       this.items.push({ el: liEl, index });
 
-      // ONLY btn-view triggers expand
+      const handleExpand = (e) => {
+        e.stopPropagation();
+        if (this.slider.hasMoved) return;
+        this._toggle(index, liEl);
+      };
+
+      // ONLY btn-view triggers expand (desktop)
       const btnView = liEl.querySelector('.btn-view');
       if (btnView) {
-        btnView.addEventListener('click', (e) => {
-          e.stopPropagation();
-          if (this.slider.hasMoved) return;
-          this._toggle(index, liEl);
+        btnView.addEventListener('click', handleExpand);
+      }
+
+      // Allow expand by clicking image on mobile view
+      const imgWrapper = liEl.querySelector('.img-wrapper');
+      if (imgWrapper) {
+        imgWrapper.addEventListener('click', (e) => {
+          if (window.innerWidth <= 768) {
+            handleExpand(e);
+          }
         });
       }
     }

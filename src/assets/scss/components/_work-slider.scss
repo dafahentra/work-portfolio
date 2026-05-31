@@ -49,6 +49,8 @@
     justify-content: space-between;
     box-sizing: border-box;
     padding: 0 14vw;
+    overflow-y: auto; /* Allow scrolling if content is taller than slider height */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 
     pointer-events: none;
     opacity: 0;
@@ -163,16 +165,16 @@
           align-items: flex-start;
 
           h2.panel-title {
-            font-size: 16.5vw;
+            font-size: 10vw; /* Reduced from 16.5vw for better fit on mobile */
           }
 
           .close-button-wrapper {
             position: absolute;
-            top: 0;
-            right: -9vw;
+            top: 6vh; /* Aligns with the padding-top of the .wrapper (6vh) where the category is */
+            right: 0; /* Brings it inside the content area instead of pushing it out */
 
             .close-button {
-              font-size: 5vh;
+              font-size: 4vh; /* Slightly smaller to match category text height better */
             }
           }
         }
