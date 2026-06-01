@@ -31,6 +31,7 @@ body.is-work-single [data-scroll-container] {
 .ws-hero-stage {
   position: relative;
   width: 100%;
+  height: 200vh; /* Fallback for browsers that don't support dvh */
   height: 200dvh; /* Allows image to start exactly below the viewport, preventing overlapping and cutoff (wrapnya ketahuan) */
 }
 
