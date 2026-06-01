@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+<head>
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JVMKB0TDDH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JVMKB0TDDH');
+  </script>
+  
+  <!-- Meta Tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dafa Hentra - Finance & Data Analytics Portfolio">
+  <meta name="author" content="Dafa Hentra">
+  <meta name="keywords" content="finance, data analytics, portfolio, investment, analysis">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/images/favicon/apple-touch-icon.png">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!--
+    ╔══════════════════════════════════════════════════════════════════════╗
+    ║  CRITICAL RENDER PATH — runs SYNCHRONOUSLY before ANY paint.       ║
+    ║  1. Restores dark mode from localStorage (prevents FOUC)           ║
+    ║  2. Detects page-transition state from sessionStorage              ║
+    ║  3. Inline CSS paints a solid cover that matches strip color       ║
+    ║     BEFORE external stylesheets are fetched.                       ║
+    ║  Result: zero frames of raw content are EVER visible.              ║
+    ╚══════════════════════════════════════════════════════════════════════╝
+  -->
+  <script>
+    (function(){
+      // Restore dark mode IMMEDIATELY — before any CSS paints
+      var m = localStorage.getItem('mode');
+      if (m === 'dark') {
+        document.documentElement.setAttribute('data-mode', 'dark');
+        document.documentElement.setAttribute('data-bs-theme', 'dark');
+      }
+      // Detect page-transition entry
+      if (sessionStorage.getItem('pt-entering') === 'true') {
+        document.documentElement.classList.add('is-page-entering');
+      }
+    })();
+  </script>
+  <style>
+    /*
+     * INLINE CRITICAL CSS — parsed BEFORE external stylesheets.
+     * When is-page-entering is set, paint the entire viewport with
+     * the strip color and hide all content. This bridges the gap
+     * until the external CSS + overlay DOM are ready.
+     */
+    html.is-page-entering {
+      background: #111 !important;
+    }
+    html.is-page-entering body {
+      background: #111 !important;
+      visibility: hidden !important;
+      overflow: hidden !important;
+    }
+    /* Keep the transition overlay itself visible */
+    html.is-page-entering #page-transition-overlay,
+    html.is-page-entering #page-transition-overlay > * {
+      visibility: visible !important;
+    }
+    /* Dark mode: invert the cover color */
+    html.is-page-entering[data-mode="dark"] {
+      background: #f0f0f0 !important;
+    }
+    html.is-page-entering[data-mode="dark"] body {
+      background: #f0f0f0 !important;
+    }
+  </style>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../assets/css/libs.bundle.css">
+  <link rel="stylesheet" href="../assets/css/theme.bundle.css">
+
+  <!-- Noscript Fallback -->
+  <noscript>
+    <style>
+      .simplebar-content-wrapper { overflow: auto; }
+      .preloader { display: none !important; }
+      body.preloader-active { overflow: auto !important; }
+    </style>
+  </noscript>
+
+  <title>Dafa Hentra | Portfolio</title>
+</head>
+<body class=" is-work-single">
+
+    <!-- Page Transition Overlay — Multi-Strip Curtain Wipe -->
+    <div id="page-transition-overlay" class="page-transition-overlay" aria-hidden="true">
+        <div class="pt-strip pt-strip--1"></div>
+        <div class="pt-strip pt-strip--2"></div>
+        <div class="pt-strip pt-strip--3"></div>
+        <div class="pt-strip pt-strip--4"></div>
+        <div class="pt-strip pt-strip--5"></div>
+    </div>
+
+    <!-- Locomotive Scroll Container -->
+    <div data-scroll-container>
+
+        <!-- Navbar -->
+        <nav data-scroll-section class="navbar navbar-custom navbar-light bg-transparent py-4 mb-5 mb-lg-10">
+          <div class="container-fluid px-4 px-md-5">
+            <a class="navbar-brand d-flex align-items-center fade-in" href="../index.html" data-scroll>
+              <span class="navbar-brand-name" data-scroll data-scroll-speed="2" data-scroll-delay=".03"
+                data-scroll-position="top">
+                <span class="navbar-brand-first">Dafa</span>
+                <span class="navbar-brand-last">Hentra</span>
+              </span>
+            </a>
+        
+            <div class="d-flex align-items-center">
+              <!-- Custom Menu Toggle Button -->
+              <button class="btn-menu-toggle me-3 fade-in" id="menuToggleBtn" aria-label="Open Navigation" aria-expanded="false"
+                data-state="closed" data-scroll data-scroll-speed="-10" data-scroll-direction="horizontal"
+                data-scroll-position="top">
+                <svg stroke="currentColor" fill="none" class="hamburger-svg" viewBox="-10 -10 120 120">
+                  <path class="line" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"
+                    d="m 14 40 h 70 a 1 1 0 0 1 0 20 h -70 a 1 1 0 0 1 0 -40 h 35 v 70">
+                  </path>
+                </svg>
+              </button>
+        
+              <!-- Theme Toggle Button -->
+              <button class="btn-icon btn-toggle-mode fade-in" data-scroll data-scroll-speed="-10"
+                data-scroll-direction="horizontal" data-scroll-position="top" aria-label="Toggle Dark/Light Mode">
+                <svg class="theme-toggle-svg" viewBox="0 0 24 24" fill="currentColor">
+                  <mask id="moon-mask">
+                    <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                    <circle cx="24" cy="12" r="6" fill="black" class="moon-circle" />
+                  </mask>
+                  <circle cx="12" cy="12" r="5" mask="url(#moon-mask)" class="sun-center" />
+                  <g class="sun-beams" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                  </g>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </nav>
+        
+        <!-- Fullscreen Menu Overlay -->
+        <div class="fullscreen-menu" id="fullscreenMenu">
+          <div class="fullscreen-menu-backdrop"></div>
+          <div
+            class="fullscreen-menu-container container-fluid px-4 px-md-5 d-flex flex-column justify-content-between pt-0 pb-4 py-md-5 h-100">
+        
+            <!-- Main Content Row -->
+            <div class="row align-items-center mt-2 mb-auto mt-md-auto mb-md-auto py-3 py-md-5">
+              <!-- Column 1: Big Nav Links -->
+              <div class="col-lg-7 col-md-12">
+                <ul class="fullscreen-nav-list">
+                  <li class="fullscreen-nav-item">
+                    <a href="../index.html" class="fullscreen-nav-link" data-number="01">
+                      <span class="nav-text">HOME</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="../about.html" class="fullscreen-nav-link" data-number="02">
+                      <span class="nav-text">ABOUT</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="../work-listing.html" class="fullscreen-nav-link" data-number="03">
+                      <span class="nav-text">WORK</span>
+                    </a>
+                  </li>
+                  <li class="fullscreen-nav-item">
+                    <a href="../contact.html" class="fullscreen-nav-link" data-number="04">
+                      <span class="nav-text">CONTACT</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+        
+              <!-- Column 2: Info & Socials -->
+              <div class="col-lg-4 offset-lg-1 col-md-12 mt-2 mt-lg-0">
+                <div class="fullscreen-menu-meta">
+                  <div class="meta-section mb-4 mb-lg-5">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-3">SOCIALS</div>
+                    <ul class="meta-links list-unstyled">
+                      <li class="mb-2"><a href="https://linkedin.com/in/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">LINKEDIN</a></li>
+                      <li class="mb-2"><a href="https://github.com/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">GITHUB</a></li>
+                      <li class="mb-2"><a href="https://instagram.com/dafahentra" target="_blank"
+                          class="meta-link text-decoration-none">INSTAGRAM</a></li>
+                    </ul>
+                  </div>
+        
+                  <div class="meta-section mb-4 mb-lg-5">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-2">GET IN TOUCH</div>
+                    <a href="mailto:dafahentra@gmail.com" class="meta-email text-decoration-none fs-5">dafahentra@gmail.com</a>
+                  </div>
+        
+                  <div class="meta-section">
+                    <div class="meta-title text-muted fs-7 tracking-wider mb-2">LOCAL TIME</div>
+                    <div class="meta-clock fs-5 fw-bold" id="menuLocalTime">
+                      JAKARTA, ID <span class="text-accent">—</span> <span class="time-clock">--:--:-- WIB</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        
+            <!-- Footer Row inside Overlay -->
+            <div class="fullscreen-menu-footer d-flex justify-content-between align-items-center pt-3 mb-5 mb-md-0 border-top">
+              <span class="fs-7">&copy; 2025 Dafa Hentra. All rights reserved.</span>
+            </div>
+          </div>
+        </div>        <!-- / Navbar -->
+
+        <!-- Work Single Page -->
+        <div class="ws-page">
+
+            <!-- ── 1 + 2. HERO STAGE (title pinned, image slides over) ──── -->
+            <div class="ws-hero-stage" data-scroll-section>
+                <!-- Target for sticky element (cannot be the section itself in Locomotive Scroll) -->
+                <div id="hero-stage-1-target" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+
+                <!-- Title: stays pinned while stage scrolls (yutaabe mechanism) -->
+                <div class="ws-hero" data-scroll data-scroll-sticky data-scroll-target="#hero-stage-1-target" data-scroll-offset="0">
+                    <h1 class="ws-hero__title">Live Stock<br>Market</h1>
+
+                    <div class="ws-hero__meta">
+                        <span class="ws-hero__year">2025</span>
+                        <div class="ws-hero__roles">Data Analysis · Python</div>
+                    </div>
+
+                    <div class="ws-hero__scroll">
+                        <span class="ws-hero__scroll-label">Scroll</span>
+                        <div class="ws-hero__scroll-line">
+                            <div class="ws-hero__scroll-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image: starts at bottom of stage, scrolls up to cover the title -->
+                <div class="ws-image--hero">
+                    <img
+                        src="../assets/images/project-1.jpg"
+                        alt="Live Stock Market Dashboard"
+                    >
+                </div>
+
+            </div>
+            <!-- /Hero Stage -->
+
+            <!-- ── 3. PROJECT INFO FLEX ───────────────────────────── -->
+            <section class="ws-flex" data-scroll-section>
+                <div class="ws-flex__left">
+                    <span class="ws-flex__overview">Project Overview</span>
+                    <h2 class="ws-flex__name">Live Stock Market Dashboard</h2>
+                </div>
+
+                <div class="ws-detail">
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Role</div>
+                        <p class="ws-detail__val">Data Analysis<br>Dashboard Design<br>Python</p>
+                    </div>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Year</div>
+                        <p class="ws-detail__val">2025</p>
+                    </div>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• About</div>
+                        <p class="ws-detail__val">The increasing complexity of financial markets necessitates intuitive tools for individual investors and analysts to monitor stock performance and identify trends. Existing tools suffer from cluttered interfaces, lack of real-time integration, and limited customization for technical indicators.</p>
+                    </div>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Delivered</div>
+                        <p class="ws-detail__val">Interactive price charts with customizable display options, real-time key financial metrics, comprehensive technical analysis (RSI, MACD), and a quick watchlist for monitoring selected stocks.</p>
+                    </div>
+                    <div class="ws-detail__launch">
+                        <a href="https://projects-stocks.streamlit.app" target="_blank" class="ws-detail__launch-link">
+                            View Live Project
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <!-- /Info Flex -->
+
+            <!-- ── 4. SUB IMAGES ──────────────────────────────────── -->
+            <section class="ws-sub-images" data-scroll-section>
+                <div class="ws-sub-image">
+                    <img
+                        src="../assets/images/project-1-1.jpg"
+                        alt="Live Stock Market Dashboard — Detail View"
+                    >
+                </div>
+            </section>
+            <!-- /Sub Images -->
+
+            <!-- ── 5. NEXT PROJECT ────────────────────────────────── -->
+            <section class="ws-next" data-scroll-section>
+                <div class="ws-next__topbar">
+                    <span>Next Project</span>
+                    <span>02 / 03</span>
+                </div>
+                <a href="../work/project-2.html" class="ws-next__inner">
+                    <span class="ws-next__label">Up next</span>
+                    <span class="ws-next__name">Option Pricing Analytics</span>
+                    <span class="ws-next__arrow">↗</span>
+                </a>
+            </section>
+            <!-- /Next Project -->
+
+        </div>
+        <!-- /ws-page -->
+
+    </div>
+    <!-- /Locomotive Scroll Container -->
+
+    <!-- Theme JS -->
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/3/3.1.1/iconify.min.js"></script>
+    
+    <!-- Vendor JS -->
+    <script src="../assets/js/vendor.bundle.js"></script>
+    
+    <!-- Theme JS -->
+    <script src="../assets/js/theme.bundle.js"></script>
+</body>
+
+</html>
