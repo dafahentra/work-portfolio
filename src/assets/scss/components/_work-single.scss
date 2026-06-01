@@ -1,0 +1,498 @@
+/* ==========================================================================
+   Work Single — Yutaabe-inspired Project Detail Page
+   Adapted to portfolio theme: Poppins, green accent
+   ========================================================================== */
+
+/* ---------- Design Tokens — inherits from site theme ---------- */
+.ws-page {
+  --ws-accent:      #6EE7B7;
+  --ws-accent-dark: #31b681;
+  --ws-ease:        cubic-bezier(.16, 1, .3, 1);
+  /* Inherit from site theme so it matches light/dark mode exactly */
+  --ws-bg:          var(--theme-body-bg);
+  --ws-fg:          var(--theme-body-color);
+  --ws-border:      var(--theme-border-color);
+}
+
+/* ---------- Page Wrapper ---------- */
+.ws-page {
+  background: var(--ws-bg);
+  color: var(--ws-fg);
+  min-height: 100vh;
+}
+
+/* ---------- 1. HERO STAGE (container: title pinned + image slides over) ---------- */
+.ws-hero-stage {
+  position: relative;
+  width: 100%;
+  height: 185dvh; /* Pulls image up to start exactly at 85dvh (touching the scroll line) */
+}
+
+/* ---------- 1a. HERO (pinned title section) ---------- */
+.ws-hero {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 80px); /* Fits exactly on screen */
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Title pushed up */
+  padding-top: 15vh; /* Batas wajar porsi white space diatas yang ditoleransi user */
+  margin-top: 0;
+  overflow: hidden;
+  z-index: 1; /* below the image that slides over */
+}
+
+/* Giant project title */
+.ws-hero__title {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3rem, 13vw, 16rem); /* Diperbesar sedikit sesuai permintaan */
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 0.85;
+  color: var(--ws-fg);
+  white-space: nowrap;
+  pointer-events: none;
+  text-align: center; /* Rata tengah sudah aktif */
+  width: 100%;
+  padding: 0 1rem;
+  margin-top: -50px; /* Dinaikkan tepat 50px sesuai permintaan */
+  /* Clip-path reveal animation on load */
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.1s var(--ws-ease);
+
+  @media (max-width: 768px) {
+    font-size: clamp(2.5rem, 14vw, 5rem);
+    white-space: normal;
+    word-break: break-word;
+    padding: 0 1.5rem;
+  }
+
+  &.is-revealed {
+    clip-path: inset(0% 0 0 0);
+  }
+}
+
+/* Metadata: year + roles — bottom right corner */
+.ws-hero__meta {
+  position: absolute;
+  bottom: 15dvh; /* Guaranteed to be visible on screen */
+  right: 2.5rem;
+  text-align: right;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s var(--ws-ease) 0.6s, transform 0.6s var(--ws-ease) 0.6s;
+
+  &.is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  &.is-hidden {
+    opacity: 0 !important;
+    transform: translateY(-8px) !important;
+    transition: opacity 0.4s var(--ws-ease) 0s, transform 0.4s var(--ws-ease) 0s;
+  }
+
+  @media (max-width: 768px) {
+    bottom: 15dvh;
+    right: 1.25rem;
+  }
+}
+
+.ws-hero__year {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem; /* Diperbesar sesuai permintaan */
+  letter-spacing: 0.2em;
+  color: var(--ws-fg);
+  opacity: 0.35;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.ws-hero__roles {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem; /* Diperbesar sesuai permintaan */
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ws-accent);
+}
+
+/* Scroll hint — center bottom */
+.ws-hero__scroll {
+  position: absolute;
+  bottom: 15dvh; /* Guaranteed to be visible on screen */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: none;
+  opacity: 0;
+  animation: wsScrollIn 0.6s 1s forwards ease-out;
+  transition: opacity 0.4s var(--ws-ease);
+
+  &.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.ws-hero__scroll-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem; /* Diperbesar sesuai permintaan */
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ws-fg);
+  opacity: 0.5;
+}
+
+.ws-hero__scroll-line {
+  width: 1px;
+  height: 2.75rem;
+  background: var(--ws-border);
+  position: relative;
+  overflow: hidden;
+}
+
+.ws-hero__scroll-bar {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--ws-accent);
+  animation: wsScrollBarSlide 1.6s 0.4s ease-in-out infinite;
+}
+
+@keyframes wsScrollIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes wsScrollBarSlide {
+  0%   { top: -100%; }
+  100% { top: 100%; }
+}
+
+/* ---------- 2. HERO IMAGE — base styles (projects without stage wrapper) ---------- */
+.ws-image--hero {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--ws-bg);
+
+  img {
+    width: 100%;
+    height: 115%;       /* extra height to accommodate parallax offset */
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.05);
+    will-change: transform;
+    display: block;
+
+    @media (max-width: 768px) {
+      height: 100%;
+      transform: none;
+    }
+  }
+}
+
+/* ---------- 2a. Inside hero-stage: image slides up to cover title ---------- */
+.ws-hero-stage .ws-image--hero {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 100dvh;
+  min-height: 100vh;
+  z-index: 2;            /* sits above the pinned title */
+  background: var(--ws-bg); /* opaque — fully covers the title behind */
+
+  img {
+    height: 100%; /* No parallax needed here, so exactly 100% height */
+    transform: none;
+  }
+}
+
+/* ---------- 3. INFO FLEX SECTION ---------- */
+.ws-flex {
+  display: flex;
+  align-items: flex-start;
+  gap: 5rem;
+  padding: 10rem 2.5rem 10rem;
+  box-sizing: border-box;
+
+  @media (max-width: 900px) {
+    flex-direction: column;
+    gap: 3rem;
+    padding: 6rem 1.5rem;
+  }
+}
+
+.ws-flex__left {
+  width: 42%;
+  flex-shrink: 0;
+
+  @media (max-width: 900px) {
+    width: 100%;
+  }
+}
+
+.ws-flex__overview {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.625rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ws-fg);
+  opacity: 0.35;
+  margin-bottom: 1.25rem;
+  display: block;
+}
+
+.ws-flex__name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  line-height: 0.9;
+  color: var(--ws-fg);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  word-break: break-word;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
+}
+
+/* Right column: detail grid */
+.ws-detail {
+  flex: 1;
+  min-width: 0;
+}
+
+.ws-detail__item {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0 1.5rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--ws-border);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s var(--ws-ease), transform 0.7s var(--ws-ease);
+  transition-delay: calc(var(--item-delay, 0) * 1ms);
+
+  &.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 5.5rem 1fr;
+    gap: 0 1rem;
+  }
+}
+
+.ws-detail__label {
+  font-family: 'Poppins', sans-serif;
+  font-size: max(10px, 0.6875rem);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ws-accent);
+  line-height: 1.8;
+  padding-top: 0.1rem;
+}
+
+.ws-detail__val {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: var(--ws-fg);
+  line-height: 1.75;
+  margin: 0;
+}
+
+/* Launch link row */
+.ws-detail__launch {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--ws-border);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 5.5rem 1fr;
+  }
+}
+
+.ws-detail__launch-link {
+  grid-column: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ws-fg);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity 0.3s, color 0.3s;
+  position: relative;
+
+  &::after {
+    content: '↗';
+    font-size: 0.9em;
+    transition: transform 0.3s var(--ws-ease);
+    display: inline-block;
+  }
+
+  &:hover {
+    opacity: 1;
+    color: var(--ws-accent);
+
+    &::after {
+      transform: translate(3px, -3px);
+    }
+  }
+}
+
+/* ---------- 4. SUB IMAGES SECTION ---------- */
+.ws-sub-images {
+  padding: 0 2.5rem;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    padding: 0 1.25rem;
+  }
+}
+
+.ws-sub-image {
+  overflow: hidden;
+  margin-bottom: 12rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 3rem;
+  }
+
+  img {
+    width: 100%;
+    height: 115%;
+    object-fit: cover;
+    display: block;
+    will-change: transform;
+    transform: scale(1.1);
+
+    @media (max-width: 768px) {
+      height: auto;
+      transform: none;
+    }
+  }
+}
+
+/* ---------- 5. NEXT PROJECT SECTION ---------- */
+.ws-next {
+  position: relative;
+  height: 60dvh;
+  min-height: 360px;
+  margin-top: 10rem;
+  border-top: 1px solid var(--ws-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    height: 50dvh;
+    margin-top: 6rem;
+  }
+
+  &:hover .ws-next__name {
+    opacity: 1;
+    letter-spacing: -0.04em;
+  }
+
+  &:hover .ws-next__label {
+    color: var(--ws-accent);
+  }
+}
+
+.ws-next__topbar {
+  position: absolute;
+  top: 1.75rem;
+  left: 2.5rem;
+  right: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.6875rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--ws-accent);
+  z-index: 3;
+
+  @media (max-width: 768px) {
+    left: 1.25rem;
+    right: 1.25rem;
+  }
+}
+
+.ws-next__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.25rem;
+  padding: 0 2.5rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.ws-next__label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.625rem;
+  color: var(--ws-fg);
+  opacity: 0.5;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+
+.ws-next__name {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 8vw, 8rem);
+  line-height: 0.85;
+  color: var(--ws-fg);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  clip-path: inset(100% 0 0 0);
+  transition: clip-path 1.1s var(--ws-ease), opacity 0.3s, letter-spacing 0.6s var(--ws-ease);
+  opacity: 0.8;
+
+  &.is-visible {
+    clip-path: inset(0% 0 0 0);
+  }
+
+  @media (max-width: 768px) {
+    font-size: clamp(1.75rem, 10vw, 3rem);
+  }
+}
+
+.ws-next__arrow {
+  font-size: 1.25rem;
+  color: var(--ws-accent);
+  opacity: 0.7;
+}

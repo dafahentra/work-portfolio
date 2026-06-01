@@ -20,54 +20,56 @@
         classList="" }}
         <!-- / Navbar-->
 
-        <!-- Main Section-->
-        <section class="container py-3 {{ config.classes.content }}" data-scroll-section>
-            <!-- Page Content Goes Here -->
+        <!-- Main Section — Yutaabe-style Full Viewport Projects Menu -->
+        <section class="wl-section">
+            <h1 class="visually-hidden">My Work</h1>
 
-            <h1 class="display-3 mb-5"  data-scroll data-scroll-speed="6" data-scroll-position="top">My Work</h1>
+            <div class="wl-menu-wrap" id="wl-menu-wrap">
 
-            {{#if (config work)}}
-            <div class="row g-8" data-scroll
-            data-scroll-position="bottom" >
-                {{#each work.entries}}
-                    <!-- Single Work-->
-                    <div 
-                    data-scroll
-                    data-scroll-position="bottom" 
-                    {{#isEven @index}}
-                        class="col-12 col-md-6 fade-in-left"
-                    {{else}}
-                        class="col-12 col-md-6 fade-in-right"
-                    {{/isEven}}   
-                    >
-                        <div class="position-relative">
-                            <a class="link-cover" href="{{webRoot}}/work/{{slug}}.html">
-                                <picture>
-                                    <img class="img-fluid" src="{{ img }}" alt="{{ config.defaultImgAlt }}">
-                                </picture>
-                            </a>
-                            <p class="subtitle-xs mb-0 mt-4">{{{ category }}}</p>
-                            <p class="fw-bolder lead mb-3 mt-2">{{ title }}</p>
-                            <p class="small text-muted mb-2">{{ description }}</p>
-                            <a class="link-body" href="{{webRoot}}/work/{{slug}}.html">View Project</a>
-                        </div>
+                <!-- Projects Menu -->
+                {{#if (config work)}}
+                <ul class="wl-menu is-intro" id="wl-menu">
+                    {{#each work.entries}}
+                    <li data-index="{{@index}}">
+                        <a href="{{webRoot}}/work/{{slug}}.html" data-slug="{{slug}}">
+                            <span class="wl-no">{{zeroPad @index}}</span>
+                            <span class="wl-title">{{title}}</span>
+                        </a>
+                    </li>
+                    {{/each}}
+                </ul>
+                {{/if}}
+
+                <!-- Thumbnail Column -->
+                {{#if (config work)}}
+                <div class="wl-thumbnail is-intro" id="wl-thumbnail">
+                    {{#each work.entries}}
+                    <div class="wl-thumb-item" data-index="{{@index}}">
+                        <img src="{{ img }}" alt="{{ title }}">
                     </div>
-                    <!-- / Single Work -->
-                {{/each}}
-            </div>
-            {{/if}}
+                    {{/each}}
+                </div>
+                {{/if}}
 
-            <!-- /Page Content -->
+                <!-- Scroll Hint -->
+                <div class="wl-scroll-hint" id="wl-scroll-hint">
+                    <span class="wl-scroll-hint__label">Scroll</span>
+                    <div class="wl-scroll-hint__line">
+                        <div class="wl-scroll-hint__bar"></div>
+                    </div>
+                </div>
+
+                <!-- Project Counter -->
+                <div class="wl-counter" id="wl-counter">
+                    <span class="wl-counter__current">01</span>
+                    <span class="wl-counter__sep">/</span>
+                    <span class="wl-counter__total">03</span>
+                </div>
+
+            </div>
         </section>
         <!-- / Main Section-->
 
-        <!-- Footer -->
-        {{> (config config.partials.footer)
-            configClassList=config.classes.footer
-            classList=""
-            show-cta="true"
-    }}
-        <!-- / Footer-->
     </div>
     <!-- /Locomotive Scroll Container-->
 

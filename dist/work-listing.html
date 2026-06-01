@@ -238,96 +238,66 @@
           </div>
         </div>        <!-- / Navbar-->
 
-        <!-- Main Section-->
-        <section class="container py-3 " data-scroll-section>
-            <!-- Page Content Goes Here -->
+        <!-- Main Section — Yutaabe-style Full Viewport Projects Menu -->
+        <section class="wl-section">
+            <h1 class="visually-hidden">My Work</h1>
 
-            <h1 class="display-3 mb-5"  data-scroll data-scroll-speed="6" data-scroll-position="top">My Work</h1>
+            <div class="wl-menu-wrap" id="wl-menu-wrap">
 
-            <div class="row g-8" data-scroll
-            data-scroll-position="bottom" >
-                    <!-- Single Work-->
-                    <div 
-                    data-scroll
-                    data-scroll-position="bottom" 
-                        class="col-12 col-md-6 fade-in-left"
-                    >
-                        <div class="position-relative">
-                            <a class="link-cover" href="./work/project-1.html">
-                                <picture>
-                                    <img class="img-fluid" src="./assets/images/project-listing-1.png" alt="">
-                                </picture>
-                            </a>
-                            <p class="subtitle-xs mb-0 mt-4"><span class='me-2'>Finance</span> &middot; <span class='ms-2'>Stocks</span></p>
-                            <p class="fw-bolder lead mb-3 mt-2">Live Stock Market Dashboard</p>
-                            <p class="small text-muted mb-2">Develops a comprehensive stock dashboard, designed to provide users with real-time stock data and technical analysis.</p>
-                            <a class="link-body" href="./work/project-1.html">View Project</a>
-                        </div>
+                <!-- Projects Menu -->
+                <ul class="wl-menu is-intro" id="wl-menu">
+                    <li data-index="0">
+                        <a href="./work/project-1.html" data-slug="project-1">
+                            <span class="wl-no">01</span>
+                            <span class="wl-title">Live Stock Market Dashboard</span>
+                        </a>
+                    </li>
+                    <li data-index="1">
+                        <a href="./work/project-2.html" data-slug="project-2">
+                            <span class="wl-no">02</span>
+                            <span class="wl-title">Option Pricing Analytics</span>
+                        </a>
+                    </li>
+                    <li data-index="2">
+                        <a href="./work/project-3.html" data-slug="project-3">
+                            <span class="wl-no">03</span>
+                            <span class="wl-title">Business Valuation Simulator</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Thumbnail Column -->
+                <div class="wl-thumbnail is-intro" id="wl-thumbnail">
+                    <div class="wl-thumb-item" data-index="0">
+                        <img src="./assets/images/project-listing-1.png" alt="Live Stock Market Dashboard">
                     </div>
-                    <!-- / Single Work -->
-                    <!-- Single Work-->
-                    <div 
-                    data-scroll
-                    data-scroll-position="bottom" 
-                        class="col-12 col-md-6 fade-in-right"
-                    >
-                        <div class="position-relative">
-                            <a class="link-cover" href="./work/project-2.html">
-                                <picture>
-                                    <img class="img-fluid" src="./assets/images/project-listing-2.png" alt="">
-                                </picture>
-                            </a>
-                            <p class="subtitle-xs mb-0 mt-4"><span class='me-2'>Finance</span> &middot; <span class='ms-2'>Derivatives</span></p>
-                            <p class="fw-bolder lead mb-3 mt-2">Option Pricing Analytics</p>
-                            <p class="small text-muted mb-2">Delivers platform for options pricing, Greeks analysis, and risk management, offering an intuitive interface for financial derivatives analysis.</p>
-                            <a class="link-body" href="./work/project-2.html">View Project</a>
-                        </div>
+                    <div class="wl-thumb-item" data-index="1">
+                        <img src="./assets/images/project-listing-2.png" alt="Option Pricing Analytics">
                     </div>
-                    <!-- / Single Work -->
-                    <!-- Single Work-->
-                    <div 
-                    data-scroll
-                    data-scroll-position="bottom" 
-                        class="col-12 col-md-6 fade-in-left"
-                    >
-                        <div class="position-relative">
-                            <a class="link-cover" href="./work/project-3.html">
-                                <picture>
-                                    <img class="img-fluid" src="./assets/images/project-listing-3.png" alt="">
-                                </picture>
-                            </a>
-                            <p class="subtitle-xs mb-0 mt-4"><span class='me-2'>Finance</span> &middot; <span class='ms-2'>Valuation</span></p>
-                            <p class="fw-bolder lead mb-3 mt-2">Business Valuation Simulator</p>
-                            <p class="small text-muted mb-2">Develops a business valuation tool that calculates the enterprise value of a company based on various parameters like revenue, assets, growth rate, and margin.</p>
-                            <a class="link-body" href="./work/project-3.html">View Project</a>
-                        </div>
+                    <div class="wl-thumb-item" data-index="2">
+                        <img src="./assets/images/project-listing-3.png" alt="Business Valuation Simulator">
                     </div>
-                    <!-- / Single Work -->
+                </div>
+
+                <!-- Scroll Hint -->
+                <div class="wl-scroll-hint" id="wl-scroll-hint">
+                    <span class="wl-scroll-hint__label">Scroll</span>
+                    <div class="wl-scroll-hint__line">
+                        <div class="wl-scroll-hint__bar"></div>
+                    </div>
+                </div>
+
+                <!-- Project Counter -->
+                <div class="wl-counter" id="wl-counter">
+                    <span class="wl-counter__current">01</span>
+                    <span class="wl-counter__sep">/</span>
+                    <span class="wl-counter__total">03</span>
+                </div>
+
             </div>
-
-            <!-- /Page Content -->
         </section>
         <!-- / Main Section-->
 
-        <!-- Footer -->
-        <!-- Footer-->
-        <div class="d-flex align-items-center justify-content-center flex-column col-lg-7 col-xl-6 col-xxl-5 text-center mx-auto mt-5 px-4 px-md-0 mt-lg-10" data-scroll-section>
-            <h4 class="display-5 mb-5" data-scroll data-scroll-speed=".8" data-scroll-delay="0.05">Let's explore how we can work together</h4>
-            <a href="./contact.html" class="btn btn-primary">Get In Touch</a>
-        </div>
-        
-        <footer class="border-top mt-10 pt-5 pb-8  " data-scroll-section>
-        <div class="container d-flex justify-content-between">
-            <p class="small">All rights reserved. © Dafa Hentra 2025</p>
-            <ul class="list-unstyled d-flex align-items-center">
-                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://linkedin.com/in/dafahentra"><i class="ri-linkedin-fill"></i></a></li>
-                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://instagram.com/dafahentra"><i class="ri-instagram-fill"></i></a></li>
-                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://github.com/dafahentra"><i class="ri-github-fill"></i></a></li>
-            </ul>
-        </div>
-        </footer>
-        <!-- / Footer-->
-        <!-- / Footer-->
     </div>
     <!-- /Locomotive Scroll Container-->
 

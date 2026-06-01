@@ -729,18 +729,41 @@ __webpack_require__.r(__webpack_exports__);
   });
 
   // --- Active Page Detection and Highlighting ---
-  const currentPath = window.location.pathname;
-  let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-  if (currentPage === '' || currentPage === 'index.html') {
-    currentPage = 'home.html';
+  function applyNavActiveState() {
+    const path = window.location.pathname;
+
+    navLinks.forEach((link) => {
+      link.classList.remove('active');
+      const linkHref = link.getAttribute('href') || '';
+
+      // Determine the core page name from the current path
+      let pageName = path.split('/').pop().replace('.html', '');
+      if (!pageName || pageName === '') pageName = 'index';
+
+      // Determine the core page name from the link href
+      let linkName = linkHref.split('/').pop().replace('.html', '');
+      if (!linkName || linkName === '') linkName = 'index';
+
+      // Exact match for the current page
+      if (
+        pageName === linkName ||
+        (pageName === 'index' && linkName === 'home') ||
+        (pageName === 'home' && linkName === 'index')
+      ) {
+        link.classList.add('active');
+      }
+      // Highlight WORK if we are inside an individual project page
+      else if (path.includes('/work/') && linkName === 'work-listing') {
+        link.classList.add('active');
+      }
+    });
   }
-  
-  navLinks.forEach((link) => {
-    const linkHref = link.getAttribute('href');
-    if (linkHref && (linkHref.includes(currentPage) || (currentPage === 'home.html' && linkHref.includes('index.html')))) {
-      link.classList.add('active');
-    }
-  });
+
+  // Run on first load
+  applyNavActiveState();
+
+  // Re-run on every PJAX navigation so the highlight stays in sync
+  document.addEventListener('page:load', applyNavActiveState);
 
   // Close on Escape key
   window.addEventListener('keydown', (e) => {
@@ -867,7 +890,6 @@ __webpack_require__.r(__webpack_exports__);
 
         try {
             const url = new URL(href, window.location.href);
-            if (url.pathname === window.location.pathname && !url.search) return false;
             return url.hostname === window.location.hostname;
         } catch {
             return true;
@@ -921,25 +943,6 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     // ── DOM Swap ─────────────────────────────────────────────────────────────
-    //
-    // KEY INSIGHT: Only swap [data-scroll-container], never body.innerHTML.
-    //
-    // After the first page load, navbar.js moves .navbar-custom and
-    // #fullscreenMenu OUT of the scroll container and into direct body children.
-    // The #preloader and #page-transition-overlay are also direct body children
-    // (never inside the scroll container).
-    //
-    // So the actual live DOM layout is:
-    //   body
-    //     ├── .navbar-custom          (moved out by navbar.js)
-    //     ├── #fullscreenMenu         (moved out by navbar.js)
-    //     ├── #preloader              (original position)
-    //     ├── #page-transition-overlay (original position) ← OVERLAY STAYS HERE
-    //     └── [data-scroll-container] ← ONLY THIS IS SWAPPED
-    //
-    // By replacing just the scroll container, the overlay is NEVER detached
-    // from the DOM — eliminating the 1-frame flash of page content.
-    //
     function swapPage(html, url) {
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(html, 'text/html');
@@ -974,9 +977,6 @@ __webpack_require__.r(__webpack_exports__);
         }
 
         // ── Atomic swap of ONLY the scroll container ─────────────────────────
-        // The overlay (fixed, z-index 1000001) is a sibling of the container,
-        // not a child — so it stays in the DOM untouched during replaceWith().
-        // No detach → no flash.
         currentContainer.replaceWith(newContainer);
 
         // Sync body className (e.g. page-specific classes)
@@ -990,11 +990,16 @@ __webpack_require__.r(__webpack_exports__);
         document.documentElement.setAttribute('data-mode',    mode === 'dark' ? 'dark' : 'light');
         document.documentElement.setAttribute('data-bs-theme', mode === 'dark' ? 'dark' : 'light');
 
-        // Update URL — no browser navigation, no loading spinner
-        history.pushState({ pjax: true, url }, document.title, url);
+        // Force a popstate/pushstate URL change EVEN if we click the same page (to keep history stack sane)
+        if (window.location.href !== url) {
+            history.pushState({ pjax: true, url }, document.title, url);
+        }
 
         // Re-initialize page-specific components
         reinitComponents();
+
+        // Explicitly update nav active state AFTER pushState so pathname is correct
+        updateNavActiveState();
     }
 
     // ── Component Re-initialization ──────────────────────────────────────────
@@ -1020,9 +1025,7 @@ __webpack_require__.r(__webpack_exports__);
             });
         }
 
-        // 2. Navbar active-state update only — the navbar element itself is
-        //    persisted across swaps (savedNavbar/savedMenu in swapPage) so
-        //    all event listeners from navbar.js IIFE remain intact.
+        // 2. Navbar active-state update only
         updateNavActiveState();
 
         // 3. Swiper — destroy existing then re-init
@@ -1049,11 +1052,6 @@ __webpack_require__.r(__webpack_exports__);
 
         // 5. Contact form
         initContactForm();
-
-        // Note: dark mode toggle buttons do NOT need re-binding here.
-        // The .navbar-custom element is persisted across PJAX swaps, so the
-        // original event listeners from dark-mode.js (including the View
-        // Transitions circle-reveal animation) remain attached and working.
 
         // 6. Misc: page-loaded class
         document.body.classList.add('page-loaded');
@@ -1186,11 +1184,6 @@ __webpack_require__.r(__webpack_exports__);
                 icon.style.transform = mode === 'dark' ? 'rotate(90deg)' : '';
                 icon.style.opacity = '';
             }
-            // Re-bind click (dark-mode.js global handler still works because it uses
-            // event delegation on the document — but the buttons need to fire it)
-            // The global dark-mode IIFE already ran, so its event listeners on
-            // existing btns are gone. We dispatch a synthetic click to the original logic.
-            // Simplest: directly re-bind toggle logic here.
             if (!btn._pjaxBound) {
                 btn._pjaxBound = true;
                 btn.addEventListener('click', function(e) {
@@ -1218,13 +1211,25 @@ __webpack_require__.r(__webpack_exports__);
         const menuOverlay = document.getElementById('fullscreenMenu');
         if (!menuOverlay) return;
         const currentPath = window.location.pathname;
-        let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-        if (currentPage === '' || currentPage === 'index.html') currentPage = 'home.html';
 
         menuOverlay.querySelectorAll('.fullscreen-nav-link').forEach(link => {
             link.classList.remove('active');
-            const href = link.getAttribute('href');
-            if (href && (href.includes(currentPage) || (currentPage === 'home.html' && href.includes('index.html')))) {
+            const href = link.getAttribute('href') || '';
+            
+            // Determine the core page name from the current path
+            let pageName = currentPath.split('/').pop().replace('.html', '');
+            if (!pageName || pageName === '') pageName = 'index';
+            
+            // Determine the core page name from the link href
+            let linkName = href.split('/').pop().replace('.html', '');
+            if (!linkName || linkName === '') linkName = 'index';
+            
+            // Exact match for the current page
+            if (pageName === linkName || (pageName === 'index' && linkName === 'home') || (pageName === 'home' && linkName === 'index')) {
+                link.classList.add('active');
+            } 
+            // Highlight WORK if we are inside an individual project page
+            else if (currentPath.includes('/work/') && linkName === 'work-listing') {
                 link.classList.add('active');
             }
         });
@@ -1632,6 +1637,490 @@ __webpack_require__.r(__webpack_exports__);
       new typed_js__WEBPACK_IMPORTED_MODULE_0___default.a(elem, options);
     });
 })();
+
+/***/ }),
+
+/***/ "./src/assets/js/components/work-listing.js":
+/*!**************************************************!*\
+  !*** ./src/assets/js/components/work-listing.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* ==========================================================================
+   Work Listing — Interactive Behaviors
+   Yutaabe-inspired vertical scroll menu with hover sync + intro animation
+   ✦ ENDLESS LOOP: items repeat infinitely by cloning and wrapping scroll
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  // Global references that persist
+  let rafId = null;
+  let onKeyDownHandler = null;
+  let onResizeHandler = null;
+
+  function init() {
+    const section = document.querySelector('.wl-section');
+    if (!section) return;
+
+    const menuWrap   = document.querySelector('#wl-menu-wrap');
+    const menu       = document.querySelector('#wl-menu');
+    const thumbnail  = document.querySelector('#wl-thumbnail');
+    const scrollHint = document.querySelector('#wl-scroll-hint');
+    const counter    = document.querySelector('#wl-counter');
+
+    if (!menu || !menuWrap) return;
+
+    // Clean up old instances (if PJAX re-triggered)
+    if (rafId) cancelAnimationFrame(rafId);
+    if (onKeyDownHandler) document.removeEventListener('keydown', onKeyDownHandler);
+    if (onResizeHandler) window.removeEventListener('resize', onResizeHandler);
+
+    // Remove old clones to prevent infinite duplication
+    menu.querySelectorAll('.wl-clone').forEach(el => el.remove());
+    if (thumbnail) thumbnail.querySelectorAll('.wl-clone').forEach(el => el.remove());
+
+    const originalItems = Array.from(menu.querySelectorAll('li'));
+    const originalThumbs = thumbnail ? Array.from(thumbnail.querySelectorAll('.wl-thumb-item')) : [];
+    const totalOriginal = originalItems.length;
+
+    if (totalOriginal === 0) return;
+
+    const counterCur = counter ? counter.querySelector('.wl-counter__current') : null;
+    const counterTotal = counter ? counter.querySelector('.wl-counter__total') : null;
+
+    if (counterTotal) {
+      counterTotal.textContent = totalOriginal < 10 ? '0' + totalOriginal : '' + totalOriginal;
+    }
+
+    // ── Clone items for seamless infinite loop ──
+    const CLONE_SETS = 6;
+    for (let s = 0; s < CLONE_SETS; s++) {
+      originalItems.forEach((li, i) => {
+        const clone = li.cloneNode(true);
+        clone.dataset.origIndex = i;
+        clone.classList.add('wl-clone');
+        menu.appendChild(clone);
+      });
+
+      if (thumbnail) {
+        originalThumbs.forEach((t, i) => {
+          const clone = t.cloneNode(true);
+          clone.dataset.origIndex = i;
+          clone.classList.add('wl-clone');
+          thumbnail.appendChild(clone);
+        });
+      }
+    }
+
+    const allItems = Array.from(menu.querySelectorAll('li'));
+    const allThumbs = thumbnail ? Array.from(thumbnail.querySelectorAll('.wl-thumb-item')) : [];
+
+    // ── Sync thumbnail heights to menu item heights ──
+    // Both columns share the same translateY, so each thumb must be the
+    // same height as its corresponding menu row, otherwise they drift apart.
+    function syncThumbHeights() {
+      if (!thumbnail || allThumbs.length === 0) return;
+      allThumbs.forEach((thumb, i) => {
+        const origIdx = i % totalOriginal;
+        const menuItem = allItems[origIdx] || allItems[0];
+        const h = menuItem.offsetHeight;
+        thumb.style.height = h + 'px';
+      });
+    }
+
+    // ── State ──
+    let oneSetHeight = 0;
+    function computeSetHeight() {
+      let h = 0;
+      for (let i = 0; i < totalOriginal; i++) {
+        h += allItems[i].offsetHeight;
+      }
+      oneSetHeight = h;
+      syncThumbHeights(); // re-sync whenever set height is recomputed
+    }
+    computeSetHeight();
+
+    document.body.classList.add('is-work-listing');
+
+    // Start exactly at the top of the second set to prevent white gap at the very top
+    const initialOffset = 0;
+    let scrollY = oneSetHeight - initialOffset;
+    let targetScrollY = oneSetHeight - initialOffset;
+    let hasScrolled = false;
+    let isTouching = false;
+    let touchStartY = 0;
+    let touchScrollY = 0;
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+
+    function updateCounter(index) {
+      if (!counterCur) return;
+      const wrapped = ((index % totalOriginal) + totalOriginal) % totalOriginal;
+      const num = wrapped + 1;
+      counterCur.textContent = num < 10 ? '0' + num : '' + num;
+    }
+
+    let closestAbsIdx = 0;
+    function getActiveOrigIndex() {
+      const wrapRect = menuWrap.getBoundingClientRect();
+      const centerY  = wrapRect.top + wrapRect.height * 0.4;
+      let closestIdx = 0;
+      let closestDist = Infinity;
+
+      allItems.forEach((li, i) => {
+        const rect = li.getBoundingClientRect();
+        const itemCenter = rect.top + rect.height / 2;
+        const dist = Math.abs(itemCenter - centerY);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closestIdx  = i;
+        }
+      });
+
+      closestAbsIdx = closestIdx;
+      return closestIdx % totalOriginal;
+    }
+
+    let lastActiveOrig = -1;
+    let lastClosestAbs = -1;
+    let isMouseHovering = false; // desktop hover takes priority over scroll
+
+    function syncActiveFromScroll() {
+      const origIdx = getActiveOrigIndex();
+
+      if (origIdx !== lastActiveOrig || closestAbsIdx !== lastClosestAbs) {
+        lastActiveOrig = origIdx;
+        lastClosestAbs = closestAbsIdx;
+        updateCounter(origIdx);
+
+        // On mobile: always sync thumbnail from scroll (no hover needed)
+        // On desktop: only sync from scroll when mouse is NOT hovering an item
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile || !isMouseHovering) {
+          allItems.forEach((li, i) => {
+            li.classList.toggle('is-center', i === closestAbsIdx);
+          });
+          allThumbs.forEach((t, i) => {
+            t.classList.toggle('is-hovered', i === closestAbsIdx);
+          });
+        }
+      }
+    }
+
+    function wrapScroll() {
+      if (scrollY >= oneSetHeight * 2 && oneSetHeight > 0) {
+        scrollY -= oneSetHeight;
+        targetScrollY -= oneSetHeight;
+      }
+      if (scrollY < oneSetHeight && oneSetHeight > 0) {
+        scrollY += oneSetHeight;
+        targetScrollY += oneSetHeight;
+      }
+    }
+
+    function animate() {
+      if (!document.body.contains(menuWrap)) return; // KILL SWITCH for PJAX
+      
+      scrollY = lerp(scrollY, targetScrollY, 0.1);
+
+      if (Math.abs(scrollY - targetScrollY) < 0.5) {
+        scrollY = targetScrollY;
+      }
+
+      wrapScroll();
+
+      menu.style.transform = `translateY(${-scrollY}px)`;
+      if (thumbnail) {
+        thumbnail.style.transform = `translateY(${-scrollY}px)`;
+      }
+
+      syncActiveFromScroll();
+      rafId = requestAnimationFrame(animate);
+    }
+
+    function onWheel(e) {
+      e.preventDefault();
+      if (!hasScrolled) {
+        hasScrolled = true;
+        if (scrollHint) scrollHint.classList.add('is-hidden');
+      }
+      targetScrollY += e.deltaY * 0.8;
+    }
+
+    function onTouchStart(e) {
+      isTouching = true;
+      touchStartY = e.touches[0].clientY;
+      touchScrollY = targetScrollY;
+    }
+
+    function onTouchMove(e) {
+      if (!isTouching) return;
+      e.preventDefault();
+      if (!hasScrolled) {
+        hasScrolled = true;
+        if (scrollHint) scrollHint.classList.add('is-hidden');
+      }
+      const deltaY = touchStartY - e.touches[0].clientY;
+      targetScrollY = touchScrollY + deltaY;
+    }
+
+    function onTouchEnd() {
+      isTouching = false;
+      // Snap to nearest item on mobile for clean UX
+      if (window.innerWidth <= 768 && allItems.length > 0) {
+        const itemH = allItems[0].offsetHeight;
+        targetScrollY = Math.round(targetScrollY / itemH) * itemH;
+      }
+    }
+
+    function onItemMouseEnter(e) {
+      // Desktop only — on mobile, thumbnail is driven by scroll
+      if (window.innerWidth <= 768) return;
+      isMouseHovering = true;
+
+      const li = e.currentTarget;
+      const absIdx = allItems.indexOf(li);
+      const origIdx = parseInt(li.dataset.origIndex || li.dataset.index, 10);
+
+      allThumbs.forEach((t, i) => {
+        t.classList.toggle('is-hovered', i === absIdx);
+      });
+      updateCounter(origIdx);
+    }
+
+    function onItemMouseLeave() {
+      // Desktop only
+      if (window.innerWidth <= 768) return;
+      isMouseHovering = false;
+      // Let syncActiveFromScroll re-take control on next frame
+    }
+
+    onKeyDownHandler = function (e) {
+      if (!document.body.contains(menuWrap)) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (!hasScrolled) {
+          hasScrolled = true;
+          if (scrollHint) scrollHint.classList.add('is-hidden');
+        }
+        const itemHeight = allItems[0] ? allItems[0].offsetHeight : 100;
+        if (e.key === 'ArrowDown') {
+          targetScrollY += itemHeight;
+        } else {
+          targetScrollY -= itemHeight;
+        }
+      }
+    };
+
+    onResizeHandler = function () {
+      if (!document.body.contains(menuWrap)) return;
+      computeSetHeight();
+    };
+
+    function playIntro() {
+      if (!document.body.contains(menuWrap)) return;
+      requestAnimationFrame(() => {
+        // Initial clip path reveal
+        menu.style.transform = `translateY(${-scrollY}px)`;
+        if (thumbnail) thumbnail.style.transform = `translateY(${-scrollY}px)`;
+
+        const visibleCount = Math.min(allItems.length, totalOriginal * 3);
+        for (let i = 0; i < visibleCount; i++) {
+          const li = allItems[i];
+          const delay = 0.15 + (i % totalOriginal) * 0.08;
+          li.style.transition = `clip-path 0.7s ${delay}s cubic-bezier(.16,1,.3,1)`;
+          li.style.clipPath = 'inset(0% 0 0 0)';
+        }
+        for (let i = visibleCount; i < allItems.length; i++) {
+          allItems[i].style.clipPath = 'inset(0% 0 0 0)';
+        }
+
+        const visibleThumbCount = Math.min(allThumbs.length, totalOriginal * 3);
+        for (let i = 0; i < visibleThumbCount; i++) {
+          const t = allThumbs[i];
+          const delay = 0.2 + (i % totalOriginal) * 0.08;
+          t.style.transition = `clip-path 0.7s ${delay}s cubic-bezier(.16,1,.3,1)`;
+          t.style.clipPath = 'inset(0% 0 0 0)';
+        }
+        for (let i = visibleThumbCount; i < allThumbs.length; i++) {
+          allThumbs[i].style.clipPath = 'inset(0% 0 0 0)';
+        }
+
+        setTimeout(() => {
+          if (!document.body.contains(menuWrap)) return;
+          menu.classList.remove('is-intro');
+          if (thumbnail) thumbnail.classList.remove('is-intro');
+
+          allItems.forEach(li => {
+            li.style.transition = '';
+            li.style.clipPath = '';
+          });
+          allThumbs.forEach(t => {
+            t.style.transition = '';
+            t.style.clipPath = '';
+          });
+        }, 1200);
+      });
+    }
+
+    // Bind events
+    menuWrap.addEventListener('wheel', onWheel, { passive: false });
+    menuWrap.addEventListener('touchstart', onTouchStart, { passive: true });
+    menuWrap.addEventListener('touchmove', onTouchMove, { passive: false });
+    menuWrap.addEventListener('touchend', onTouchEnd, { passive: true });
+
+    allItems.forEach(li => {
+      li.addEventListener('mouseenter', onItemMouseEnter);
+      li.addEventListener('mouseleave', onItemMouseLeave);
+    });
+
+    document.addEventListener('keydown', onKeyDownHandler);
+    window.addEventListener('resize', onResizeHandler);
+
+    rafId = requestAnimationFrame(animate);
+
+    setTimeout(playIntro, 300);
+    updateCounter(0);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Support PJAX page transitions
+  document.addEventListener('page:load', init);
+
+})();
+
+
+/***/ }),
+
+/***/ "./src/assets/js/components/work-single.js":
+/*!*************************************************!*\
+  !*** ./src/assets/js/components/work-single.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/* ==========================================================================
+   Work Single — Scroll Animations & Interactions
+   ========================================================================== */
+
+(function () {
+  'use strict';
+
+  function init() {
+    const page     = document.querySelector('.ws-page');
+    if (!page) return;
+
+    const wsHero    = page.querySelector('.ws-hero');
+    const heroTitle = page.querySelector('.ws-hero__title');
+    const heroMeta  = page.querySelector('.ws-hero__meta');
+    const heroImg   = page.querySelector('.ws-image--hero img');
+    const scrollHint = page.querySelector('.ws-hero__scroll');
+
+    // ── 1. Hero reveal (title clip-path + meta fade in) ───────────────────
+    if (heroTitle) {
+      setTimeout(() => heroTitle.classList.add('is-revealed'), 200);
+    }
+    if (heroMeta) {
+      setTimeout(() => heroMeta.classList.add('is-revealed'), 400);
+    }
+
+    // ── 2. Scroll-driven active classes (scroll hint + metadata fade out) ──
+    function handleScroll(scrollY) {
+      // Hide scroll hint
+      if (scrollHint) {
+        if (scrollY > 60) {
+          scrollHint.classList.add('is-hidden');
+        } else {
+          scrollHint.classList.remove('is-hidden');
+        }
+      }
+
+      // Hide metadata
+      if (heroMeta) {
+        if (scrollY > 150) {
+          heroMeta.classList.add('is-hidden');
+        } else {
+          heroMeta.classList.remove('is-hidden');
+        }
+      }
+    }
+
+    // Use Locomotive Scroll if available, else fallback to native scroll
+    if (window.locoScroll) {
+      window.locoScroll.on('scroll', ({ scroll }) => {
+        handleScroll(scroll.y);
+      });
+    } else {
+      document.addEventListener('scroll', () => {
+        handleScroll(window.scrollY);
+      }, { passive: true });
+    }
+
+    // ── 4. Detail items: stagger reveal on scroll ─────────────────────────
+    const detailItems = page.querySelectorAll('.ws-detail__item');
+    detailItems.forEach((item, i) => {
+      item.style.setProperty('--item-delay', i * 80);
+    });
+
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    detailItems.forEach(item => revealObserver.observe(item));
+
+    // ── 5. Next project name: clip-path reveal on scroll ──────────────────
+    const nextName = page.querySelector('.ws-next__name');
+    if (nextName) {
+      const nextObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              nextName.classList.add('is-visible');
+              nextObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      nextObserver.observe(nextName);
+    }
+
+    // ── 6. Sub-image parallax (desktop only) ──────────────────────────────
+    if (window.innerWidth > 768) {
+      page.querySelectorAll('.ws-sub-image img').forEach(img => {
+        img.setAttribute('data-scroll', '');
+        img.setAttribute('data-scroll-speed', '-2');
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  document.addEventListener('page:load', init);
+
+})();
+
 
 /***/ }),
 
@@ -2044,8 +2533,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_page_transition__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/page-transition */ "./src/assets/js/components/page-transition.js");
 /* harmony import */ var _components_work_slider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/work-slider */ "./src/assets/js/components/work-slider.js");
 /* harmony import */ var _components_work_slider__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_components_work_slider__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _misc__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./misc */ "./src/assets/js/misc.js");
-/* harmony import */ var _misc__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_misc__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_work_listing__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/work-listing */ "./src/assets/js/components/work-listing.js");
+/* harmony import */ var _components_work_listing__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_components_work_listing__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var _components_work_single__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/work-single */ "./src/assets/js/components/work-single.js");
+/* harmony import */ var _components_work_single__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_components_work_single__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _misc__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./misc */ "./src/assets/js/misc.js");
+/* harmony import */ var _misc__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_misc__WEBPACK_IMPORTED_MODULE_12__);
 // Vendor Imports
 
 
@@ -2056,6 +2549,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
  // Tambahkan ini
+
+
 
 
 

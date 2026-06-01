@@ -105,9 +105,6 @@
 </head>
 <body class="">
 
-    <!-- Include Preloader -->
-    <!-- Preloader removed per user request -->
-
     <!-- Page Transition Overlay — Multi-Strip Curtain Wipe -->
     <div id="page-transition-overlay" class="page-transition-overlay" aria-hidden="true">
         <div class="pt-strip pt-strip--1"></div>
@@ -117,8 +114,9 @@
         <div class="pt-strip pt-strip--5"></div>
     </div>
 
-    <!-- Locomotive Scroll Container-->
+    <!-- Locomotive Scroll Container -->
     <div data-scroll-container>
+
         <!-- Navbar -->
         <nav data-scroll-section class="navbar navbar-custom navbar-light bg-transparent py-4 mb-5 mb-lg-10">
           <div class="container-fluid px-4 px-md-5">
@@ -236,106 +234,110 @@
               <span class="fs-7">&copy; 2025 Dafa Hentra. All rights reserved.</span>
             </div>
           </div>
-        </div>        <!-- / Navbar-->
+        </div>        <!-- / Navbar -->
 
-        <!-- Main Section-->
-        <section class="py-3 " data-scroll-section>
-            <!-- Page Content Goes Here -->
+        <!-- Work Single Page -->
+        <div class="ws-page">
 
-            <!-- Portfolio Title-->
-            <div class="container">
-                <h1 class="display-3 mb-2" data-scroll data-scroll-speed="2" data-scroll-position="top">Business Valuation Simulator</h1>
-                <p class="subtitle-xs" data-scroll data-scroll-speed="4" data-scroll-position="top"><span class="me-2">Finance</span> · <span class="ms-2">Valuation</span></p>
-                <p class="lead" data-scroll data-scroll-speed="6" data-scroll-position="top">Business valuation tool that calculates the enterprise value of a company based on various parameters like revenue, assets, growth rate, and margin.</p>
-            </div>
-            <!-- Portfolio Title-->
+            <!-- ── 1. HERO SECTION ────────────────────────────────── -->
+            <section class="ws-hero" data-scroll-section>
+                <h1 class="ws-hero__title">Business<br>Valuation</h1>
 
-            <!-- Main Portfolio Image-->
-            <div class="my-9 bg-img-cover fade-in-up" data-scroll data-scroll-position="top" style="background-image: url(../assets/images/project-3-1.jpg)"></div>
-            <!-- / Main Portfolio Image-->
+                <div class="ws-hero__meta">
+                    <span class="ws-hero__year">2024</span>
+                    <div class="ws-hero__roles">Financial Modeling · Excel</div>
+                </div>
 
-
-            <!-- Portfolio Intro-->
-            <div class="container">
-                <div class="row gx-8 gy-5" data-scroll
-                data-scroll-position="bottom">
-                    <div class="col-12 col-lg-4 fade-in-left" data-scroll data-scroll-position="top">
-                        <p class="m-0 subtitle-sm">Situation</p>
-                    </div>
-                    <div class="col-12 col-lg-8 fade-in-right" data-scroll data-scroll-position="top">
-                        <h2 class="lead fw-bolder mb-4">Financial Analysis Tool Development</h2>
-                        <p>The finance team needed a tool to estimate business valuations under uncertainty, as traditional static DCF models failed to account for variability in key parameters like growth rates, profit margins, and terminal values, resulting in overconfident point estimates.</p>
-                    </div>
-                    <div class="col-12 col-lg-4 fade-in-left" data-scroll data-scroll-position="top">
-                        <p class="m-0 subtitle-sm">Problem</p>
-                    </div>
-                    <div class="col-12 col-lg-8 fade-in-right" data-scroll data-scroll-position="top">
-                        <p>Existing valuation methods used single-point estimates, ignoring the probabilistic nature of financial projections, leading to misleading valuations and riskier investment decisions</p>
-                        <p>Finance professionals struggled with cumbersome Excel models that couldn't efficiently run numerous scenarios, and lacked interactive visualizations to assess how changes in assumptions like WACC or growth rates affected valuations</p>
-                        <a class="link-body" href="https://dcf-simulator.streamlit.app">View Live Dashboard <i class="ri-external-link-line ms-2"></i></a>
+                <div class="ws-hero__scroll">
+                    <span class="ws-hero__scroll-label">Scroll</span>
+                    <div class="ws-hero__scroll-line">
+                        <div class="ws-hero__scroll-bar"></div>
                     </div>
                 </div>
+            </section>
+            <!-- /Hero -->
+
+            <!-- ── 2. HERO IMAGE ──────────────────────────────────── -->
+            <div class="ws-image--hero" data-scroll-section>
+                <img
+                    src="../assets/images/project-3.jpg"
+                    alt="Business Valuation Simulator"
+                    data-scroll
+                    data-scroll-speed="-2"
+                    data-scroll-position="top"
+                >
             </div>
-            <!-- / Portfolio Intro-->
+            <!-- /Hero Image -->
 
-            <!-- Portfolio Image-->
-            <div class="my-9 bg-img-cover fade-in-up" data-scroll data-scroll-position="bottom" style="background-image: url(../assets/images/project-3-2.jpg)"></div>
-            <!-- / Portfolio Image-->
+            <!-- ── 3. PROJECT INFO FLEX ───────────────────────────── -->
+            <section class="ws-flex" data-scroll-section>
+                <div class="ws-flex__left">
+                    <span class="ws-flex__overview">Project Overview</span>
+                    <h2 class="ws-flex__name">Business Valuation Simulator</h2>
+                </div>
 
-            <!-- Project Summary-->
-            <div class="container">
-                <div class="row gx-8 gy-5">
-                    <div class="col-12 col-lg-4 fade-in-left" data-scroll data-scroll-position="bottom">
-                        <p class="m-0 subtitle-sm">What I Delivered</p>
+                <div class="ws-detail">
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Role</div>
+                        <p class="ws-detail__val">Financial Modeling<br>Data Visualization<br>Excel</p>
                     </div>
-                    <div class="col-12 col-lg-8 fade-in-right" data-scroll data-scroll-position="bottom">
-                        <ul>
-                            <li class="mb-2">Monte Carlo DCF calculator with 10,000+ simulations per run</li>
-                            <li class="mb-2">Interactive sensitivity analysis for WACC vs growth rate impact</li>
-                            <li class="mb-2">Real-time statistical outputs with confidence intervals</li>
-                            <li class="mb-2">CSV export functionality for simulation results</li>
-                        </ul>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Year</div>
+                        <p class="ws-detail__val">2024</p>
                     </div>
-                    <div class="col-12 col-lg-4 fade-in-left" data-scroll data-scroll-position="bottom">
-                        <p class="m-0 subtitle-sm">Resources Used</p>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• About</div>
+                        <p class="ws-detail__val">Accurate business valuation is critical for investment decisions but typically requires expensive financial software or manual spreadsheet modeling. A gap exists for an accessible, interactive simulator applying industry-standard methodologies with real-time sensitivity analysis.</p>
                     </div>
-                    <div class="col-12 col-lg-8 fade-in-right" data-scroll data-scroll-position="bottom">
-                        <ul>
-                            <li class="mb-2">Streamlit</li>
-                            <li class="mb-2">NumPy</li>
-                            <li class="mb-2">Plotly</li>
-                            <li class="mb-2">Pandas</li>
-                        </ul>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Delivered</div>
+                        <p class="ws-detail__val">A comprehensive valuation tool implementing DCF (Discounted Cash Flow), comparable company analysis, and precedent transaction methods. Features include dynamic sensitivity tables, scenario analysis, and automated valuation reports with visual dashboards.</p>
+                    </div>
+                    <div class="ws-detail__launch">
+                        <a href="https://business-valuation.streamlit.app" target="_blank" class="ws-detail__launch-link">
+                            View Live Project
+                        </a>
                     </div>
                 </div>
-            </div>
-            <!-- Project Summary-->
+            </section>
+            <!-- /Info Flex -->
 
-            <!-- /Page Content -->
-        </section>
-        <!-- / Main Section-->
+            <!-- ── 4. SUB IMAGES ──────────────────────────────────── -->
+            <section class="ws-sub-images" data-scroll-section>
+                <div class="ws-sub-image">
+                    <img
+                        src="../assets/images/project-3-1.jpg"
+                        alt="Business Valuation Simulator — DCF Model"
+                    >
+                </div>
+                <div class="ws-sub-image">
+                    <img
+                        src="../assets/images/project-3-2.jpg"
+                        alt="Business Valuation Simulator — Sensitivity Analysis"
+                    >
+                </div>
+            </section>
+            <!-- /Sub Images -->
 
-        <!-- Footer -->
-        <!-- Footer-->
-        <div class="d-flex align-items-center justify-content-center flex-column col-lg-7 col-xl-6 col-xxl-5 text-center mx-auto mt-5 px-4 px-md-0 mt-lg-10" data-scroll-section>
-            <h4 class="display-5 mb-5" data-scroll data-scroll-speed=".8" data-scroll-delay="0.05">Let's explore how we can work together</h4>
-            <a href="../contact.html" class="btn btn-primary">Get In Touch</a>
+            <!-- ── 5. NEXT PROJECT ────────────────────────────────── -->
+            <section class="ws-next" data-scroll-section>
+                <div class="ws-next__topbar">
+                    <span>Next Project</span>
+                    <span>01 / 03</span>
+                </div>
+                <a href="../work/project-1.html" class="ws-next__inner">
+                    <span class="ws-next__label">Up next</span>
+                    <span class="ws-next__name">Live Stock Market Dashboard</span>
+                    <span class="ws-next__arrow">↗</span>
+                </a>
+            </section>
+            <!-- /Next Project -->
+
         </div>
-        
-        <footer class="border-top mt-10 pt-5 pb-8  " data-scroll-section>
-        <div class="container d-flex justify-content-between">
-            <p class="small">All rights reserved. © Dafa Hentra 2025</p>
-            <ul class="list-unstyled d-flex align-items-center">
-                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://linkedin.com/in/dafahentra"><i class="ri-linkedin-fill"></i></a></li>
-                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://instagram.com/dafahentra"><i class="ri-instagram-fill"></i></a></li>
-                <li class="ms-3"><a class="text-decoration-none text-muted" href="https://github.com/dafahentra"><i class="ri-github-fill"></i></a></li>
-            </ul>
-        </div>
-        </footer>
-        <!-- / Footer-->
-        <!-- / Footer-->
+        <!-- /ws-page -->
+
     </div>
-    <!-- /Locomotive Scroll Container-->
+    <!-- /Locomotive Scroll Container -->
 
     <!-- Theme JS -->
     <!-- Iconify -->

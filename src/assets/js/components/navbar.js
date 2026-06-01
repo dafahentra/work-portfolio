@@ -129,18 +129,41 @@
   });
 
   // --- Active Page Detection and Highlighting ---
-  const currentPath = window.location.pathname;
-  let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-  if (currentPage === '' || currentPage === 'index.html') {
-    currentPage = 'home.html';
+  function applyNavActiveState() {
+    const path = window.location.pathname;
+
+    navLinks.forEach((link) => {
+      link.classList.remove('active');
+      const linkHref = link.getAttribute('href') || '';
+
+      // Determine the core page name from the current path
+      let pageName = path.split('/').pop().replace('.html', '');
+      if (!pageName || pageName === '') pageName = 'index';
+
+      // Determine the core page name from the link href
+      let linkName = linkHref.split('/').pop().replace('.html', '');
+      if (!linkName || linkName === '') linkName = 'index';
+
+      // Exact match for the current page
+      if (
+        pageName === linkName ||
+        (pageName === 'index' && linkName === 'home') ||
+        (pageName === 'home' && linkName === 'index')
+      ) {
+        link.classList.add('active');
+      }
+      // Highlight WORK if we are inside an individual project page
+      else if (path.includes('/work/') && linkName === 'work-listing') {
+        link.classList.add('active');
+      }
+    });
   }
-  
-  navLinks.forEach((link) => {
-    const linkHref = link.getAttribute('href');
-    if (linkHref && (linkHref.includes(currentPage) || (currentPage === 'home.html' && linkHref.includes('index.html')))) {
-      link.classList.add('active');
-    }
-  });
+
+  // Run on first load
+  applyNavActiveState();
+
+  // Re-run on every PJAX navigation so the highlight stays in sync
+  document.addEventListener('page:load', applyNavActiveState);
 
   // Close on Escape key
   window.addEventListener('keydown', (e) => {

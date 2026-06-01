@@ -58,7 +58,6 @@ import Typed from 'typed.js';
 
         try {
             const url = new URL(href, window.location.href);
-            if (url.pathname === window.location.pathname && !url.search) return false;
             return url.hostname === window.location.hostname;
         } catch {
             return true;
@@ -112,25 +111,6 @@ import Typed from 'typed.js';
     }
 
     // ── DOM Swap ─────────────────────────────────────────────────────────────
-    //
-    // KEY INSIGHT: Only swap [data-scroll-container], never body.innerHTML.
-    //
-    // After the first page load, navbar.js moves .navbar-custom and
-    // #fullscreenMenu OUT of the scroll container and into direct body children.
-    // The #preloader and #page-transition-overlay are also direct body children
-    // (never inside the scroll container).
-    //
-    // So the actual live DOM layout is:
-    //   body
-    //     ├── .navbar-custom          (moved out by navbar.js)
-    //     ├── #fullscreenMenu         (moved out by navbar.js)
-    //     ├── #preloader              (original position)
-    //     ├── #page-transition-overlay (original position) ← OVERLAY STAYS HERE
-    //     └── [data-scroll-container] ← ONLY THIS IS SWAPPED
-    //
-    // By replacing just the scroll container, the overlay is NEVER detached
-    // from the DOM — eliminating the 1-frame flash of page content.
-    //
     function swapPage(html, url) {
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(html, 'text/html');
@@ -165,9 +145,6 @@ import Typed from 'typed.js';
         }
 
         // ── Atomic swap of ONLY the scroll container ─────────────────────────
-        // The overlay (fixed, z-index 1000001) is a sibling of the container,
-        // not a child — so it stays in the DOM untouched during replaceWith().
-        // No detach → no flash.
         currentContainer.replaceWith(newContainer);
 
         // Sync body className (e.g. page-specific classes)
@@ -181,11 +158,16 @@ import Typed from 'typed.js';
         document.documentElement.setAttribute('data-mode',    mode === 'dark' ? 'dark' : 'light');
         document.documentElement.setAttribute('data-bs-theme', mode === 'dark' ? 'dark' : 'light');
 
-        // Update URL — no browser navigation, no loading spinner
-        history.pushState({ pjax: true, url }, document.title, url);
+        // Force a popstate/pushstate URL change EVEN if we click the same page (to keep history stack sane)
+        if (window.location.href !== url) {
+            history.pushState({ pjax: true, url }, document.title, url);
+        }
 
         // Re-initialize page-specific components
         reinitComponents();
+
+        // Explicitly update nav active state AFTER pushState so pathname is correct
+        updateNavActiveState();
     }
 
     // ── Component Re-initialization ──────────────────────────────────────────
@@ -211,9 +193,7 @@ import Typed from 'typed.js';
             });
         }
 
-        // 2. Navbar active-state update only — the navbar element itself is
-        //    persisted across swaps (savedNavbar/savedMenu in swapPage) so
-        //    all event listeners from navbar.js IIFE remain intact.
+        // 2. Navbar active-state update only
         updateNavActiveState();
 
         // 3. Swiper — destroy existing then re-init
@@ -240,11 +220,6 @@ import Typed from 'typed.js';
 
         // 5. Contact form
         initContactForm();
-
-        // Note: dark mode toggle buttons do NOT need re-binding here.
-        // The .navbar-custom element is persisted across PJAX swaps, so the
-        // original event listeners from dark-mode.js (including the View
-        // Transitions circle-reveal animation) remain attached and working.
 
         // 6. Misc: page-loaded class
         document.body.classList.add('page-loaded');
@@ -377,11 +352,6 @@ import Typed from 'typed.js';
                 icon.style.transform = mode === 'dark' ? 'rotate(90deg)' : '';
                 icon.style.opacity = '';
             }
-            // Re-bind click (dark-mode.js global handler still works because it uses
-            // event delegation on the document — but the buttons need to fire it)
-            // The global dark-mode IIFE already ran, so its event listeners on
-            // existing btns are gone. We dispatch a synthetic click to the original logic.
-            // Simplest: directly re-bind toggle logic here.
             if (!btn._pjaxBound) {
                 btn._pjaxBound = true;
                 btn.addEventListener('click', function(e) {
@@ -409,13 +379,25 @@ import Typed from 'typed.js';
         const menuOverlay = document.getElementById('fullscreenMenu');
         if (!menuOverlay) return;
         const currentPath = window.location.pathname;
-        let currentPage = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-        if (currentPage === '' || currentPage === 'index.html') currentPage = 'home.html';
 
         menuOverlay.querySelectorAll('.fullscreen-nav-link').forEach(link => {
             link.classList.remove('active');
-            const href = link.getAttribute('href');
-            if (href && (href.includes(currentPage) || (currentPage === 'home.html' && href.includes('index.html')))) {
+            const href = link.getAttribute('href') || '';
+            
+            // Determine the core page name from the current path
+            let pageName = currentPath.split('/').pop().replace('.html', '');
+            if (!pageName || pageName === '') pageName = 'index';
+            
+            // Determine the core page name from the link href
+            let linkName = href.split('/').pop().replace('.html', '');
+            if (!linkName || linkName === '') linkName = 'index';
+            
+            // Exact match for the current page
+            if (pageName === linkName || (pageName === 'index' && linkName === 'home') || (pageName === 'home' && linkName === 'index')) {
+                link.classList.add('active');
+            } 
+            // Highlight WORK if we are inside an individual project page
+            else if (currentPath.includes('/work/') && linkName === 'work-listing') {
                 link.classList.add('active');
             }
         });
