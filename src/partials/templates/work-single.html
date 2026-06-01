@@ -1,0 +1,106 @@
+<!-- Work Single Page -->
+<div class="ws-page">
+
+    <!-- ── 1 + 2. HERO STAGE (title pinned, image slides over) ──── -->
+    <div class="ws-hero-stage" data-scroll-section>
+        <!-- Target for sticky element (cannot be the section itself in Locomotive Scroll) -->
+        <div id="{{project.slug}}-target" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+
+        <!-- Title: stays pinned while stage scrolls (yutaabe mechanism) -->
+        <div class="ws-hero" data-scroll data-scroll-sticky data-scroll-target="#{{project.slug}}-target" data-scroll-offset="0">
+            <h1 class="ws-hero__title">{{{project.heroTitleHTML}}}</h1>
+
+            <div class="ws-hero__meta">
+                <span class="ws-hero__year">{{project.year}}</span>
+                <div class="ws-hero__roles">{{project.rolesInline}}</div>
+            </div>
+
+            <div class="ws-hero__scroll">
+                <span class="ws-hero__scroll-label">Scroll</span>
+                <div class="ws-hero__scroll-line">
+                    <div class="ws-hero__scroll-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image: starts at bottom of stage, scrolls up to cover the title -->
+        <div class="ws-image--hero" data-scroll data-scroll-speed="-2" data-scroll-position="top">
+            <img
+                src="{{project.heroImg}}"
+                alt="{{project.title}}"
+            >
+        </div>
+
+    </div>
+    <!-- /Hero Stage -->
+
+    <!-- ── 3. PROJECT INFO FLEX ───────────────────────────── -->
+    <section class="ws-flex" data-scroll-section>
+        <div class="ws-flex__left">
+            <span class="ws-flex__overview">Project Overview</span>
+            <h2 class="ws-flex__name">{{project.title}}</h2>
+        </div>
+
+        <div class="ws-detail">
+            <div class="ws-detail__item">
+                <div class="ws-detail__label">• Role</div>
+                <p class="ws-detail__val">
+                    {{#each project.roles}}
+                        {{this}}{{#unless @last}}<br>{{/unless}}
+                    {{/each}}
+                </p>
+            </div>
+            <div class="ws-detail__item">
+                <div class="ws-detail__label">• Year</div>
+                <p class="ws-detail__val">{{project.year}}</p>
+            </div>
+            <div class="ws-detail__item">
+                <div class="ws-detail__label">• About</div>
+                <p class="ws-detail__val">{{project.situation}}</p>
+            </div>
+            <div class="ws-detail__item">
+                <div class="ws-detail__label">• Delivered</div>
+                <p class="ws-detail__val">{{project.delivered}}</p>
+            </div>
+            {{#if project.links.length}}
+            <div class="ws-detail__launch">
+                <a href="{{project.links.[0].url}}" target="_blank" class="ws-detail__launch-link">
+                    {{project.links.[0].text}}
+                </a>
+            </div>
+            {{/if}}
+        </div>
+    </section>
+    <!-- /Info Flex -->
+
+    <!-- ── 4. SUB IMAGES ──────────────────────────────────── -->
+    {{#if project.subImages.length}}
+    <section class="ws-sub-images" data-scroll-section>
+        {{#each project.subImages}}
+        <div class="ws-sub-image">
+            <img
+                src="{{this.src}}"
+                alt="{{this.alt}}"
+            >
+        </div>
+        {{/each}}
+    </section>
+    {{/if}}
+    <!-- /Sub Images -->
+
+    <!-- ── 5. NEXT PROJECT ────────────────────────────────── -->
+    <section class="ws-next" data-scroll-section>
+        <div class="ws-next__topbar">
+            <span>Next Project</span>
+            <span>{{project.nextNumber}}</span>
+        </div>
+        <a href="{{webRoot}}/work/{{project.nextSlug}}.html" class="ws-next__inner">
+            <span class="ws-next__label">Up next</span>
+            <span class="ws-next__name">{{project.nextTitle}}</span>
+            <span class="ws-next__arrow">↗</span>
+        </a>
+    </section>
+    <!-- /Next Project -->
+
+</div>
+<!-- /ws-page -->

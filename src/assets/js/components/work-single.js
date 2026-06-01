@@ -15,12 +15,56 @@
     const heroImg   = page.querySelector('.ws-image--hero img');
     const scrollHint = page.querySelector('.ws-hero__scroll');
 
-    // ── 1. Hero reveal (title clip-path + meta fade in) ───────────────────
-    if (heroTitle) {
-      setTimeout(() => heroTitle.classList.add('is-revealed'), 200);
+    // ── 1. Hero reveal (scroll -> meta -> title) ──────────────────
+    // Stagger: scroll hint first, then meta, then title last
+    function triggerAnimations() {
+      if (scrollHint) {
+        setTimeout(() => {
+          scrollHint.offsetHeight; // force reflow so browser sees initial state
+          scrollHint.classList.add('is-revealed');
+        }, 100);
+      }
+      if (heroMeta) {
+        setTimeout(() => {
+          heroMeta.offsetHeight;
+          heroMeta.classList.add('is-revealed');
+        }, 300);
+      }
+      if (heroTitle) {
+        setTimeout(() => {
+          heroTitle.offsetHeight;
+          heroTitle.classList.add('is-revealed');
+        }, 500);
+      }
     }
-    if (heroMeta) {
-      setTimeout(() => heroMeta.classList.add('is-revealed'), 400);
+
+    // Detect if any overlay (preloader or page-transition) is covering the screen.
+    // If so, wait for it to finish before triggering animations.
+    function isOverlayActive() {
+      const overlay = document.getElementById('page-transition-overlay');
+      const hasPreloader = document.body.classList.contains('preloader-active');
+      const hasTransition = overlay && (overlay.classList.contains('is-leaving') || overlay.classList.contains('is-entering') || overlay.classList.contains('is-preload-ready'));
+      return hasPreloader || hasTransition;
+    }
+
+    function checkAndTrigger() {
+      if (isOverlayActive()) {
+        const checkInterval = setInterval(() => {
+          if (!isOverlayActive()) {
+            clearInterval(checkInterval);
+            triggerAnimations();
+          }
+        }, 100);
+      } else {
+        triggerAnimations();
+      }
+    }
+
+    // Wait for fonts to load so huge text doesn't skip transition due to FOIT
+    if ('fonts' in document) {
+      document.fonts.ready.then(checkAndTrigger);
+    } else {
+      checkAndTrigger();
     }
 
     // ── 2. Scroll-driven active classes (scroll hint + metadata fade out) ──

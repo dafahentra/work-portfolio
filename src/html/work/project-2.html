@@ -2,9 +2,9 @@
 <html lang="en">
 
 <!-- Head -->
-{{> (config config.partials.head) title="Option Pricing Analytics | Dafa Hentra" }}
+{{> (config config.partials.head) title=(concat work.entries.[1].title " | Dafa Hentra") }}
 
-<body class="{{ config.classes.body }}">
+<body class="{{ config.classes.body }} is-work-single">
 
     {{!-- Page Transition Overlay --}}
     {{> widgets/page-transition }}
@@ -18,105 +18,8 @@
         classList="" }}
         <!-- / Navbar -->
 
-        <!-- Work Single Page -->
-        <div class="ws-page">
-
-            <!-- ── 1. HERO SECTION ────────────────────────────────── -->
-            <section class="ws-hero" data-scroll-section>
-                <h1 class="ws-hero__title">Option<br>Pricing</h1>
-
-                <div class="ws-hero__meta">
-                    <span class="ws-hero__year">2025</span>
-                    <div class="ws-hero__roles">Quantitative Finance · Python</div>
-                </div>
-
-                <div class="ws-hero__scroll">
-                    <span class="ws-hero__scroll-label">Scroll</span>
-                    <div class="ws-hero__scroll-line">
-                        <div class="ws-hero__scroll-bar"></div>
-                    </div>
-                </div>
-            </section>
-            <!-- /Hero -->
-
-            <!-- ── 2. HERO IMAGE ──────────────────────────────────── -->
-            <div class="ws-image--hero" data-scroll-section>
-                <img
-                    src="{{webRoot}}/assets/images/project-2.jpg"
-                    alt="Option Pricing Analytics"
-                    data-scroll
-                    data-scroll-speed="-2"
-                    data-scroll-position="top"
-                >
-            </div>
-            <!-- /Hero Image -->
-
-            <!-- ── 3. PROJECT INFO FLEX ───────────────────────────── -->
-            <section class="ws-flex" data-scroll-section>
-                <div class="ws-flex__left">
-                    <span class="ws-flex__overview">Project Overview</span>
-                    <h2 class="ws-flex__name">Option Pricing Analytics</h2>
-                </div>
-
-                <div class="ws-detail">
-                    <div class="ws-detail__item">
-                        <div class="ws-detail__label">• Role</div>
-                        <p class="ws-detail__val">Quantitative Finance<br>UI Design<br>Python</p>
-                    </div>
-                    <div class="ws-detail__item">
-                        <div class="ws-detail__label">• Year</div>
-                        <p class="ws-detail__val">2025</p>
-                    </div>
-                    <div class="ws-detail__item">
-                        <div class="ws-detail__label">• About</div>
-                        <p class="ws-detail__val">Options trading requires simultaneous understanding of multiple Greek metrics and pricing models. Existing platforms either overwhelm users with raw data or oversimplify the underlying mathematics, leaving a gap for professional-grade yet intuitive analytics.</p>
-                    </div>
-                    <div class="ws-detail__item">
-                        <div class="ws-detail__label">• Delivered</div>
-                        <p class="ws-detail__val">A comprehensive platform for Black-Scholes and binomial tree pricing, real-time Greeks visualization (Delta, Gamma, Theta, Vega), interactive payoff diagrams, and risk management tools for portfolio hedging strategies.</p>
-                    </div>
-                    <div class="ws-detail__launch">
-                        <a href="https://options-pricing.streamlit.app" target="_blank" class="ws-detail__launch-link">
-                            View Live Project
-                        </a>
-                    </div>
-                </div>
-            </section>
-            <!-- /Info Flex -->
-
-            <!-- ── 4. SUB IMAGES ──────────────────────────────────── -->
-            <section class="ws-sub-images" data-scroll-section>
-                <div class="ws-sub-image">
-                    <img
-                        src="{{webRoot}}/assets/images/project-2-1.jpg"
-                        alt="Option Pricing Analytics — Greeks View"
-                    >
-                </div>
-                <div class="ws-sub-image">
-                    <img
-                        src="{{webRoot}}/assets/images/project-2-2.jpg"
-                        alt="Option Pricing Analytics — Payoff Diagram"
-                    >
-                </div>
-            </section>
-            <!-- /Sub Images -->
-
-            <!-- ── 5. NEXT PROJECT ────────────────────────────────── -->
-            <section class="ws-next" data-scroll-section>
-                <div class="ws-next__topbar">
-                    <span>Next Project</span>
-                    <span>03 / 03</span>
-                </div>
-                <a href="{{webRoot}}/work/project-3.html" class="ws-next__inner">
-                    <span class="ws-next__label">Up next</span>
-                    <span class="ws-next__name">Business Valuation Simulator</span>
-                    <span class="ws-next__arrow">↗</span>
-                </a>
-            </section>
-            <!-- /Next Project -->
-
-        </div>
-        <!-- /ws-page -->
+        <!-- Inject Dynamic Project Template -->
+        {{> templates/work-single project=work.entries.[1] }}
 
     </div>
     <!-- /Locomotive Scroll Container -->

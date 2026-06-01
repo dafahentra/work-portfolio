@@ -103,7 +103,7 @@
 
   <title>Dafa Hentra | Portfolio</title>
 </head>
-<body class="">
+<body class=" is-work-single">
 
     <!-- Page Transition Overlay — Multi-Strip Curtain Wipe -->
     <div id="page-transition-overlay" class="page-transition-overlay" aria-hidden="true">
@@ -239,33 +239,35 @@
         <!-- Work Single Page -->
         <div class="ws-page">
 
-            <!-- ── 1. HERO SECTION ────────────────────────────────── -->
-            <section class="ws-hero" data-scroll-section>
-                <h1 class="ws-hero__title">Business<br>Valuation</h1>
+            <!-- ── 1 + 2. HERO STAGE (title pinned, image slides over) ──── -->
+            <div class="ws-hero-stage" data-scroll-section>
+                <!-- Target for sticky element (cannot be the section itself in Locomotive Scroll) -->
+                <div id="hero-stage-3-target" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
 
-                <div class="ws-hero__meta">
-                    <span class="ws-hero__year">2024</span>
-                    <div class="ws-hero__roles">Financial Modeling · Excel</div>
-                </div>
+                <!-- Title: stays pinned while stage scrolls (yutaabe mechanism) -->
+                <div class="ws-hero" data-scroll data-scroll-sticky data-scroll-target="#hero-stage-3-target" data-scroll-offset="0">
+                    <h1 class="ws-hero__title">Business<br>Valuation</h1>
 
-                <div class="ws-hero__scroll">
-                    <span class="ws-hero__scroll-label">Scroll</span>
-                    <div class="ws-hero__scroll-line">
-                        <div class="ws-hero__scroll-bar"></div>
+                    <div class="ws-hero__meta">
+                        <span class="ws-hero__year">2024</span>
+                        <div class="ws-hero__roles">Financial Modeling · Excel</div>
+                    </div>
+
+                    <div class="ws-hero__scroll">
+                        <span class="ws-hero__scroll-label">Scroll</span>
+                        <div class="ws-hero__scroll-line">
+                            <div class="ws-hero__scroll-bar"></div>
+                        </div>
                     </div>
                 </div>
-            </section>
-            <!-- /Hero -->
 
-            <!-- ── 2. HERO IMAGE ──────────────────────────────────── -->
-            <div class="ws-image--hero" data-scroll-section>
-                <img
-                    src="../assets/images/project-3.jpg"
-                    alt="Business Valuation Simulator"
-                    data-scroll
-                    data-scroll-speed="-2"
-                    data-scroll-position="top"
-                >
+                <!-- Hero Image -->
+                <div class="ws-image--hero" data-scroll data-scroll-speed="-2" data-scroll-position="top">
+                    <img
+                        src="../assets/images/project-3.jpg"
+                        alt="Business Valuation Simulator"
+                    >
+                </div>
             </div>
             <!-- /Hero Image -->
 
