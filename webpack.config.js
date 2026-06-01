@@ -221,6 +221,9 @@ const wPackConfig = {
                 zeroPad: function(n) {
                   var num = parseInt(n, 10) + 1;
                   return num < 10 ? '0' + num : '' + num;
+                },
+                concat: function(...args) {
+                  return args.slice(0, -1).join('');
                 }
             },
             onBeforeSave: function(Handlebars, res, file) {

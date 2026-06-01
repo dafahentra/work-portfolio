@@ -236,23 +236,24 @@
           </div>
         </div>        <!-- / Navbar -->
 
+        <!-- Inject Dynamic Project Template -->
         <!-- Work Single Page -->
         <div class="ws-page">
-
+        
             <!-- ── 1 + 2. HERO STAGE (title pinned, image slides over) ──── -->
             <div class="ws-hero-stage" data-scroll-section>
                 <!-- Target for sticky element (cannot be the section itself in Locomotive Scroll) -->
-                <div id="hero-stage-1-target" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
-
+                <div id="project-1-target" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></div>
+        
                 <!-- Title: stays pinned while stage scrolls (yutaabe mechanism) -->
-                <div class="ws-hero" data-scroll data-scroll-sticky data-scroll-target="#hero-stage-1-target" data-scroll-offset="0">
+                <div class="ws-hero" data-scroll data-scroll-sticky data-scroll-target="#project-1-target" data-scroll-offset="0">
                     <h1 class="ws-hero__title">Live Stock<br>Market</h1>
-
+        
                     <div class="ws-hero__meta">
                         <span class="ws-hero__year">2025</span>
                         <div class="ws-hero__roles">Data Analysis · Python</div>
                     </div>
-
+        
                     <div class="ws-hero__scroll">
                         <span class="ws-hero__scroll-label">Scroll</span>
                         <div class="ws-hero__scroll-line">
@@ -260,29 +261,33 @@
                         </div>
                     </div>
                 </div>
-
+        
                 <!-- Image: starts at bottom of stage, scrolls up to cover the title -->
-                <div class="ws-image--hero">
+                <div class="ws-image--hero" data-scroll data-scroll-speed="-2" data-scroll-position="top">
                     <img
                         src="../assets/images/project-1.jpg"
                         alt="Live Stock Market Dashboard"
                     >
                 </div>
-
+        
             </div>
             <!-- /Hero Stage -->
-
+        
             <!-- ── 3. PROJECT INFO FLEX ───────────────────────────── -->
             <section class="ws-flex" data-scroll-section>
                 <div class="ws-flex__left">
                     <span class="ws-flex__overview">Project Overview</span>
                     <h2 class="ws-flex__name">Live Stock Market Dashboard</h2>
                 </div>
-
+        
                 <div class="ws-detail">
                     <div class="ws-detail__item">
                         <div class="ws-detail__label">• Role</div>
-                        <p class="ws-detail__val">Data Analysis<br>Dashboard Design<br>Python</p>
+                        <p class="ws-detail__val">
+                                Data Analysis<br>
+                                Dashboard Design<br>
+                                Python
+                        </p>
                     </div>
                     <div class="ws-detail__item">
                         <div class="ws-detail__label">• Year</div>
@@ -304,7 +309,7 @@
                 </div>
             </section>
             <!-- /Info Flex -->
-
+        
             <!-- ── 4. SUB IMAGES ──────────────────────────────────── -->
             <section class="ws-sub-images" data-scroll-section>
                 <div class="ws-sub-image">
@@ -315,7 +320,7 @@
                 </div>
             </section>
             <!-- /Sub Images -->
-
+        
             <!-- ── 5. NEXT PROJECT ────────────────────────────────── -->
             <section class="ws-next" data-scroll-section>
                 <div class="ws-next__topbar">
@@ -329,7 +334,7 @@
                 </a>
             </section>
             <!-- /Next Project -->
-
+        
         </div>
         <!-- /ws-page -->
 
