@@ -11,6 +11,8 @@ import './components/preloader'; // Tambahkan ini
 import './components/navbar';
 import './components/page-transition';
 import './components/work-slider';
+import './components/work-listing';
+import './components/work-single';
 
 // theme misc js
 import './misc';

@@ -2,110 +2,124 @@
 <html lang="en">
 
 <!-- Head -->
-{{> (config config.partials.head) title=config.defaultPageTitle }}
+{{> (config config.partials.head) title="Option Pricing Analytics | Dafa Hentra" }}
 
 <body class="{{ config.classes.body }}">
-
-    <!-- Include Preloader -->
-    <!-- Preloader removed per user request -->
 
     {{!-- Page Transition Overlay --}}
     {{> widgets/page-transition }}
 
-    <!-- Locomotive Scroll Container-->
+    <!-- Locomotive Scroll Container -->
     <div data-scroll-container>
+
         <!-- Navbar -->
         {{> (config config.partials.navbar)
         configClassList=config.classes.navbar
         classList="" }}
-        <!-- / Navbar-->
+        <!-- / Navbar -->
 
-        <!-- Main Section-->
-        <section class="py-3 {{ config.classes.content }}" data-scroll-section>
-            <!-- Page Content Goes Here -->
+        <!-- Work Single Page -->
+        <div class="ws-page">
 
-            <!-- Portfolio Title-->
-            <div class="container">
-                <h1 class="display-3 mb-2" data-scroll data-scroll-speed="2" data-scroll-position="top">Option Pricing Analytics</h1>
-                <p class="subtitle-xs" data-scroll data-scroll-speed="4" data-scroll-position="top"><span class="me-2">Finance</span> · <span class="ms-2">Derivatives</span></p>
-                <p class="lead" data-scroll data-scroll-speed="6" data-scroll-position="top">Delivers Streamlit-based platform for options pricing, Greeks analysis, and risk management, offering an intuitive interface for financial derivatives analysis.</p>
-            </div>
-            <!-- Portfolio Title-->
+            <!-- ── 1. HERO SECTION ────────────────────────────────── -->
+            <section class="ws-hero" data-scroll-section>
+                <h1 class="ws-hero__title">Option<br>Pricing</h1>
 
-            <!-- Main Portfolio Image-->
-            <div class="my-9 bg-img-cover fade-in-up" data-scroll data-scroll-position="top" style="background-image: url({{webRoot}}/assets/images/project-2-1.jpg)"></div>
-            <!-- / Main Portfolio Image-->
+                <div class="ws-hero__meta">
+                    <span class="ws-hero__year">2025</span>
+                    <div class="ws-hero__roles">Quantitative Finance · Python</div>
+                </div>
 
-
-            <!-- Portfolio Intro-->
-            <div class="container">
-                <div class="row gx-8 gy-5" data-scroll
-                data-scroll-position="bottom">
-                    <div class="col-12 col-lg-4 fade-in-left" data-scroll data-scroll-position="top">
-                        <p class="m-0 subtitle-sm">Situation</p>
-                    </div>
-                    <div class="col-12 col-lg-8 fade-in-right" data-scroll data-scroll-position="top">
-                        <h2 class="lead fw-bolder mb-4">Options Trading Requires Sophisticated Analytics</h2>
-                        <p>Modern options trading demands comprehensive platforms that handle multiple pricing methodologies, real-time sensitivity analysis, and advanced portfolio risk metrics beyond basic spreadsheet solutions.</p>
-                    </div>
-                    <div class="col-12 col-lg-4 fade-in-left" data-scroll data-scroll-position="top">
-                        <p class="m-0 subtitle-sm">Problem</p>
-                    </div>
-                    <div class="col-12 col-lg-8 fade-in-right" data-scroll data-scroll-position="top">
-                        <p>Financial institutions struggle with fragmented analytical tools that don't provide comprehensive options analysis in a single platform. Existing solutions typically offer either basic pricing or advanced analytics, but rarely both integrated.</p>
-                        <p>Current platforms lack real-time scenario analysis and intuitive visualizations for complex risk metrics, making it difficult for traders to quickly assess portfolio exposures under time pressure.</p>
-                        <a class="link-body" href="https://option-tool.streamlit.app">View Live Dashboard <i class="ri-external-link-line ms-2"></i></a>
+                <div class="ws-hero__scroll">
+                    <span class="ws-hero__scroll-label">Scroll</span>
+                    <div class="ws-hero__scroll-line">
+                        <div class="ws-hero__scroll-bar"></div>
                     </div>
                 </div>
+            </section>
+            <!-- /Hero -->
+
+            <!-- ── 2. HERO IMAGE ──────────────────────────────────── -->
+            <div class="ws-image--hero" data-scroll-section>
+                <img
+                    src="{{webRoot}}/assets/images/project-2.jpg"
+                    alt="Option Pricing Analytics"
+                    data-scroll
+                    data-scroll-speed="-2"
+                    data-scroll-position="top"
+                >
             </div>
-            <!-- / Portfolio Intro-->
+            <!-- /Hero Image -->
 
-            <!-- Portfolio Image-->
-            <div class="my-9 bg-img-cover fade-in-up" data-scroll data-scroll-position="bottom" style="background-image: url({{webRoot}}/assets/images/project-2-2.jpg)"></div>
-            <!-- / Portfolio Image-->
+            <!-- ── 3. PROJECT INFO FLEX ───────────────────────────── -->
+            <section class="ws-flex" data-scroll-section>
+                <div class="ws-flex__left">
+                    <span class="ws-flex__overview">Project Overview</span>
+                    <h2 class="ws-flex__name">Option Pricing Analytics</h2>
+                </div>
 
-            <!-- Project Summary-->
-            <div class="container">
-                <div class="row gx-8 gy-5">
-                    <div class="col-12 col-lg-4 fade-in-left" data-scroll data-scroll-position="bottom">
-                        <p class="m-0 subtitle-sm">What I Delivered</p>
+                <div class="ws-detail">
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Role</div>
+                        <p class="ws-detail__val">Quantitative Finance<br>UI Design<br>Python</p>
                     </div>
-                    <div class="col-12 col-lg-8 fade-in-right" data-scroll data-scroll-position="bottom">
-                        <ul>
-                            <li class="mb-2">Multi-Model Option Pricing Comparison</li>
-                            <li class="mb-2">Real-Time Greeks Analysis</li>
-                            <li class="mb-2">Option Strategy Builder</li>
-                            <li class="mb-2">Portfolio Risk Metrics</li>
-                        </ul>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Year</div>
+                        <p class="ws-detail__val">2025</p>
                     </div>
-                    <div class="col-12 col-lg-4 fade-in-left" data-scroll data-scroll-position="bottom">
-                        <p class="m-0 subtitle-sm">Resources Used</p>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• About</div>
+                        <p class="ws-detail__val">Options trading requires simultaneous understanding of multiple Greek metrics and pricing models. Existing platforms either overwhelm users with raw data or oversimplify the underlying mathematics, leaving a gap for professional-grade yet intuitive analytics.</p>
                     </div>
-                    <div class="col-12 col-lg-8 fade-in-right" data-scroll data-scroll-position="bottom">
-                        <ul>
-                            <li class="mb-2">Streamlit</li>
-                            <li class="mb-2">NumPy</li>
-                            <li class="mb-2">Plotly</li>
-                            <li class="mb-2">SciPy</li>
-                        </ul>
+                    <div class="ws-detail__item">
+                        <div class="ws-detail__label">• Delivered</div>
+                        <p class="ws-detail__val">A comprehensive platform for Black-Scholes and binomial tree pricing, real-time Greeks visualization (Delta, Gamma, Theta, Vega), interactive payoff diagrams, and risk management tools for portfolio hedging strategies.</p>
+                    </div>
+                    <div class="ws-detail__launch">
+                        <a href="https://options-pricing.streamlit.app" target="_blank" class="ws-detail__launch-link">
+                            View Live Project
+                        </a>
                     </div>
                 </div>
-            </div>
-            <!-- Project Summary-->
+            </section>
+            <!-- /Info Flex -->
 
-            <!-- /Page Content -->
-        </section>
-        <!-- / Main Section-->
+            <!-- ── 4. SUB IMAGES ──────────────────────────────────── -->
+            <section class="ws-sub-images" data-scroll-section>
+                <div class="ws-sub-image">
+                    <img
+                        src="{{webRoot}}/assets/images/project-2-1.jpg"
+                        alt="Option Pricing Analytics — Greeks View"
+                    >
+                </div>
+                <div class="ws-sub-image">
+                    <img
+                        src="{{webRoot}}/assets/images/project-2-2.jpg"
+                        alt="Option Pricing Analytics — Payoff Diagram"
+                    >
+                </div>
+            </section>
+            <!-- /Sub Images -->
 
-        <!-- Footer -->
-        {{> (config config.partials.footer)
-            configClassList=config.classes.footer
-            classList=""
-            show-cta="true"
-    }}
-        <!-- / Footer-->
+            <!-- ── 5. NEXT PROJECT ────────────────────────────────── -->
+            <section class="ws-next" data-scroll-section>
+                <div class="ws-next__topbar">
+                    <span>Next Project</span>
+                    <span>03 / 03</span>
+                </div>
+                <a href="{{webRoot}}/work/project-3.html" class="ws-next__inner">
+                    <span class="ws-next__label">Up next</span>
+                    <span class="ws-next__name">Business Valuation Simulator</span>
+                    <span class="ws-next__arrow">↗</span>
+                </a>
+            </section>
+            <!-- /Next Project -->
+
+        </div>
+        <!-- /ws-page -->
+
     </div>
-    <!-- /Locomotive Scroll Container-->
+    <!-- /Locomotive Scroll Container -->
 
     <!-- Theme JS -->
     {{> footer/scripts }}
