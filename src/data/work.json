@@ -2,8 +2,9 @@
     "entries": [
         {
             "img": "{{webRoot}}/assets/images/project-listing-1.png",
-            "heroImg": "{{webRoot}}/assets/images/project-1.jpg",
+            "heroImg": "{{webRoot}}/assets/images/project-listing-1.png",
             "subImages": [
+                { "src": "{{webRoot}}/assets/images/project-1.jpg", "alt": "Live Stock Market Dashboard — Overview" },
                 { "src": "{{webRoot}}/assets/images/project-1-1.jpg", "alt": "Live Stock Market Dashboard — Detail View" }
             ],
             "title": "Live Stock Market Dashboard",
@@ -26,8 +27,9 @@
         },
         {
             "img": "{{webRoot}}/assets/images/project-listing-2.png",
-            "heroImg": "{{webRoot}}/assets/images/project-2.jpg",
+            "heroImg": "{{webRoot}}/assets/images/project-listing-2.png",
             "subImages": [
+                { "src": "{{webRoot}}/assets/images/project-2.jpg", "alt": "Option Pricing Analytics — Overview" },
                 { "src": "{{webRoot}}/assets/images/project-2-1.jpg", "alt": "Option Pricing Analytics — Greeks View" },
                 { "src": "{{webRoot}}/assets/images/project-2-2.jpg", "alt": "Option Pricing Analytics — Payoff Diagram" }
             ],
@@ -51,8 +53,9 @@
         },
         {
             "img": "{{webRoot}}/assets/images/project-listing-3.png",
-            "heroImg": "{{webRoot}}/assets/images/project-3.jpg",
+            "heroImg": "{{webRoot}}/assets/images/project-listing-3.png",
             "subImages": [
+                { "src": "{{webRoot}}/assets/images/project-3.jpg", "alt": "Business Valuation Simulator — Overview" },
                 { "src": "{{webRoot}}/assets/images/project-3-1.jpg", "alt": "Business Valuation Simulator — DCF Model" },
                 { "src": "{{webRoot}}/assets/images/project-3-2.jpg", "alt": "Business Valuation Simulator — Sensitivity Analysis" }
             ],
