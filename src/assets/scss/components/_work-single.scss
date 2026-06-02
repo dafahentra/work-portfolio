@@ -402,8 +402,10 @@ body.is-work-single [data-scroll-container] {
   position: relative;
 
   &::after {
-    content: '↗';
-    font-size: 0.9em;
+    content: '\ea70'; /* ri-arrow-right-up-line */
+    font-family: 'remixicon';
+    font-weight: normal;
+    font-size: 1.1em;
     transition: transform 0.3s var(--ws-ease);
     display: inline-block;
   }
