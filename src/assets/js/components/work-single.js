@@ -2,12 +2,20 @@
    Work Single — Scroll Animations & Interactions
    ========================================================================== */
 
+import { webGLStage } from './work-single-webgl';
+
 (function () {
   'use strict';
 
   function init() {
     const page     = document.querySelector('.ws-page');
-    if (!page) return;
+    if (!page) {
+      webGLStage.destroy();
+      return;
+    }
+
+    // Start Yuta Abe-inspired WebGL scroll pixel transition
+    webGLStage.init();
 
     const wsHero    = page.querySelector('.ws-hero');
     const heroTitle = page.querySelector('.ws-hero__title');
