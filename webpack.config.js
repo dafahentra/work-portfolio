@@ -227,8 +227,7 @@ const wPackConfig = {
                 }
             },
             onBeforeSave: function(Handlebars, res, file) {
-                const elem = file.split('//').pop().split('/').length;
-                return res.split('{{webRoot}}').join('.'.repeat(elem));
+                return res.split('{{webRoot}}').join('');
             },
         }),
         new FixStyleOnlyEntriesPlugin(),
