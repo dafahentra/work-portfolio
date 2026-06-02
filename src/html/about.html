@@ -29,10 +29,13 @@
             <div class="row g-8 mb-8 mb-md-12">
                 <!-- Profile Image-->
                 <div class="col-12 col-md-5" data-scroll data-scroll-position="top">
-                    <picture>
-                        <img class="img-fluid" src="{{webRoot}}/assets/images/avatar.jpg"
-                            alt="{{ config.defaultImgAlt }}">
-                    </picture>
+                    <div id="avatar-webgl-container" class="avatar-webgl-container"
+                         data-image-a="{{webRoot}}/assets/images/avatar.jpg"
+                         data-image-b="{{webRoot}}/assets/images/Avatar-Hover.jpg">
+                        <img class="img-fluid avatar-webgl-fallback"
+                             src="{{webRoot}}/assets/images/avatar.jpg"
+                             alt="{{ config.defaultImgAlt }}">
+                    </div>
                 </div>
                 <!-- / Profile Image-->
 

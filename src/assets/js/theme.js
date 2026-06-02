@@ -13,6 +13,7 @@ import './components/page-transition';
 import './components/work-slider';
 import './components/work-listing';
 import './components/work-single';
+import './components/avatar-webgl';
 
 // theme misc js
 import './misc';
