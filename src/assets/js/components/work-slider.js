@@ -100,7 +100,7 @@
       const diff = (e.touches[0].clientX - this._dragStartX) * -1;
       if (Math.abs(diff) > 5) { this.hasMoved = true; e.preventDefault(); }
       this.targetPos = Math.round(
-        (this.initialPos - (this.offsetSpeed * (diff / document.body.clientWidth))) * 100
+        (this.initialPos - (this.offsetSpeed * 0.5 * (diff / document.body.clientWidth))) * 100
       ) / 100;
     }
 
