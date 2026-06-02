@@ -17,9 +17,9 @@ if (typeof window !== 'undefined') {
 }
 
 // Design Constants
-const GRID_COLS = window.innerWidth < 768 ? 50 : 80; // Grid density matching Yuta Abe (80 cols desktop, 50 mobile)
-const TITLE_GRID_COLS = 512;
-const TITLE_GRID_ROWS = 128;
+const GRID_COLS = window.innerWidth < 768 ? 120 : 200; // Grid density matching Yuta Abe (80 cols desktop, 50 mobile)
+const TITLE_GRID_COLS = 1024;
+const TITLE_GRID_ROWS = 256;
 
 // ---------- 1. Title Shader (Canvas Text Masking & Wipe) ----------
 const titleVertexShader = `

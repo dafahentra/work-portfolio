@@ -66,7 +66,7 @@ body.is-work-single [data-scroll-container] {
 .ws-hero__title {
   font-family: 'Poppins', sans-serif;
   font-weight: 900;
-  font-size: clamp(3rem, 13vw, 16rem);
+  font-size: clamp(4.5rem, 19.5vw, 24rem);
   /* Diperbesar sedikit sesuai permintaan */
   text-transform: uppercase;
   letter-spacing: -0.03em;
@@ -86,7 +86,7 @@ body.is-work-single [data-scroll-container] {
   transition: opacity 0.6s var(--ws-ease), transform 0.6s var(--ws-ease);
 
   @media (max-width: 900px) {
-    font-size: clamp(2.5rem, 12vw, 5.5rem);
+    font-size: clamp(3.75rem, 18vw, 8.25rem);
     white-space: normal;
     word-break: break-word;
     padding: 0 1.5rem;
@@ -287,7 +287,7 @@ body.is-work-single [data-scroll-container] {
     flex-direction: column;
     gap: 3rem;
     padding: 2.5rem 1.5rem 6rem;
-    margin-top: -64dvh;
+    margin-top: -88dvh;
   }
 }
 
