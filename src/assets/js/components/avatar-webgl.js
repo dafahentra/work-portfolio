@@ -57,7 +57,7 @@ const fragmentShader = `
 
     // Circular mask with soft feathered edge
     float radius = uMaskRadius * uHover;
-    float mask = (1.0 - smoothstep(radius - uMaskSoftness, radius + uMaskSoftness, dist)) * uHover;
+    float mask = 1.0 - smoothstep(radius - uMaskSoftness, radius + uMaskSoftness, dist);
 
     // Mix: show texture A normally, reveal texture B inside the mask circle
     gl_FragColor = mix(colorA, colorB, mask);
