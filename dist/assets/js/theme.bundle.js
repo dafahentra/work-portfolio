@@ -1588,9 +1588,9 @@ __webpack_require__.r(__webpack_exports__);
     'use strict';
 
     // ── Config ──────────────────────────────────────────────────────────────
-    const STRIPS      = 5;
-    const STAGGER     = 55;   // ms between each strip
-    const DURATION    = 550;  // ms per strip animation
+    const STRIPS = 5;
+    const STAGGER = 55;   // ms between each strip
+    const DURATION = 550;  // ms per strip animation
     const LEAVE_TOTAL = DURATION + (STRIPS - 1) * STAGGER;  // ~770ms
     const ENTER_TOTAL = DURATION + (STRIPS - 1) * STAGGER;
 
@@ -1681,7 +1681,7 @@ __webpack_require__.r(__webpack_exports__);
 
         // Find scroll containers
         const currentContainer = document.querySelector('[data-scroll-container]');
-        const newContainer     = newDoc.querySelector('[data-scroll-container]');
+        const newContainer = newDoc.querySelector('[data-scroll-container]');
 
         if (!currentContainer || !newContainer) {
             // Fallback: shouldn't happen, but navigate normally if no container found
@@ -1696,7 +1696,7 @@ __webpack_require__.r(__webpack_exports__);
 
         // Destroy Locomotive Scroll before DOM mutation
         if (window.locoScroll) {
-            try { window.locoScroll.destroy(); } catch (e) {}
+            try { window.locoScroll.destroy(); } catch (e) { }
             window.locoScroll = null;
         }
 
@@ -1711,7 +1711,7 @@ __webpack_require__.r(__webpack_exports__);
 
         // Re-apply dark mode (inline head script doesn't re-run over PJAX)
         const mode = localStorage.getItem('mode');
-        document.documentElement.setAttribute('data-mode',    mode === 'dark' ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-mode', mode === 'dark' ? 'dark' : 'light');
         document.documentElement.setAttribute('data-bs-theme', mode === 'dark' ? 'dark' : 'light');
 
         // Force a popstate/pushstate URL change EVEN if we click the same page (to keep history stack sane)
@@ -1757,7 +1757,7 @@ __webpack_require__.r(__webpack_exports__);
             reinitSwipers();
         } else {
             // Swiper is bundled with vendor — access via global if available
-            try { reinitSwipers(); } catch (e) {}
+            try { reinitSwipers(); } catch (e) { }
         }
 
         // 4. Typed.js
@@ -1787,7 +1787,7 @@ __webpack_require__.r(__webpack_exports__);
         const swipers = document.querySelectorAll('[data-swiper]');
         swipers.forEach(elem => {
             // Destroy if already initialized
-            if (elem.swiper) { try { elem.swiper.destroy(true, true); } catch(e) {} }
+            if (elem.swiper) { try { elem.swiper.destroy(true, true); } catch (e) { } }
             const options = elem.dataset && elem.dataset.options ? JSON.parse(elem.dataset.options) : {};
             new window.Swiper(elem, options);
         });
@@ -1796,8 +1796,8 @@ __webpack_require__.r(__webpack_exports__);
         const topEl = document.querySelector('.swiper-linked-top');
         const botEl = document.querySelector('.swiper-linked-bottom');
         if (topEl && botEl) {
-            if (topEl.swiper) { try { topEl.swiper.destroy(true, true); } catch(e) {} }
-            if (botEl.swiper) { try { botEl.swiper.destroy(true, true); } catch(e) {} }
+            if (topEl.swiper) { try { topEl.swiper.destroy(true, true); } catch (e) { } }
+            if (botEl.swiper) { try { botEl.swiper.destroy(true, true); } catch (e) { } }
 
             const swiperLinkedTop = new window.Swiper('.swiper-linked-top', {
                 spaceBetween: 23,
@@ -1831,7 +1831,7 @@ __webpack_require__.r(__webpack_exports__);
         contactForm._pjaxBound = true;
 
         const validateField = (field) => {
-            if (!field.required && field.value.trim() === '' && !['name','email','phone','subject'].includes(field.name)) return true;
+            if (!field.required && field.value.trim() === '' && !['name', 'email', 'phone', 'subject'].includes(field.name)) return true;
             let isValid = true;
             const value = field.value.trim();
             if (field.name === 'name' || field.name === 'subject') {
@@ -1851,12 +1851,12 @@ __webpack_require__.r(__webpack_exports__);
             input.addEventListener('input', () => { if (input.classList.contains('is-invalid')) validateField(input); });
         });
 
-        contactForm.addEventListener('submit', async function(e) {
+        contactForm.addEventListener('submit', async function (e) {
             e.preventDefault();
             const formInputs = this.querySelectorAll('.form-control');
             let isValid = true;
             formInputs.forEach(input => {
-                if (['name','email','phone','subject'].includes(input.name)) {
+                if (['name', 'email', 'phone', 'subject'].includes(input.name)) {
                     if (!validateField(input)) isValid = false;
                 }
             });
@@ -1910,7 +1910,7 @@ __webpack_require__.r(__webpack_exports__);
             }
             if (!btn._pjaxBound) {
                 btn._pjaxBound = true;
-                btn.addEventListener('click', function(e) {
+                btn.addEventListener('click', function (e) {
                     e.preventDefault();
                     const currentMode = localStorage.getItem('mode') || 'light';
                     const targetMode = currentMode === 'dark' ? 'light' : 'dark';
@@ -1939,19 +1939,19 @@ __webpack_require__.r(__webpack_exports__);
         menuOverlay.querySelectorAll('.fullscreen-nav-link').forEach(link => {
             link.classList.remove('active');
             const href = link.getAttribute('href') || '';
-            
+
             // Determine the core page name from the current path
             let pageName = currentPath.split('/').pop().replace('.html', '');
             if (!pageName || pageName === '') pageName = 'index';
-            
+
             // Determine the core page name from the link href
             let linkName = href.split('/').pop().replace('.html', '');
             if (!linkName || linkName === '') linkName = 'index';
-            
+
             // Exact match for the current page
             if (pageName === linkName || (pageName === 'index' && linkName === 'home') || (pageName === 'home' && linkName === 'index')) {
                 link.classList.add('active');
-            } 
+            }
             // Highlight WORK if we are inside an individual project page
             else if (currentPath.includes('/work/') && linkName === 'work-listing') {
                 link.classList.add('active');
@@ -1970,7 +1970,14 @@ __webpack_require__.r(__webpack_exports__);
         if (document.body.classList.contains('menu-open')) {
             document.documentElement.classList.remove('menu-open');
             document.body.classList.remove('menu-open');
-            if (window.locoScroll) { try { window.locoScroll.start(); } catch(e) {} }
+            
+            const menuToggleBtn = document.getElementById('menuToggleBtn');
+            if (menuToggleBtn) {
+                menuToggleBtn.setAttribute('data-state', 'closed');
+                menuToggleBtn.setAttribute('aria-expanded', 'false');
+            }
+            
+            if (window.locoScroll) { try { window.locoScroll.start(); } catch (e) { } }
         }
 
         // Start strip-cover animation immediately
@@ -2015,14 +2022,35 @@ __webpack_require__.r(__webpack_exports__);
         if (anchor && isInternalLink(anchor)) prefetchUrl(anchor.getAttribute('href'));
     }, { passive: true });
 
+    function isSamePage(urlA, urlB) {
+        try {
+            const a = new URL(urlA);
+            const b = new URL(urlB);
+            const norm = (p) => p.replace(/\/$/, "").replace("/index.html", "");
+            return a.origin === b.origin && norm(a.pathname) === norm(b.pathname) && a.search === b.search && a.hash === b.hash;
+        } catch (e) {
+            return false;
+        }
+    }
+
     // Intercept clicks
     document.addEventListener('click', function (e) {
         const anchor = e.target.closest('a');
         if (!anchor || !isInternalLink(anchor)) return;
+        
+        const targetUrl = anchor.getAttribute('href');
+        const fullUrl = resolveUrl(targetUrl);
+        
+        if (isSamePage(fullUrl, window.location.href)) {
+            e.preventDefault();
+            e.stopPropagation();
+            return;
+        }
+        
         e.preventDefault();
         e.stopPropagation();
-        navigate(anchor.getAttribute('href'));
-    });
+        navigate(targetUrl);
+    }, true);
 
     // Browser back / forward
     window.addEventListener('popstate', function (e) {

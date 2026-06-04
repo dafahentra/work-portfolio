@@ -344,7 +344,7 @@ html.menu-open .navbar-custom {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 100000;
+    z-index: 100000 !important;
     pointer-events: none; // Ensure navbar passes clicks through
     
     .navbar-brand {
