@@ -148,12 +148,45 @@
 /******/
 /******/
 /******/ 	// add entry module to deferred list
-/******/ 	deferredModules.push([1,"vendor"]);
+/******/ 	deferredModules.push([3,"vendor"]);
 /******/ 	// run deferred modules when ready
 /******/ 	return checkDeferredModules();
 /******/ })
 /************************************************************************/
 /******/ ({
+
+/***/ "./node_modules/webpack/hot sync ^\\.\\/log$":
+/*!*************************************************!*\
+  !*** (webpack)/hot sync nonrecursive ^\.\/log$ ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./log": "./node_modules/webpack/hot/log.js"
+};
+
+
+function webpackContext(req) {
+	var id = webpackContextResolve(req);
+	return __webpack_require__(id);
+}
+function webpackContextResolve(req) {
+	if(!__webpack_require__.o(map, req)) {
+		var e = new Error("Cannot find module '" + req + "'");
+		e.code = 'MODULE_NOT_FOUND';
+		throw e;
+	}
+	return map[req];
+}
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./node_modules/webpack/hot sync ^\\.\\/log$";
+
+/***/ }),
 
 /***/ "./src/assets/js/components/avatar-webgl.js":
 /*!**************************************************!*\
@@ -4436,13 +4469,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1:
-/*!*******************************************************************!*\
-  !*** multi ./src/assets/js/theme.js ./src/assets/scss/theme.scss ***!
-  \*******************************************************************/
+/***/ 3:
+/*!*********************************************************************************************************************!*\
+  !*** multi (webpack)-dev-server/client?http://localhost:8080 ./src/assets/js/theme.js ./src/assets/scss/theme.scss ***!
+  \*********************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(/*! /Users/user/Documents/GitHub/Works-portfolio/node_modules/webpack-dev-server/client/index.js?http://localhost:8080 */"./node_modules/webpack-dev-server/client/index.js?http://localhost:8080");
 __webpack_require__(/*! ./src/assets/js/theme.js */"./src/assets/js/theme.js");
 module.exports = __webpack_require__(/*! ./src/assets/scss/theme.scss */"./src/assets/scss/theme.scss");
 
