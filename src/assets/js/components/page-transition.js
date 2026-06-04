@@ -150,7 +150,7 @@ import Typed from 'typed.js';
         // Sync body className (e.g. page-specific classes)
         // but keep preloader-active removed and page-loaded present
         document.body.className = newDoc.body.className;
-        document.body.classList.remove('preloader-active');
+        document.body.classList.remove('preloader-active', 'is-work-listing');
         document.body.classList.add('page-loaded');
 
         // Re-apply dark mode (inline head script doesn't re-run over PJAX)
@@ -410,18 +410,28 @@ import Typed from 'typed.js';
 
         const fullUrl = resolveUrl(targetUrl);
 
-        // Close menu if open
+        // Close menu if open — reset button state immediately so hamburger
+        // starts morphing X→hamburger right away during the leave animation.
         if (document.body.classList.contains('menu-open')) {
             document.documentElement.classList.remove('menu-open');
             document.body.classList.remove('menu-open');
-            
+            document.documentElement.classList.add('menu-closing');
+            document.body.classList.add('menu-closing');
+
+            // Reset button NOW so the X→hamburger CSS transition starts immediately
             const menuToggleBtn = document.getElementById('menuToggleBtn');
             if (menuToggleBtn) {
                 menuToggleBtn.setAttribute('data-state', 'closed');
                 menuToggleBtn.setAttribute('aria-expanded', 'false');
             }
-            
+
             if (window.locoScroll) { try { window.locoScroll.start(); } catch (e) { } }
+
+            // Only remove menu-closing after strips fully cover screen
+            setTimeout(function () {
+                document.documentElement.classList.remove('menu-closing');
+                document.body.classList.remove('menu-closing');
+            }, LEAVE_TOTAL);
         }
 
         // Start strip-cover animation immediately
