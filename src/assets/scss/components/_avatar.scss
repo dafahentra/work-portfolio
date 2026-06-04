@@ -3,3 +3,30 @@
     height: var(--theme-avatar-size);
     display: block;
 }
+
+// ============================================================
+// Avatar WebGL — Hover Reveal Container
+// ============================================================
+.avatar-webgl-wrap {
+    position: relative;
+    display: block;
+    overflow: hidden;
+
+    .avatar-webgl-img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    // WebGL canvas injected by avatar-webgl.js
+    #avatar-webgl-canvas {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        pointer-events: none !important;
+        z-index: 2 !important;
+        display: none; // JS flips to 'block' once textures load
+    }
+}
