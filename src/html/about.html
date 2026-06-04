@@ -29,10 +29,19 @@
             <div class="row g-8 mb-8 mb-md-12">
                 <!-- Profile Image-->
                 <div class="col-12 col-md-5" data-scroll data-scroll-position="top">
-                    <picture>
-                        <img class="img-fluid" src="{{webRoot}}/assets/images/avatar.jpg"
-                            alt="{{ config.defaultImgAlt }}">
-                    </picture>
+                    <div
+                        class="avatar-webgl-wrap"
+                        data-avatar-webgl
+                        data-src="{{webRoot}}/assets/images/avatar.jpg"
+                        data-hover-src="{{webRoot}}/assets/images/avatar-hover.jpg"
+                    >
+                        <img
+                            class="img-fluid avatar-webgl-img"
+                            src="{{webRoot}}/assets/images/avatar.jpg"
+                            alt="{{ config.defaultImgAlt }}"
+                            id="avatar-base-img"
+                        >
+                    </div>
                 </div>
                 <!-- / Profile Image-->
 
