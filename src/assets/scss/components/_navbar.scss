@@ -84,9 +84,8 @@ $menu-text-muted: #8892b0;
         order: 1; /* Visual order 1 (left) on mobile */
         margin-right: 12px;
         
-        // Show when the menu is expanded OR in the process of closing
-        html.menu-open &,
-        html.menu-closing & {
+        // Show only when the menu is expanded
+        html.menu-open & {
             display: flex !important;
             animation: popOutFromHamburger 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
             transform-origin: center right;
