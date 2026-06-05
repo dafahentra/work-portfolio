@@ -1,16 +1,5 @@
-/**
- * Work Slider — faithful port of musabhassan.com
- *
- * Fixed: Using getBoundingClientRect() to avoid offsetParent bugs
- * caused by CSS transforms on parent elements.
- */
-
 (function () {
   'use strict';
-
-  // ──────────────────────────────────────────────────────────────────────────
-  // WorkSlider — LERP drag (ported from Musab's WorkSlider class)
-  // ──────────────────────────────────────────────────────────────────────────
 
   class WorkSlider {
     constructor(container, list) {
@@ -23,13 +12,11 @@
       this.lerpSpeed     = 0.1;
       this.isDragging    = false;
       this.hasMoved      = false;
-      this.locked        = false;  // locked when a card is active
+      this.locked        = false;
 
       this._bindEvents();
       this._animate();
 
-
-      // Dynamic left padding to align with container
       const setPadding = () => {
         const containerEl = document.querySelector('#recent-work').previousElementSibling;
         if (containerEl) {
@@ -40,7 +27,6 @@
       };
       setPadding();
       window.addEventListener('resize', setPadding);
-
     }
 
     _bindEvents() {
@@ -54,7 +40,6 @@
     }
 
     _onHold(e) {
-      // Skip if locked or clicking interactive controls
       if (this.locked) return;
       if (e.target.closest('.close-button-wrapper, .btn-panel-link, .btn-view')) return;
 
@@ -73,7 +58,6 @@
       const diff = (e.clientX - this._dragStartX) * -1;
       if (Math.abs(diff) > 5) this.hasMoved = true;
 
-      // Musab's exact formula
       this.targetPos = Math.round(
         (this.initialPos - (this.offsetSpeed * (diff / document.body.clientWidth))) * 100
       ) / 100;
@@ -129,11 +113,6 @@
       requestAnimationFrame(() => this._animate());
     }
 
-    /**
-     * Scroll formula (equivalent to Musab's targetPos = 0.15W - offsetLeft).
-     * By calling this BEFORE adding .active class, offsetLeft reflects the
-     * unexpanded position (matching Musab's Svelte synchronous timing).
-     */
     scrollToItem(cardEl) {
       const listRect = this.list.getBoundingClientRect();
       const cardRect = cardEl.getBoundingClientRect();
@@ -149,10 +128,6 @@
     }
   }
 
-
-  // ──────────────────────────────────────────────────────────────────────────
-  // WorkItems — card expand + panel populate
-  // ──────────────────────────────────────────────────────────────────────────
 
   class WorkItems {
     constructor(slider) {
@@ -183,13 +158,11 @@
         this._toggle(index, liEl);
       };
 
-      // ONLY btn-view triggers expand (desktop)
       const btnView = liEl.querySelector('.btn-view');
       if (btnView) {
         btnView.addEventListener('click', handleExpand);
       }
 
-      // Allow expand by clicking image on mobile view
       const imgWrapper = liEl.querySelector('.img-wrapper');
       if (imgWrapper) {
         imgWrapper.addEventListener('click', (e) => {
@@ -208,10 +181,8 @@
       this.currentActive = index;
       const cardEl = liEl.querySelector('.list-item');
 
-      // *** Scroll to 15vw visual left BEFORE adding .active ***
       this.slider.scrollToItem(cardEl);
 
-      // Now apply card states (adds margin-left: 10vw, shifting visual left to 25vw)
       this.items.forEach(({ el, index: i }) => {
         const card = el.querySelector('.list-item');
         const top  = el.querySelector('.text-top-wrapper');
@@ -220,12 +191,10 @@
         card.classList.remove('active', 'ambient');
         card.classList.add(i === index ? 'active' : 'ambient');
 
-        // Hide ALL text overlays while any card is expanded
         if (top) top.classList.add('hidden');
         if (bot) bot.classList.add('hidden');
       });
 
-      // Populate & show panel
       if (cardEl && this.panel) {
         this._populatePanel(cardEl, index);
         this.panel.classList.add('is-visible');
@@ -265,17 +234,14 @@
 
       const get = (sel) => this.panel.querySelector(sel);
 
-      // top-align
       const panelIndex   = get('.panel-index');
       const captionEl    = get('.caption');
       if (panelIndex) panelIndex.textContent = padded;
       if (captionEl)  captionEl.textContent  = summary;
 
-      // mid-align
       const panelTitle = get('.panel-title');
       if (panelTitle) panelTitle.textContent = title;
 
-      // bottom-align
       const panelDesc      = get('.panel-description');
       const panelRolesList = get('.panel-roles-list');
       const linksEl        = get('.links');
@@ -283,7 +249,6 @@
       if (panelDesc) panelDesc.textContent = description;
 
       if (panelRolesList) {
-        // Include '+' prefix in text content
         panelRolesList.innerHTML = roles
           .map(r => `<li>+ ${r}</li>`)
           .join('');
@@ -297,10 +262,6 @@
     }
   }
 
-
-  // ──────────────────────────────────────────────────────────────────────────
-  // Entrance animation
-  // ──────────────────────────────────────────────────────────────────────────
 
   function initEntranceAnimations(listItems) {
     const section = document.getElementById('recent-work');
@@ -330,10 +291,6 @@
     observer.observe(section);
   }
 
-
-  // ──────────────────────────────────────────────────────────────────────────
-  // Init
-  // ──────────────────────────────────────────────────────────────────────────
 
   function init() {
     const container = document.getElementById('workSliderContainer');

@@ -1,5 +1,4 @@
 (function () {
-    // Add no-transition class to HTML/body immediately to prevent transition flash on load
     document.documentElement.classList.add('no-transition');
 
     const modeToggleBtns = document.querySelectorAll('.btn-toggle-mode');
@@ -7,10 +6,6 @@
     const DARK_MODE = 'dark';
     const MODE = 'mode';
 
-    /**
-     * On page load, check for localStorage value of mode.
-     * If not set, set it to user preference (if dark mode) or light mode.
-     */
     function init() {
         const mode = getMode();
 
@@ -33,35 +28,20 @@
         }
     }
 
-    /**
-     * Set our mode
-     * @param {type} String
-     * @param {isInitial} Boolean
-     */
     function setMode({ type = LIGHT_MODE, isInitial = false }) {
         localStorage.setItem(MODE, type);
         setHTMLAttrMode({ type });
         updateButtonIcons({ type, animate: !isInitial });
     }
 
-    /**
-     * Set HTML data attribute value for our mode
-     * @param {type} String
-     */
     function setHTMLAttrMode({ type }) {
         const html = document.querySelector('html');
         if (html) {
             html.setAttribute('data-mode', type);
-            // Sinkronisasi dengan Bootstrap theme untuk preloader
             html.setAttribute('data-bs-theme', type);
         }
     }
 
-    /**
-     * Update button icons based on current mode with micro-animations
-     * @param {type} String
-     * @param {animate} Boolean
-     */
     function updateButtonIcons({ type, animate = false }) {
         modeToggleBtns.forEach((btn) => {
             const icon = btn.querySelector('i');
@@ -78,7 +58,6 @@
                     return;
                 }
 
-                // Apply rotation and scale transition for micro-animation with elastic bounce
                 icon.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
                 icon.style.transform = 'rotate(180deg) scale(0)';
                 icon.style.opacity = '0';
@@ -97,10 +76,6 @@
         });
     }
 
-    /**
-     * Get localStorage value for our mode
-     * @returns String
-     */
     function getMode() {
         const currentMode = localStorage.getItem(MODE);
 
@@ -109,23 +84,18 @@
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             return DARK_MODE;
         }
-        
+
         return LIGHT_MODE;
     }
 
     let isTransitioning = false;
 
-    /**
-     * Toggle our mode via button in navbar
-     * @param {event} Event
-     * @param {HTMLElement} btn
-     */
     function toggleMode(event, btn) {
         if (isTransitioning) return;
 
         const currentMode = getMode();
         const targetMode = currentMode === LIGHT_MODE ? DARK_MODE : LIGHT_MODE;
-        
+
         const performToggle = () => {
             if (targetMode === DARK_MODE) {
                 setMode({ type: DARK_MODE });
@@ -134,11 +104,9 @@
             }
         };
 
-        // If event is present and browser supports View Transitions API
         if (event && document.startViewTransition) {
             isTransitioning = true;
 
-            // Dapatkan titik koordinat dari event klik (atau fallback ke pusat button jika event tidak ada)
             let x = event ? event.clientX : undefined;
             let y = event ? event.clientY : undefined;
 
@@ -158,7 +126,6 @@
                 Math.max(y, window.innerHeight - y)
             );
 
-            // Temporarily disable standard CSS transitions during the View Transition to avoid interference
             document.documentElement.classList.add('no-transition');
 
             const transition = document.startViewTransition(() => {
@@ -172,11 +139,9 @@
                 ];
 
                 document.documentElement.animate(
+                    { clipPath: clipPath },
                     {
-                        clipPath: clipPath
-                    },
-                    {
-                        duration: 400, // Dipercepat menjadi 400ms agar terasa lebih cepat dan mulus
+                        duration: 400,
                         easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
                         pseudoElement: '::view-transition-new(root)'
                     }
@@ -184,14 +149,12 @@
             });
 
             transition.finished
-                .catch(() => {}) // Mencegah unhandled promise rejection jika transisi diinterupsi/dilewati
+                .catch(() => {})
                 .finally(() => {
-                    // Re-enable normal CSS transitions
                     document.documentElement.classList.remove('no-transition');
                     isTransitioning = false;
                 });
         } else {
-            // Fallback for older browsers
             performToggle();
         }
     }

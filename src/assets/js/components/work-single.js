@@ -1,20 +1,15 @@
-/* ==========================================================================
-   Work Single — Scroll Animations & Interactions
-   ========================================================================== */
-
 import { webGLStage } from './work-single-webgl';
 
 (function () {
   'use strict';
 
   function init() {
-    const page     = document.querySelector('.ws-page');
+    const page = document.querySelector('.ws-page');
     if (!page) {
       webGLStage.destroy();
       return;
     }
 
-    // Start Yuta Abe-inspired WebGL scroll pixel transition
     webGLStage.init();
 
     const wsHero    = page.querySelector('.ws-hero');
@@ -23,12 +18,10 @@ import { webGLStage } from './work-single-webgl';
     const heroImg   = page.querySelector('.ws-image--hero img');
     const scrollHint = page.querySelector('.ws-hero__scroll');
 
-    // ── 1. Hero reveal (scroll -> meta -> title) ──────────────────
-    // Stagger: scroll hint first, then meta, then title last
     function triggerAnimations() {
       if (scrollHint) {
         setTimeout(() => {
-          scrollHint.offsetHeight; // force reflow so browser sees initial state
+          scrollHint.offsetHeight;
           scrollHint.classList.add('is-revealed');
         }, 100);
       }
@@ -46,8 +39,6 @@ import { webGLStage } from './work-single-webgl';
       }
     }
 
-    // Detect if any overlay (preloader or page-transition) is covering the screen.
-    // If so, wait for it to finish before triggering animations.
     function isOverlayActive() {
       const overlay = document.getElementById('page-transition-overlay');
       const hasPreloader = document.body.classList.contains('preloader-active');
@@ -68,16 +59,13 @@ import { webGLStage } from './work-single-webgl';
       }
     }
 
-    // Wait for fonts to load so huge text doesn't skip transition due to FOIT
     if ('fonts' in document) {
       document.fonts.ready.then(checkAndTrigger);
     } else {
       checkAndTrigger();
     }
 
-    // ── 2. Scroll-driven active classes (scroll hint + metadata fade out) ──
     function handleScroll(scrollY) {
-      // Hide scroll hint
       if (scrollHint) {
         if (scrollY > 60) {
           scrollHint.classList.add('is-hidden');
@@ -86,7 +74,6 @@ import { webGLStage } from './work-single-webgl';
         }
       }
 
-      // Hide metadata
       if (heroMeta) {
         if (scrollY > 150) {
           heroMeta.classList.add('is-hidden');
@@ -96,7 +83,6 @@ import { webGLStage } from './work-single-webgl';
       }
     }
 
-    // Use Locomotive Scroll if available, else fallback to native scroll
     if (window.locoScroll) {
       window.locoScroll.on('scroll', ({ scroll }) => {
         handleScroll(scroll.y);
@@ -107,7 +93,6 @@ import { webGLStage } from './work-single-webgl';
       }, { passive: true });
     }
 
-    // ── 4. Detail items: stagger reveal on scroll ─────────────────────────
     const detailItems = page.querySelectorAll('.ws-detail__item');
     detailItems.forEach((item, i) => {
       item.style.setProperty('--item-delay', i * 80);
@@ -126,7 +111,6 @@ import { webGLStage } from './work-single-webgl';
     );
     detailItems.forEach(item => revealObserver.observe(item));
 
-    // ── 5. Next project name: clip-path reveal on scroll ──────────────────
     const nextName = page.querySelector('.ws-next__name');
     if (nextName) {
       const nextObserver = new IntersectionObserver(
@@ -143,7 +127,6 @@ import { webGLStage } from './work-single-webgl';
       nextObserver.observe(nextName);
     }
 
-    // ── 6. Sub-image parallax (desktop only) ──────────────────────────────
     if (window.innerWidth > 768) {
       page.querySelectorAll('.ws-sub-image img').forEach(img => {
         img.setAttribute('data-scroll', '');
