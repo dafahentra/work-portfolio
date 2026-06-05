@@ -1,29 +1,3 @@
-/**
- * PJAX Page Transition Controller
- * ─────────────────────────────────────────────────────────────────────────────
- *
- * HOW IT WORKS (zero browser loading spinner):
- *
- *  CLICK FLOW:
- *    1. User clicks a link → intercept, call playLeave()
- *    2. Strip animation covers the viewport (~770ms)
- *    3. Simultaneously, fetch() the new page HTML in background
- *    4. After strips fully cover → swap DOM content (body innerHTML swap)
- *       + history.pushState() → URL changes, NO browser navigation
- *    5. Re-initialize all JS components on the new content
- *    6. Strip animation reveals new page
- *
- *  RESULT: Browser never navigates → zero loading spinner, zero flash.
- *
- *  FALLBACK:
- *    If fetch fails (offline, error) → fall back to window.location.href.
- *
- *  BACK/FORWARD:
- *    Handled via popstate event — same PJAX swap.
- *
- * ─────────────────────────────────────────────────────────────────────────────
- */
-
 import LocomotiveScroll from 'locomotive-scroll';
 import imagesLoaded from 'imagesloaded';
 import Typed from 'typed.js';
@@ -31,11 +5,10 @@ import Typed from 'typed.js';
 (function () {
     'use strict';
 
-    // ── Config ──────────────────────────────────────────────────────────────
     const STRIPS = 5;
-    const STAGGER = 55;   // ms between each strip
-    const DURATION = 550;  // ms per strip animation
-    const LEAVE_TOTAL = DURATION + (STRIPS - 1) * STAGGER;  // ~770ms
+    const STAGGER = 55;
+    const DURATION = 550;
+    const LEAVE_TOTAL = DURATION + (STRIPS - 1) * STAGGER;
     const ENTER_TOTAL = DURATION + (STRIPS - 1) * STAGGER;
 
     const overlay = document.getElementById('page-transition-overlay');
@@ -44,7 +17,6 @@ import Typed from 'typed.js';
     let isAnimating = false;
     const prefetched = new Set();
 
-    // ── Utility ─────────────────────────────────────────────────────────────
     function isInternalLink(anchor) {
         const href = anchor.getAttribute('href');
         if (!href) return false;
@@ -68,7 +40,6 @@ import Typed from 'typed.js';
         return new URL(href, window.location.href).href;
     }
 
-    // ── Prefetch ────────────────────────────────────────────────────────────
     function prefetchUrl(href) {
         const full = resolveUrl(href);
         if (prefetched.has(full)) return;
@@ -80,23 +51,14 @@ import Typed from 'typed.js';
         document.head.appendChild(link);
     }
 
-    // ── Strip Animations ────────────────────────────────────────────────────
     function playLeaveAnim() {
         overlay.classList.remove('is-entering');
-        overlay.offsetHeight; // force reflow
+        overlay.offsetHeight;
         overlay.classList.add('is-leaving');
     }
 
     function playEnterAnim() {
-        // Force overlay visible for the entire state swap.
-        // Without this, the browser renders one frame between
-        // removing 'is-leaving' and adding 'is-entering' where
-        // the overlay has neither class → visibility:hidden → content flash.
         overlay.style.visibility = 'visible';
-
-        // Swap classes in the SAME frame — no reflow gap.
-        // Strips are already at translateY(0%) from the leaving animation;
-        // is-entering keyframe starts from translateY(0%) so it's seamless.
         overlay.classList.remove('is-leaving');
         overlay.classList.add('is-entering');
 
@@ -104,75 +66,57 @@ import Typed from 'typed.js';
 
         setTimeout(function () {
             overlay.classList.remove('is-entering');
-            overlay.style.visibility = ''; // Let CSS control visibility again
+            overlay.style.visibility = '';
             document.body.classList.remove('pt-content-reveal');
             isAnimating = false;
         }, ENTER_TOTAL + 150);
     }
 
-    // ── DOM Swap ─────────────────────────────────────────────────────────────
     function swapPage(html, url) {
         const parser = new DOMParser();
         const newDoc = parser.parseFromString(html, 'text/html');
 
-        // Update <title>
         document.title = newDoc.title;
 
-        // Update meta description
         const newMeta = newDoc.querySelector('meta[name="description"]');
         const oldMeta = document.querySelector('meta[name="description"]');
         if (newMeta && oldMeta) oldMeta.setAttribute('content', newMeta.getAttribute('content'));
 
-        // Find scroll containers
         const currentContainer = document.querySelector('[data-scroll-container]');
         const newContainer = newDoc.querySelector('[data-scroll-container]');
 
         if (!currentContainer || !newContainer) {
-            // Fallback: shouldn't happen, but navigate normally if no container found
             window.location.href = url;
             return;
         }
 
-        // Remove the navbar from the new container — it's persisted outside the
-        // scroll container in the live DOM, so we don't want a duplicate.
         const navbarInNew = newContainer.querySelector('.navbar-custom');
         if (navbarInNew) navbarInNew.remove();
 
-        // Destroy Locomotive Scroll before DOM mutation
         if (window.locoScroll) {
             try { window.locoScroll.destroy(); } catch (e) { }
             window.locoScroll = null;
         }
 
-        // ── Atomic swap of ONLY the scroll container ─────────────────────────
         currentContainer.replaceWith(newContainer);
 
-        // Sync body className (e.g. page-specific classes)
-        // but keep preloader-active removed and page-loaded present
         document.body.className = newDoc.body.className;
         document.body.classList.remove('preloader-active', 'is-work-listing');
         document.body.classList.add('page-loaded');
 
-        // Re-apply dark mode (inline head script doesn't re-run over PJAX)
         const mode = localStorage.getItem('mode');
         document.documentElement.setAttribute('data-mode', mode === 'dark' ? 'dark' : 'light');
         document.documentElement.setAttribute('data-bs-theme', mode === 'dark' ? 'dark' : 'light');
 
-        // Force a popstate/pushstate URL change EVEN if we click the same page (to keep history stack sane)
         if (window.location.href !== url) {
             history.pushState({ pjax: true, url }, document.title, url);
         }
 
-        // Re-initialize page-specific components
         reinitComponents();
-
-        // Explicitly update nav active state AFTER pushState so pathname is correct
         updateNavActiveState();
     }
 
-    // ── Component Re-initialization ──────────────────────────────────────────
     function reinitComponents() {
-        // 1. Locomotive Scroll
         const scrollContainer = document.querySelector('[data-scroll-container]');
         if (scrollContainer) {
             const scroll = new LocomotiveScroll({
@@ -193,18 +137,14 @@ import Typed from 'typed.js';
             });
         }
 
-        // 2. Navbar active-state update only
         updateNavActiveState();
 
-        // 3. Swiper — destroy existing then re-init
         if (window.Swiper || typeof Swiper !== 'undefined') {
             reinitSwipers();
         } else {
-            // Swiper is bundled with vendor — access via global if available
             try { reinitSwipers(); } catch (e) { }
         }
 
-        // 4. Typed.js
         const typedElems = document.querySelectorAll('[data-typed]');
         typedElems.forEach(elem => {
             const elemOptions = elem.dataset.typed ? JSON.parse(elem.dataset.typed) : {};
@@ -218,25 +158,20 @@ import Typed from 'typed.js';
             new Typed(elem, options);
         });
 
-        // 5. Contact form
         initContactForm();
 
-        // 6. Misc: page-loaded class
         document.body.classList.add('page-loaded');
         document.dispatchEvent(new CustomEvent('page:load'));
     }
 
     function reinitSwipers() {
-        // Default data-swiper elements
         const swipers = document.querySelectorAll('[data-swiper]');
         swipers.forEach(elem => {
-            // Destroy if already initialized
             if (elem.swiper) { try { elem.swiper.destroy(true, true); } catch (e) { } }
             const options = elem.dataset && elem.dataset.options ? JSON.parse(elem.dataset.options) : {};
             new window.Swiper(elem, options);
         });
 
-        // Linked swipers on homepage
         const topEl = document.querySelector('.swiper-linked-top');
         const botEl = document.querySelector('.swiper-linked-bottom');
         if (topEl && botEl) {
@@ -270,7 +205,6 @@ import Typed from 'typed.js';
         const contactForm = document.getElementById('contactForm');
         if (!contactForm) return;
 
-        // Prevent double-binding
         if (contactForm._pjaxBound) return;
         contactForm._pjaxBound = true;
 
@@ -344,7 +278,6 @@ import Typed from 'typed.js';
         const modeToggleBtns = document.querySelectorAll('.btn-toggle-mode');
         const mode = localStorage.getItem('mode') || 'light';
 
-        // Restore icon state
         modeToggleBtns.forEach(btn => {
             const icon = btn.querySelector('i');
             if (icon) {
@@ -384,41 +317,32 @@ import Typed from 'typed.js';
             link.classList.remove('active');
             const href = link.getAttribute('href') || '';
 
-            // Determine the core page name from the current path
             let pageName = currentPath.split('/').pop().replace('.html', '');
             if (!pageName || pageName === '') pageName = 'index';
 
-            // Determine the core page name from the link href
             let linkName = href.split('/').pop().replace('.html', '');
             if (!linkName || linkName === '') linkName = 'index';
 
-            // Exact match for the current page
             if (pageName === linkName || (pageName === 'index' && linkName === 'home') || (pageName === 'home' && linkName === 'index')) {
                 link.classList.add('active');
-            }
-            // Highlight WORK if we are inside an individual project page
-            else if (currentPath.includes('/work/') && linkName === 'work-listing') {
+            } else if (currentPath.includes('/work/') && linkName === 'work-listing') {
                 link.classList.add('active');
             }
         });
     }
 
-    // ── PJAX Navigate ────────────────────────────────────────────────────────
     function navigate(targetUrl) {
         if (isAnimating) return;
         isAnimating = true;
 
         const fullUrl = resolveUrl(targetUrl);
 
-        // Close menu if open — reset button state immediately so hamburger
-        // starts morphing X→hamburger right away during the leave animation.
         if (document.body.classList.contains('menu-open')) {
             document.documentElement.classList.remove('menu-open');
             document.body.classList.remove('menu-open');
             document.documentElement.classList.add('menu-closing');
             document.body.classList.add('menu-closing');
 
-            // Reset button NOW so the X→hamburger CSS transition starts immediately
             const menuToggleBtn = document.getElementById('menuToggleBtn');
             if (menuToggleBtn) {
                 menuToggleBtn.setAttribute('data-state', 'closed');
@@ -427,17 +351,14 @@ import Typed from 'typed.js';
 
             if (window.locoScroll) { try { window.locoScroll.start(); } catch (e) { } }
 
-            // Only remove menu-closing after strips fully cover screen
             setTimeout(function () {
                 document.documentElement.classList.remove('menu-closing');
                 document.body.classList.remove('menu-closing');
             }, LEAVE_TOTAL);
         }
 
-        // Start strip-cover animation immediately
         playLeaveAnim();
 
-        // Fetch new page in parallel — no browser navigation, no spinner
         const fetchPromise = fetch(fullUrl, {
             headers: { 'X-PJAX': 'true' },
             cache: 'default'
@@ -446,26 +367,20 @@ import Typed from 'typed.js';
             return res.text();
         });
 
-        // Wait for strips to finish covering, then swap
         setTimeout(function () {
             fetchPromise
                 .then(function (html) {
                     swapPage(html, fullUrl);
-                    // Small RAF delay so DOM paint settles before revealing
                     requestAnimationFrame(function () {
                         requestAnimationFrame(playEnterAnim);
                     });
                 })
                 .catch(function () {
-                    // Fetch failed — fall back to real navigation
                     window.location.href = fullUrl;
                 });
         }, LEAVE_TOTAL);
     }
 
-    // ── Event Listeners ──────────────────────────────────────────────────────
-
-    // Prefetch on hover
     document.addEventListener('mouseover', function (e) {
         const anchor = e.target.closest('a');
         if (anchor && isInternalLink(anchor)) prefetchUrl(anchor.getAttribute('href'));
@@ -487,31 +402,28 @@ import Typed from 'typed.js';
         }
     }
 
-    // Intercept clicks
     document.addEventListener('click', function (e) {
         const anchor = e.target.closest('a');
         if (!anchor || !isInternalLink(anchor)) return;
-        
+
         const targetUrl = anchor.getAttribute('href');
         const fullUrl = resolveUrl(targetUrl);
-        
+
         if (isSamePage(fullUrl, window.location.href)) {
             e.preventDefault();
             e.stopPropagation();
             return;
         }
-        
+
         e.preventDefault();
         e.stopPropagation();
         navigate(targetUrl);
     }, true);
 
-    // Browser back / forward
     window.addEventListener('popstate', function (e) {
         navigate(window.location.href);
     });
 
-    // BFCache restore
     window.addEventListener('pageshow', function (e) {
         if (e.persisted) {
             overlay.classList.remove('is-leaving', 'is-entering');
@@ -520,10 +432,5 @@ import Typed from 'typed.js';
             isAnimating = false;
         }
     });
-
-    // ── First-load reveal (direct navigation / refresh) ───────────────────
-    // On first visit, body.page-loaded is added by misc.js.
-    // On PJAX swap, we add it in reinitComponents().
-    // No enter animation needed here — preloader handles the first load.
 
 })();

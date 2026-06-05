@@ -1,9 +1,7 @@
-// Contact form handler - Fixed for Netlify Functions
 const initContactForm = () => {
   const contactForm = document.getElementById('contactForm');
-  
+
   if (contactForm) {
-    // Real-time validation helper
     const validateField = (field) => {
       if (!field.required && field.value.trim() === '' && field.name !== 'name' && field.name !== 'email' && field.name !== 'phone' && field.name !== 'subject') return true;
 
@@ -28,7 +26,6 @@ const initContactForm = () => {
       return isValid;
     };
 
-    // Attach real-time listeners to inputs
     const formInputs = contactForm.querySelectorAll('.form-control');
     formInputs.forEach(input => {
       input.addEventListener('blur', () => validateField(input));
@@ -42,7 +39,6 @@ const initContactForm = () => {
     contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      // Get form data
       const formData = {
         name: this.name.value.trim(),
         email: this.email.value.trim(),
@@ -60,19 +56,16 @@ const initContactForm = () => {
         }
       });
 
-      // Stop submission if validation fails
       if (!isFormValid) {
         return;
       }
 
-      // Disable submit button while sending
       const submitBtn = this.querySelector('button[type="submit"]');
       const originalText = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';
 
       try {
-        // Encode form data for Netlify Forms
         const encode = (data) => {
           return Object.keys(data)
             .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
@@ -93,20 +86,16 @@ const initContactForm = () => {
         });
 
         if (res.ok) {
-          // Success notification
           alert('Message sent successfully! Thank you for reaching out.');
           this.reset();
         } else {
-          // Error notification
           alert('Failed to send message. Please try again later.');
           console.error('Server error:', res.status);
         }
       } catch (err) {
-        // Network or other errors
         console.error('Request error:', err);
         alert('Error sending message: ' + err.message + '\nPlease check your internet connection and try again.');
       } finally {
-        // Re-enable submit button
         submitBtn.disabled = false;
         submitBtn.textContent = originalText;
       }
@@ -114,14 +103,12 @@ const initContactForm = () => {
   }
 };
 
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initContactForm);
 } else {
   initContactForm();
 }
 
-// Export for use in other modules if needed
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = initContactForm;
 }

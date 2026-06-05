@@ -1,13 +1,6 @@
-/* ==========================================================================
-   Work Listing — Interactive Behaviors
-   Yutaabe-inspired vertical scroll menu with hover sync + intro animation
-   ✦ ENDLESS LOOP: items repeat infinitely by cloning and wrapping scroll
-   ========================================================================== */
-
 (function () {
   'use strict';
 
-  // Global references that persist
   let rafId = null;
   let onKeyDownHandler = null;
   let onResizeHandler = null;
@@ -24,12 +17,10 @@
 
     if (!menu || !menuWrap) return;
 
-    // Clean up old instances (if PJAX re-triggered)
     if (rafId) cancelAnimationFrame(rafId);
     if (onKeyDownHandler) document.removeEventListener('keydown', onKeyDownHandler);
     if (onResizeHandler) window.removeEventListener('resize', onResizeHandler);
 
-    // Remove old clones to prevent infinite duplication
     menu.querySelectorAll('.wl-clone').forEach(el => el.remove());
     if (thumbnail) thumbnail.querySelectorAll('.wl-clone').forEach(el => el.remove());
 
@@ -46,7 +37,6 @@
       counterTotal.textContent = totalOriginal < 10 ? '0' + totalOriginal : '' + totalOriginal;
     }
 
-    // ── Clone items for seamless infinite loop ──
     const CLONE_SETS = 6;
     for (let s = 0; s < CLONE_SETS; s++) {
       originalItems.forEach((li, i) => {
@@ -69,9 +59,6 @@
     const allItems = Array.from(menu.querySelectorAll('li'));
     const allThumbs = thumbnail ? Array.from(thumbnail.querySelectorAll('.wl-thumb-item')) : [];
 
-    // ── Sync thumbnail heights to menu item heights ──
-    // Both columns share the same translateY, so each thumb must be the
-    // same height as its corresponding menu row, otherwise they drift apart.
     function syncThumbHeights() {
       if (!thumbnail || allThumbs.length === 0) return;
       allThumbs.forEach((thumb, i) => {
@@ -82,7 +69,6 @@
       });
     }
 
-    // ── State ──
     let oneSetHeight = 0;
     function computeSetHeight() {
       let h = 0;
@@ -90,13 +76,12 @@
         h += allItems[i].offsetHeight;
       }
       oneSetHeight = h;
-      syncThumbHeights(); // re-sync whenever set height is recomputed
+      syncThumbHeights();
     }
     computeSetHeight();
 
     document.body.classList.add('is-work-listing');
 
-    // Start exactly at the top of the second set to prevent white gap at the very top
     const initialOffset = 0;
     let scrollY = oneSetHeight - initialOffset;
     let targetScrollY = oneSetHeight - initialOffset;
@@ -139,7 +124,7 @@
 
     let lastActiveOrig = -1;
     let lastClosestAbs = -1;
-    let isMouseHovering = false; // desktop hover takes priority over scroll
+    let isMouseHovering = false;
 
     function syncActiveFromScroll() {
       const origIdx = getActiveOrigIndex();
@@ -149,8 +134,6 @@
         lastClosestAbs = closestAbsIdx;
         updateCounter(origIdx);
 
-        // On mobile: always sync thumbnail from scroll (no hover needed)
-        // On desktop: only sync from scroll when mouse is NOT hovering an item
         const isMobile = window.innerWidth <= 768;
         if (isMobile || !isMouseHovering) {
           allItems.forEach((li, i) => {
@@ -175,8 +158,8 @@
     }
 
     function animate() {
-      if (!document.body.contains(menuWrap)) return; // KILL SWITCH for PJAX
-      
+      if (!document.body.contains(menuWrap)) return;
+
       scrollY = lerp(scrollY, targetScrollY, 0.1);
 
       if (Math.abs(scrollY - targetScrollY) < 0.5) {
@@ -222,7 +205,6 @@
 
     function onTouchEnd() {
       isTouching = false;
-      // Snap to nearest item on mobile for clean UX
       if (window.innerWidth <= 768 && allItems.length > 0) {
         const itemH = allItems[0].offsetHeight;
         targetScrollY = Math.round(targetScrollY / itemH) * itemH;
@@ -230,7 +212,6 @@
     }
 
     function onItemMouseEnter(e) {
-      // Desktop only — on mobile, thumbnail is driven by scroll
       if (window.innerWidth <= 768) return;
       isMouseHovering = true;
 
@@ -245,10 +226,8 @@
     }
 
     function onItemMouseLeave() {
-      // Desktop only
       if (window.innerWidth <= 768) return;
       isMouseHovering = false;
-      // Let syncActiveFromScroll re-take control on next frame
     }
 
     onKeyDownHandler = function (e) {
@@ -276,7 +255,6 @@
     function playIntro() {
       if (!document.body.contains(menuWrap)) return;
       requestAnimationFrame(() => {
-        // Initial clip path reveal
         menu.style.transform = `translateY(${-scrollY}px)`;
         if (thumbnail) thumbnail.style.transform = `translateY(${-scrollY}px)`;
 
@@ -319,7 +297,6 @@
       });
     }
 
-    // Bind events
     menuWrap.addEventListener('wheel', onWheel, { passive: false });
     menuWrap.addEventListener('touchstart', onTouchStart, { passive: true });
     menuWrap.addEventListener('touchmove', onTouchMove, { passive: false });
@@ -345,7 +322,6 @@
     init();
   }
 
-  // Support PJAX page transitions
   document.addEventListener('page:load', init);
 
 })();
