@@ -4,34 +4,56 @@
             "img": "{{webRoot}}/assets/images/project-listing-1.png",
             "heroImg": "{{webRoot}}/assets/images/project-listing-1.png",
             "subImages": [
-                { "src": "{{webRoot}}/assets/images/project-1.jpg", "alt": "Live Stock Market Dashboard — Overview" },
-                { "src": "{{webRoot}}/assets/images/project-1-1.jpg", "alt": "Live Stock Market Dashboard — Detail View" }
+                {
+                    "src": "{{webRoot}}/assets/images/project-1.jpg",
+                    "alt": "Live Stock Market Dashboard — Overview"
+                },
+                {
+                    "src": "{{webRoot}}/assets/images/project-1-1.jpg",
+                    "alt": "Live Stock Market Dashboard — Detail View"
+                }
             ],
-            "title": "Live Stock Market Dashboard",
-            "heroTitleHTML": "Live Stock<br>Market",
+            "title": "Stock Market Dashboard",
+            "heroTitleHTML": "Stock<br>Market",
             "summary": "Finance · Real-time Data",
             "description": "Develops a comprehensive stock dashboard, designed to provide users with real-time stock data and technical analysis.",
             "situation": "The increasing complexity of financial markets necessitates intuitive tools for individual investors and analysts to monitor stock performance and identify trends. Existing tools suffer from cluttered interfaces, lack of real-time integration, and limited customization for technical indicators.",
             "delivered": "Interactive price charts with customizable display options, real-time key financial metrics, comprehensive technical analysis (RSI, MACD), and a quick watchlist for monitoring selected stocks.",
             "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Stocks</span>",
-            "slug": "project-1",
+            "slug": "stock-market-dashboard",
             "year": "2025",
             "rolesInline": "Data Analysis · Python",
-            "roles": ["Data Analysis", "Dashboard Design", "Python"],
+            "roles": [
+                "Data Analysis",
+                "Dashboard Design",
+                "Python"
+            ],
             "links": [
-                { "text": "View Live Project", "url": "https://projects-stocks.streamlit.app" }
+                {
+                    "text": "View Live Project",
+                    "url": "https://projects-stocks.streamlit.app"
+                }
             ],
             "nextNumber": "02 / 03",
-            "nextSlug": "project-2",
+            "nextSlug": "option-pricing-analytics",
             "nextTitle": "Option Pricing Analytics"
         },
         {
             "img": "{{webRoot}}/assets/images/project-listing-2.png",
             "heroImg": "{{webRoot}}/assets/images/project-listing-2.png",
             "subImages": [
-                { "src": "{{webRoot}}/assets/images/project-2.jpg", "alt": "Option Pricing Analytics — Overview" },
-                { "src": "{{webRoot}}/assets/images/project-2-1.jpg", "alt": "Option Pricing Analytics — Greeks View" },
-                { "src": "{{webRoot}}/assets/images/project-2-2.jpg", "alt": "Option Pricing Analytics — Payoff Diagram" }
+                {
+                    "src": "{{webRoot}}/assets/images/project-2.jpg",
+                    "alt": "Option Pricing Analytics — Overview"
+                },
+                {
+                    "src": "{{webRoot}}/assets/images/project-2-1.jpg",
+                    "alt": "Option Pricing Analytics — Greeks View"
+                },
+                {
+                    "src": "{{webRoot}}/assets/images/project-2-2.jpg",
+                    "alt": "Option Pricing Analytics — Payoff Diagram"
+                }
             ],
             "title": "Option Pricing Analytics",
             "heroTitleHTML": "Option<br>Pricing",
@@ -40,42 +62,65 @@
             "situation": "Options trading requires simultaneous understanding of multiple Greek metrics and pricing models. Existing platforms either overwhelm users with raw data or oversimplify the underlying mathematics, leaving a gap for professional-grade yet intuitive analytics.",
             "delivered": "A comprehensive platform for Black-Scholes and binomial tree pricing, real-time Greeks visualization (Delta, Gamma, Theta, Vega), interactive payoff diagrams, and risk management tools for portfolio hedging strategies.",
             "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Derivatives</span>",
-            "slug": "project-2",
+            "slug": "option-pricing-analytics",
             "year": "2025",
             "rolesInline": "Quantitative Finance · Python",
-            "roles": ["Quantitative Finance", "UI Design", "Python"],
+            "roles": [
+                "Quantitative Finance",
+                "UI Design",
+                "Python"
+            ],
             "links": [
-                { "text": "View Live Project", "url": "https://options-pricing.streamlit.app" }
+                {
+                    "text": "View Live Project",
+                    "url": "https://options-pricing.streamlit.app"
+                }
             ],
             "nextNumber": "03 / 03",
-            "nextSlug": "project-3",
+            "nextSlug": "stock-valuation-simulator",
             "nextTitle": "Business Valuation Simulator"
         },
         {
             "img": "{{webRoot}}/assets/images/project-listing-3.png",
             "heroImg": "{{webRoot}}/assets/images/project-listing-3.png",
             "subImages": [
-                { "src": "{{webRoot}}/assets/images/project-3.jpg", "alt": "Business Valuation Simulator — Overview" },
-                { "src": "{{webRoot}}/assets/images/project-3-1.jpg", "alt": "Business Valuation Simulator — DCF Model" },
-                { "src": "{{webRoot}}/assets/images/project-3-2.jpg", "alt": "Business Valuation Simulator — Sensitivity Analysis" }
+                {
+                    "src": "{{webRoot}}/assets/images/project-3.jpg",
+                    "alt": "Stock Valuation Simulator — Overview"
+                },
+                {
+                    "src": "{{webRoot}}/assets/images/project-3-1.jpg",
+                    "alt": "Stock Valuation Simulator — DCF Model"
+                },
+                {
+                    "src": "{{webRoot}}/assets/images/project-3-2.jpg",
+                    "alt": "Stock Valuation Simulator — Sensitivity Analysis"
+                }
             ],
-            "title": "Business Valuation Simulator",
-            "heroTitleHTML": "Business<br>Valuation",
+            "title": "Stock Valuation Simulator",
+            "heroTitleHTML": "Stock<br>Valuation",
             "summary": "Finance · Valuation",
             "description": "Develops a business valuation tool that calculates the enterprise value of a company based on various parameters like revenue, assets, growth rate, and margin.",
             "situation": "Accurate business valuation is critical for investment decisions but typically requires expensive financial software or manual spreadsheet modeling. A gap exists for an accessible, interactive simulator applying industry-standard methodologies with real-time sensitivity analysis.",
             "delivered": "A comprehensive valuation tool implementing DCF (Discounted Cash Flow), comparable company analysis, and precedent transaction methods. Features include dynamic sensitivity tables, scenario analysis, and automated valuation reports with visual dashboards.",
             "category": "<span class='me-2'>Finance</span> &middot; <span class='ms-2'>Valuation</span>",
-            "slug": "project-3",
+            "slug": "stock-valuation-simulator",
             "year": "2024",
             "rolesInline": "Financial Modeling · Excel",
-            "roles": ["Financial Modeling", "Data Visualization", "Excel"],
+            "roles": [
+                "Financial Modeling",
+                "Data Visualization",
+                "Excel"
+            ],
             "links": [
-                { "text": "View Live Project", "url": "https://business-valuation.streamlit.app" }
+                {
+                    "text": "View Live Project",
+                    "url": "https://business-valuation.streamlit.app"
+                }
             ],
             "nextNumber": "01 / 03",
-            "nextSlug": "project-1",
-            "nextTitle": "Live Stock Market Dashboard"
+            "nextSlug": "stock-market-dashboard",
+            "nextTitle": "Stock Market Dashboard"
         }
     ]
 }
