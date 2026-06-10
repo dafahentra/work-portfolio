@@ -1,15 +1,15 @@
 {
     "entries": [
         {
-            "img": "{{webRoot}}/assets/images/project-listing-1.png",
-            "heroImg": "{{webRoot}}/assets/images/project-listing-1.png",
+            "img": "{{webRoot}}/assets/images/project-listing-1.jpg",
+            "heroImg": "{{webRoot}}/assets/images/project-listing-1.jpg",
             "subImages": [
                 {
-                    "src": "{{webRoot}}/assets/images/project-1.jpg",
+                    "src": "{{webRoot}}/assets/images/project-1-1.jpg",
                     "alt": "Stock Market Dashboard — Overview"
                 },
                 {
-                    "src": "{{webRoot}}/assets/images/project-1-1.jpg",
+                    "src": "{{webRoot}}/assets/images/project-1-2.jpg",
                     "alt": "Stock Market Dashboard — Detail View"
                 }
             ],
@@ -37,19 +37,19 @@
             "nextTitle": "Option Pricing Analytics"
         },
         {
-            "img": "{{webRoot}}/assets/images/project-listing-2.png",
-            "heroImg": "{{webRoot}}/assets/images/project-listing-2.png",
+            "img": "{{webRoot}}/assets/images/project-listing-2.jpg",
+            "heroImg": "{{webRoot}}/assets/images/project-listing-2.jpg",
             "subImages": [
                 {
-                    "src": "{{webRoot}}/assets/images/project-2.jpg",
+                    "src": "{{webRoot}}/assets/images/project-2-1.jpg",
                     "alt": "Option Pricing & Analytics — Overview"
                 },
                 {
-                    "src": "{{webRoot}}/assets/images/project-2-1.jpg",
+                    "src": "{{webRoot}}/assets/images/project-2-2.jpg",
                     "alt": "Option Pricing & Analytics — Greeks View"
                 },
                 {
-                    "src": "{{webRoot}}/assets/images/project-2-2.jpg",
+                    "src": "{{webRoot}}/assets/images/project-2-3.jpg",
                     "alt": "Option Pricing & Analytics — Payoff Diagram"
                 }
             ],
@@ -78,19 +78,19 @@
             "nextTitle": "Stock Valuation Simulator"
         },
         {
-            "img": "{{webRoot}}/assets/images/project-listing-3.png",
-            "heroImg": "{{webRoot}}/assets/images/project-listing-3.png",
+            "img": "{{webRoot}}/assets/images/project-listing-3.jpg",
+            "heroImg": "{{webRoot}}/assets/images/project-listing-3.jpg",
             "subImages": [
                 {
-                    "src": "{{webRoot}}/assets/images/project-3.jpg",
+                    "src": "{{webRoot}}/assets/images/project-3-1.jpg",
                     "alt": "Stock Valuation Simulator — Overview"
                 },
                 {
-                    "src": "{{webRoot}}/assets/images/project-3-1.jpg",
+                    "src": "{{webRoot}}/assets/images/project-3-2.jpg",
                     "alt": "Stock Valuation Simulator — DCF Model"
                 },
                 {
-                    "src": "{{webRoot}}/assets/images/project-3-2.jpg",
+                    "src": "{{webRoot}}/assets/images/project-3-3.jpg",
                     "alt": "Stock Valuation Simulator — Sensitivity Analysis"
                 }
             ],
@@ -118,15 +118,15 @@
             "nextTitle": "Portfolio Prediction Analyzer"
         },
         {
-            "img": "{{webRoot}}/assets/images/project-listing-1.png",
-            "heroImg": "{{webRoot}}/assets/images/project-listing-1.png",
+            "img": "{{webRoot}}/assets/images/project-listing-4.jpg",
+            "heroImg": "{{webRoot}}/assets/images/project-listing-4.jpg",
             "subImages": [
                 {
-                    "src": "{{webRoot}}/assets/images/project-1.jpg",
+                    "src": "{{webRoot}}/assets/images/project-4-1.jpg",
                     "alt": "Portfolio Prediction Analyzer — Overview"
                 },
                 {
-                    "src": "{{webRoot}}/assets/images/project-1-1.jpg",
+                    "src": "{{webRoot}}/assets/images/project-4-2.jpg",
                     "alt": "Portfolio Prediction Analyzer — Detail View"
                 }
             ],
