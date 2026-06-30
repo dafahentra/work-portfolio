@@ -1,4 +1,7 @@
 const path = require('path');
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
 var glob = require('glob-all');
 const webpack = require('webpack');
 const HandlebarsPlugin = require('handlebars-webpack-plugin');

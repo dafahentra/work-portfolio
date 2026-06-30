@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Head -->
+{{> (config config.partials.head) title=(concat work.entries.[3].title " | Dafa Hentra") }}
+
+<body class="{{ config.classes.body }} is-work-single">
+
+    {{!-- Page Transition Overlay --}}
+    {{> widgets/page-transition }}
+
+    <!-- Locomotive Scroll Container -->
+    <div data-scroll-container>
+
+        <!-- Navbar -->
+        {{> (config config.partials.navbar)
+        configClassList=config.classes.navbar
+        classList="" }}
+        <!-- / Navbar -->
+
+        <!-- Inject Dynamic Project Template -->
+        {{> templates/work-single project=work.entries.[3] }}
+
+    </div>
+    <!-- /Locomotive Scroll Container -->
+
+    <!-- Theme JS -->
+    {{> footer/scripts }}
+
+</body>
+
+</html>
